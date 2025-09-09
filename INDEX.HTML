@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <title>ACCESSOIRE AUTO BBS</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f7f7f7;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: #1e1e1e;
+      color: white;
+      padding: 20px;
+      text-align: center;
+      position: relative;
+    }
+
+    .cart-btn {
+      position: fixed;
+      top: 100px;
+      left: 20px;
+      background-color: #25d366;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 8px;
+      cursor: pointer;
+      z-index: 110;
+    }
+
+    .products {
+      display: flex;
+      justify-content: flex-start; /* تبدأ من جهة اليمين (rtl) */
+      gap: 20px;
+      padding: 40px;
+      flex-wrap: wrap;
+      margin-left: 350px; /* مساحة للسلة على اليسار */
+    }
+
+    .product {
+      background-color: white;
+      padding: 15px;
+      width: calc((100% - 40px) / 3); /* 3 منتجات في السطر */
+      border-radius: 10px;
+      text-align: center;
+      box-shadow: 0 0 10px #ccc;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .cart-popup {
+      position: fixed;
+      top: 100px;
+      left: 20px;
+      background-color: white;
+      padding: 30px;
+      width: 300px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px #888;
+      z-index: 100;
+      display: none; /* مخفية مبدئياً */
+      max-height: 70vh;
+      overflow-y: auto;
+    }
+
+    .cart-popup h2 {
+      margin-top: 0;
+    }
+
+    .cart-popup ul {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 15px 0;
+      max-height: 200px;
+      overflow-y: auto;
+    }
+
+    .cart-popup ul li {
+      margin-bottom: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .cart-popup ul li button {
+      background-color: #e74c3c;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 50%;
+      width: 25px;
+      height: 25px;
+      cursor: pointer;
+      font-size: 16px;
+      line-height: 1;
+      transition: background-color 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .cart-popup ul li button:hover {
+      background-color: #c0392b;
+    }
+
+    #total {
+      color: red;
+      font-weight: bold;
+      font-size: 18px;
+      margin-bottom: 15px;
+    }
+
+    #checkout-btn {
+      background-color: green;
+      color: white;
+      border: none;
+      padding: 10px;
+      width: 100%;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-bottom: 10px;
+    }
+
+    #checkout-btn:hover {
+      background-color: #1e7e34;
+    }
+
+    #close-cart-btn {
+      background-color: red;
+      color: white;
+      border: none;
+      padding: 10px;
+      width: 100%;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    #close-cart-btn:hover {
+      background-color: #b02a27;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>ACCESSOIRE AUTO BBS</h1>
+  <button class="cart-btn" onclick="toggleCart()">🛒 السلة <span id="cart-count">0</span></button>
+</header>
+
+<div class="products" id="products-container">
+  <!-- المنتجات ستولد بالسكريبت -->
+</div>
+
+<div id="cart" class="cart-popup">
+  <h2>🛍️ سلة التسوق</h2>
+  <ul id="cart-items"></ul>
+  <p>المجموع: <span id="total">0</span> دج</p>
+  <button id="checkout-btn" onclick="checkout()">شراء الآن</button>
+  <button id="close-cart-btn" onclick="closeCart()">إغلاق</button>
+</div>
+
+<script>
+  // قائمة المنتجات مع أسماء وأسعار
+  const productsList = [
+    { name: 'غطاء مقود', price: 600 },
+    { name: 'حامل هاتف', price: 1200 },
+    { name: 'غطاء مقود جلد', price: 2500 },
+    { name: 'منظف زجاج', price: 800 },
+    { name: 'واقي شمس للسيارة', price: 1800 },
+    { name: 'ممسحة زجاج', price: 900 },
+    { name: 'غطاء مقعد', price: 2000 },
+    { name: 'مقعد أطفال', price: 5000 },
+    { name: 'مظلة للسيارة', price: 1200 },
+    { name: 'مجموعة أدوات إصلاح', price: 3000 },
+    { name: 'بطارية سيارة', price: 10000 },
+    { name: 'زيت محرك', price: 2500 },
+    { name: 'إطارات', price: 7000 },
+    { name: 'راديو سيارة', price: 3500 },
+    { name: 'مكيف هواء', price: 12000 },
+    { name: 'مروحة تبريد', price: 1800 },
+    { name: 'فرشاة تنظيف', price: 600 },
+    { name: 'كشاف ضوء', price: 1400 },
+    { name: 'غطاء عجلة', price: 1600 },
+    { name: 'مصابيح أمامية', price: 3000 },
+    { name: 'غطاء محرك', price: 4000 },
+    { name: 'مرآة جانبية', price: 2200 },
+    { name: 'مسجل موسيقى', price: 2500 },
+    { name: 'عداد سرعة', price: 2700 },
+    { name: 'عازل صوت', price: 3500 },
+    { name: 'غطاء أرضية', price: 1500 },
+    { name: 'شاحن سيارة', price: 1300 },
+    { name: 'مستشعر وقود', price: 1200 },
+    { name: 'وسادة هوائية', price: 9000 },
+    { name: 'كفر سيارة', price: 8000 },
+    { name: 'مقبض باب', price: 1400 },
+    { name: 'نظام GPS', price: 9000 },
+    { name: 'مجموعة فرامل', price: 5000 },
+    { name: 'مصباح ضباب', price: 1700 },
+    { name: 'واقي مطر', price: 1200 },
+    { name: 'غطاء دواسات', price: 1100 },
+    { name: 'حزام أمان', price: 900 },
+    { name: 'مغسلة سيارة', price: 4500 },
+    { name: 'مقود رياضي', price: 8000 },
+    { name: 'كاميرا خلفية', price: 5500 },
+    { name: 'مقود كهربائي', price: 6000 },
+    { name: 'مقاعد رياضية', price: 13000 },
+    { name: 'كشاف LED', price: 2500 },
+    { name: 'مقاعد جلد', price: 12000 },
+    { name: 'مخمدات صدمات', price: 7000 },
+    { name: 'ملاقط', price: 1100 },
+    { name: 'مجموعة مفاتيح', price: 1600 },
+    { name: 'مقاعد خلفية', price: 9000 },
+    { name: 'غطاء محرك خلفي', price: 4500 },
+    { name: 'مصفاة هواء', price: 2200 },
+    { name: 'مكواة لحام', price: 3500 },
+    { name: 'غطاء مرآة', price: 1200 },
+    { name: 'مكيف إضافي', price: 8000 },
+    { name: 'مصد أمامي', price: 7500 },
+    { name: 'غطاء تروس', price: 1500 },
+    { name: 'فرامل يد', price: 3000 },
+    { name: 'عجلات سبور', price: 10000 },
+    { name: 'غطاء سقف', price: 4200 },
+    { name: 'زر إضاءة', price: 900 },
+    { name: 'فرش مقاعد', price: 6000 },
+    { name: 'موزع هواء', price: 1200 },
+    { name: 'مفتاح إنارة', price: 1000 },
+    { name: 'مرآة خلفية', price: 2100 },
+    { name: 'كشاف جانبي', price: 1800 },
+  ];
+
+  let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+  function updateCartCount() {
+    document.getElementById('cart-count').textContent = cart.length;
+  }
+
+  function saveCart() {
+    localStorage.setItem('cart', JSON.stringify(cart));
+  }
+
+  function addToCart(name, price) {
+    cart.push({ name, price });
+    saveCart();
+    updateCartCount();
+    renderCartItems();
+    showCart();
+  }
+
+  function renderProducts() {
+    const container = document.getElementById('products-container');
+    container.innerHTML = '';
+    productsList.forEach(product => {
+      const div = document.createElement('div');
+      div.className = 'product';
+      div.innerHTML = `
+        <h3>${product.name}</h3>
+        <p>السعر: ${product.price} دج</p>
+        <button onclick="addToCart('${product.name}', ${product.price})">➕ أضف إلى السلة</button>
+      `;
+      container.appendChild(div);
+    });
+  }
+
+  function renderCartItems() {
+    const cartItems = document.getElementById('cart-items');
+    cartItems.innerHTML = '';
+    let total = 0;
+
+    if (cart.length === 0) {
+      cartItems.innerHTML = '<li>السلة فارغة.</li>';
+    } else {
+      cart.forEach((item, index) => {
+        const li = document.createElement('li');
+        li.textContent = `${item.name} - ${item.price} دج`;
+
+        const btn = document.createElement('button');
+        btn.textContent = '❌';
+        btn.onclick = () => {
+          removeItem(index);
+        };
+        li.appendChild(btn);
+
+        cartItems.appendChild(li);
+        total += item.price;
+      });
+    }
+
+    document.getElementById('total').textContent = total;
+  }
+
+  function removeItem(index) {
+    cart.splice(index, 1);
+    saveCart();
+    renderCartItems();
+    updateCartCount();
+  }
+
+  function toggleCart() {
+    const cartPopup = document.getElementById('cart');
+    if (cartPopup.style.display === 'block') {
+      cartPopup.style.display = 'none';
+    } else {
+      renderCartItems();
+      cartPopup.style.display = 'block';
+    }
+  }
+
+  function showCart() {
+    document.getElementById('cart').style.display = 'block';
+  }
+
+  function closeCart() {
+    document.getElementById('cart').style.display = 'none';
+  }
+
+  function checkout() {
+    if (cart.length === 0) {
+      alert('السلة فارغة! الرجاء إضافة منتجات.');
+      return;
+    }
+    window.location.href = 'confirm.html'; // غير اسم الملف حسب حاجتك
+  }
+
+  renderProducts();
+  updateCartCount();
+</script>
+
+</body>
+</html>
