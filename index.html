@@ -6,14 +6,15 @@
   <style>
     body {
       font-family: Arial, sans-serif;
-      background-color: #4ccb8b;
+      background-color: #FFFFFF;
       margin: 0;
       padding: 0;
+      color: #000000;
     }
 
     header {
-      background-color: #1e1e1e;
-      color: white;
+      background-color: #000000;
+      color: #FFFFFF;
       padding: 20px;
       text-align: center;
       position: relative;
@@ -23,8 +24,8 @@
       position: fixed;
       top: 100px;
       left: 20px;
-      background-color: #25d366;
-      color: white;
+      background-color: #D32F2F;
+      color: #FFFFFF;
       border: none;
       padding: 10px 15px;
       border-radius: 8px;
@@ -34,17 +35,18 @@
 
     .products {
       display: flex;
-      justify-content: flex-start; /* تبدأ من جهة اليمين (rtl) */
+      justify-content: flex-start;
       gap: 20px;
       padding: 40px;
       flex-wrap: wrap;
-      margin-left: 350px; /* مساحة للسلة على اليسار */
+      margin-left: 350px;
+      background-color: #F5F5F5;
     }
 
     .product {
-      background-color: white;
+      background-color: #FFFFFF;
       padding: 15px;
-      width: calc((100% - 40px) / 3); /* 3 منتجات في السطر */
+      width: calc((100% - 40px) / 3);
       border-radius: 10px;
       text-align: center;
       box-shadow: 0 0 10px #ccc;
@@ -58,19 +60,20 @@
       position: fixed;
       top: 100px;
       left: 20px;
-      background-color: white;
+      background-color: #FFFFFF;
       padding: 30px;
       width: 300px;
       border-radius: 10px;
       box-shadow: 0 0 15px #888;
       z-index: 100;
-      display: none; /* مخفية مبدئياً */
+      display: none;
       max-height: 70vh;
       overflow-y: auto;
     }
 
     .cart-popup h2 {
       margin-top: 0;
+      color: #000000;
     }
 
     .cart-popup ul {
@@ -86,10 +89,11 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      color: #000000;
     }
 
     .cart-popup ul li button {
-      background-color: #e74c3c;
+      background-color: #D32F2F;
       color: white;
       border: none;
       padding: 5px 10px;
@@ -106,18 +110,18 @@
     }
 
     .cart-popup ul li button:hover {
-      background-color: #c0392b;
+      background-color: #b71c1c;
     }
 
     #total {
-      color: red;
+      color: #D32F2F;
       font-weight: bold;
       font-size: 18px;
       margin-bottom: 15px;
     }
 
     #checkout-btn {
-      background-color: green;
+      background-color: #D32F2F;
       color: white;
       border: none;
       padding: 10px;
@@ -128,11 +132,11 @@
     }
 
     #checkout-btn:hover {
-      background-color: #1e7e34;
+      background-color: #b71c1c;
     }
 
     #close-cart-btn {
-      background-color: red;
+      background-color: #000000;
       color: white;
       border: none;
       padding: 10px;
@@ -142,14 +146,40 @@
     }
 
     #close-cart-btn:hover {
-      background-color: #b02a27;
+      background-color: #333333;
     }
 
-    .product img {
-      width: 320px;
-      max-height: 250px;
-      object-fit: contain;
-      margin-bottom: 10px;
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    /* Media Query للهاتف */
+    @media (max-width: 768px) {
+      .products {
+        margin-left: 0;
+        padding: 20px;
+        justify-content: center;
+      }
+
+      .product {
+        width: 100% !important;
+      }
+
+      img {
+        max-width: 100% !important;
+        height: auto !important;
+      }
+
+      .cart-btn {
+        left: 10px;
+        top: 80px;
+      }
+
+      .cart-popup {
+        width: 90%;
+        left: 5%;
+      }
     }
   </style>
 </head>
@@ -160,9 +190,7 @@
   <button class="cart-btn" onclick="toggleCart()">🛒 السلة <span id="cart-count">0</span></button>
 </header>
 
-<div class="products" id="products-container">
-  <!-- المنتجات ستولد بالسكريبت -->
-</div>
+<div class="products" id="products-container"></div>
 
 <div id="cart" class="cart-popup">
   <h2>🛍️ سلة التسوق</h2>
@@ -173,72 +201,71 @@
 </div>
 
 <script>
-  // قائمة المنتجات مع أسماء وأسعار وصور
   const productsList = [
-    { name: 'غطاء مقود', price: 600, image: 'images/steering.jpg.png' },
-    { name: 'حامل هاتف', price: 1200, image: 'images/phone-holder.jpg.webp' },
-    { name: 'غطاء مقود جلد', price: 2500, image: 'images/leather-steering.jpg' },
-    { name: 'منظف زجاج', price: 800, image: 'images/glass-cleaner.jpg' },
-    { name: 'واقي شمس للسيارة', price: 1800, image: 'images/sun-shade.jpg' },
+    { name: 'غطاء مقود', price: 600, image: 'images/steering.jpg' },
+    { name: 'حامل هاتف', price: 1200, image: 'images/holder.jpg' },
+    { name: 'غطاء مقود جلد', price: 2500, image: 'images/leather_steering.jpg' },
+    { name: 'منظف زجاج', price: 800, image: 'images/glass_cleaner.jpg' },
+    { name: 'واقي شمس للسيارة', price: 1800, image: 'images/sun_protector.jpg' },
     { name: 'ممسحة زجاج', price: 900, image: 'images/wiper.jpg' },
-    { name: 'غطاء مقعد', price: 2000, image: 'images/seat-cover.jpg' },
-    { name: 'مقعد أطفال', price: 5000, image: 'images/child-seat.jpg' },
-    { name: 'مظلة للسيارة', price: 1200, image: 'images/car-umbrella.jpg' },
-    { name: 'مجموعة أدوات إصلاح', price: 3000, image: 'images/tool-kit.jpg' },
-    { name: 'بطارية سيارة', price: 10000, image: 'images/car-battery.jpg' },
-    { name: 'زيت محرك', price: 2500, image: 'images/engine-oil.jpg' },
+    { name: 'غطاء مقعد', price: 2000, image: 'images/seat_cover.jpg' },
+    { name: 'مقعد أطفال', price: 5000, image: 'images/kid_seat.jpg' },
+    { name: 'مظلة للسيارة', price: 1200, image: 'images/car_umbrella.jpg' },
+    { name: 'مجموعة أدوات إصلاح', price: 3000, image: 'images/toolkit.jpg' },
+    { name: 'بطارية سيارة', price: 10000, image: 'images/battery.jpg' },
+    { name: 'زيت محرك', price: 2500, image: 'images/oil.jpg' },
     { name: 'إطارات', price: 7000, image: 'images/tires.jpg' },
-    { name: 'راديو سيارة', price: 3500, image: 'images/car-radio.jpg' },
-    { name: 'مكيف هواء', price: 12000, image: 'images/air-conditioner.jpg' },
-    { name: 'مروحة تبريد', price: 1800, image: 'images/cooling-fan.jpg' },
-    { name: 'فرشاة تنظيف', price: 600, image: 'images/cleaning-brush.jpg' },
-    { name: 'كشاف ضوء', price: 1400, image: 'images/headlight.jpg' },
-    { name: 'غطاء عجلة', price: 1600, image: 'images/wheel-cover.jpg' },
-    { name: 'مصابيح أمامية', price: 3000, image: 'images/front-lights.jpg' },
+    { name: 'راديو سيارة', price: 3500, image: 'images/radio.jpg' },
+    { name: 'مكيف هواء', price: 12000, image: 'images/ac.jpg' },
+    { name: 'مروحة تبريد', price: 1800, image: 'images/fan.jpg' },
+    { name: 'فرشاة تنظيف', price: 600, image: 'images/brush.jpg' },
+    { name: 'كشاف ضوء', price: 1400, image: 'images/light.jpg' },
+    { name: 'غطاء عجلة', price: 1600, image: 'images/wheel_cover.jpg' },
+    { name: 'مصابيح أمامية', price: 3000, image: 'images/headlights.jpg' },
     { name: 'غطاء محرك', price: 4000, image: 'images/hood.jpg' },
-    { name: 'مرآة جانبية', price: 2200, image: 'images/side-mirror.jpg' },
-    { name: 'مسجل موسيقى', price: 2500, image: 'images/music-player.jpg' },
+    { name: 'مرآة جانبية', price: 2200, image: 'images/mirror.jpg' },
+    { name: 'مسجل موسيقى', price: 2500, image: 'images/music_player.jpg' },
     { name: 'عداد سرعة', price: 2700, image: 'images/speedometer.jpg' },
-    { name: 'عازل صوت', price: 3500, image: 'images/sound-proof.jpg' },
-    { name: 'غطاء أرضية', price: 1500, image: 'images/floor-mat.jpg' },
-    { name: 'شاحن سيارة', price: 1300, image: 'images/car-charger.jpg' },
-    { name: 'مستشعر وقود', price: 1200, image: 'images/fuel-sensor.jpg' },
+    { name: 'عازل صوت', price: 3500, image: 'images/soundproof.jpg' },
+    { name: 'غطاء أرضية', price: 1500, image: 'images/floor_cover.jpg' },
+    { name: 'شاحن سيارة', price: 1300, image: 'images/charger.jpg' },
+    { name: 'مستشعر وقود', price: 1200, image: 'images/fuel_sensor.jpg' },
     { name: 'وسادة هوائية', price: 9000, image: 'images/airbag.jpg' },
-    { name: 'كفر سيارة', price: 8000, image: 'images/car-cover.jpg' },
-    { name: 'مقبض باب', price: 1400, image: 'images/door-handle.jpg' },
+    { name: 'كفر سيارة', price: 8000, image: 'images/tire_cover.jpg' },
+    { name: 'مقبض باب', price: 1400, image: 'images/door_handle.jpg' },
     { name: 'نظام GPS', price: 9000, image: 'images/gps.jpg' },
-    { name: 'مجموعة فرامل', price: 5000, image: 'images/brake-kit.jpg' },
-    { name: 'مصباح ضباب', price: 1700, image: 'images/fog-light.jpg' },
-    { name: 'واقي مطر', price: 1200, image: 'images/rain-guard.jpg' },
-    { name: 'غطاء دواسات', price: 1100, image: 'images/pedal-cover.jpg' },
-    { name: 'حزام أمان', price: 900, image: 'images/seat-belt.jpg' },
-    { name: 'مغسلة سيارة', price: 4500, image: 'images/car-wash.jpg' },
-    { name: 'مقود رياضي', price: 8000, image: 'images/sport-steering.jpg' },
-    { name: 'كاميرا خلفية', price: 5500, image: 'images/rear-camera.jpg' },
-    { name: 'مقود كهربائي', price: 6000, image: 'images/electric-steering.jpg' },
-    { name: 'مقاعد رياضية', price: 13000, image: 'images/sport-seats.jpg' },
-    { name: 'كشاف LED', price: 2500, image: 'images/led-light.jpg' },
-    { name: 'مقاعد جلد', price: 12000, image: 'images/leather-seats.jpg' },
-    { name: 'مخمدات صدمات', price: 7000, image: 'images/shock-absorber.jpg' },
+    { name: 'مجموعة فرامل', price: 5000, image: 'images/brake_kit.jpg' },
+    { name: 'مصباح ضباب', price: 1700, image: 'images/fog_light.jpg' },
+    { name: 'واقي مطر', price: 1200, image: 'images/rain_guard.jpg' },
+    { name: 'غطاء دواسات', price: 1100, image: 'images/pedal_cover.jpg' },
+    { name: 'حزام أمان', price: 900, image: 'images/seatbelt.jpg' },
+    { name: 'مغسلة سيارة', price: 4500, image: 'images/car_wash.jpg' },
+    { name: 'مقود رياضي', price: 8000, image: 'images/sport_steering.jpg' },
+    { name: 'كاميرا خلفية', price: 5500, image: 'images/rear_camera.jpg' },
+    { name: 'مقود كهربائي', price: 6000, image: 'images/electric_steering.jpg' },
+    { name: 'مقاعد رياضية', price: 13000, image: 'images/sport_seats.jpg' },
+    { name: 'كشاف LED', price: 2500, image: 'images/led_light.jpg' },
+    { name: 'مقاعد جلد', price: 12000, image: 'images/leather_seats.jpg' },
+    { name: 'مخمدات صدمات', price: 7000, image: 'images/shock_absorber.jpg' },
     { name: 'ملاقط', price: 1100, image: 'images/clamps.jpg' },
-    { name: 'مجموعة مفاتيح', price: 1600, image: 'images/tool-set.jpg' },
-    { name: 'مقاعد خلفية', price: 9000, image: 'images/rear-seats.jpg' },
-    { name: 'غطاء محرك خلفي', price: 4500, image: 'images/rear-hood.jpg' },
-    { name: 'مصفاة هواء', price: 2200, image: 'images/air-filter.jpg' },
-    { name: 'مكواة لحام', price: 3500, image: 'images/welding-iron.jpg' },
-    { name: 'غطاء مرآة', price: 1200, image: 'images/mirror-cover.jpg' },
-    { name: 'مكيف إضافي', price: 8000, image: 'images/extra-ac.jpg' },
-    { name: 'مصد أمامي', price: 7500, image: 'images/front-bumper.jpg' },
-    { name: 'غطاء تروس', price: 1500, image: 'images/gear-cover.jpg' },
+    { name: 'مجموعة مفاتيح', price: 1600, image: 'images/wrench_set.jpg' },
+    { name: 'مقاعد خلفية', price: 9000, image: 'images/rear_seats.jpg' },
+    { name: 'غطاء محرك خلفي', price: 4500, image: 'images/rear_hood.jpg' },
+    { name: 'مصفاة هواء', price: 2200, image: 'images/air_filter.jpg' },
+    { name: 'مكواة لحام', price: 3500, image: 'images/welder.jpg' },
+    { name: 'غطاء مرآة', price: 1200, image: 'images/mirror_cover.jpg' },
+    { name: 'مكيف إضافي', price: 8000, image: 'images/extra_ac.jpg' },
+    { name: 'مصد أمامي', price: 7500, image: 'images/front_bumper.jpg' },
+    { name: 'غطاء تروس', price: 1500, image: 'images/gear_cover.jpg' },
     { name: 'فرامل يد', price: 3000, image: 'images/handbrake.jpg' },
-    { name: 'عجلات سبور', price: 10000, image: 'images/sport-wheels.jpg' },
-    { name: 'غطاء سقف', price: 4200, image: 'images/roof-cover.jpg' },
-    { name: 'زر إضاءة', price: 900, image: 'images/light-switch.jpg' },
-    { name: 'فرش مقاعد', price: 6000, image: 'images/seat-mat.jpg' },
-    { name: 'موزع هواء', price: 1200, image: 'images/air-distributor.jpg' },
-    { name: 'مفتاح إنارة', price: 1000, image: 'images/light-key.jpg' },
-    { name: 'مرآة خلفية', price: 2100, image: 'images/rear-mirror.jpg' },
-    { name: 'كشاف جانبي', price: 1800, image: 'images/side-light.jpg' },
+    { name: 'عجلات سبور', price: 10000, image: 'images/sport_wheels.jpg' },
+    { name: 'غطاء سقف', price: 4200, image: 'images/roof_cover.jpg' },
+    { name: 'زر إضاءة', price: 900, image: 'images/light_button.jpg' },
+    { name: 'فرش مقاعد', price: 6000, image: 'images/seat_mats.jpg' },
+    { name: 'موزع هواء', price: 1200, image: 'images/air_distributor.jpg' },
+    { name: 'مفتاح إنارة', price: 1000, image: 'images/light_switch.jpg' },
+    { name: 'مرآة خلفية', price: 2100, image: 'images/rear_mirror.jpg' },
+    { name: 'كشاف جانبي', price: 1800, image: 'images/side_light.jpg' }
   ];
 
   let cart = JSON.parse(localStorage.getItem('cart')) || [];
@@ -267,7 +294,7 @@
       div.className = 'product';
       div.innerHTML = `
         <h3>${product.name}</h3>
-        ${product.image ? `<img src="${product.image}" alt="${product.name}">` : ''}
+        ${product.image ? `<img src="${product.image}" alt="${product.name}" width="200">` : ''}
         <p>السعر: ${product.price} دج</p>
         <button onclick="addToCart('${product.name}', ${product.price})">➕ أضف إلى السلة</button>
       `;
@@ -332,7 +359,7 @@
       alert('السلة فارغة! الرجاء إضافة منتجات.');
       return;
     }
-    window.location.href = 'confirm.html'; 
+    window.location.href = 'confirm.html';
   }
 
   renderProducts();
@@ -342,6 +369,6 @@
 </body>
 </html>
 
-</html>
+
 
 
