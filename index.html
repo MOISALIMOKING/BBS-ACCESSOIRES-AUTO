@@ -6,7 +6,7 @@
   <style>
     body {
       font-family: Arial, sans-serif;
-      background-color: #f7f7f7;
+      background-color: #4ccb8b;
       margin: 0;
       padding: 0;
     }
@@ -144,6 +144,13 @@
     #close-cart-btn:hover {
       background-color: #b02a27;
     }
+
+    .product img {
+      width: 320px;
+      max-height: 250px;
+      object-fit: contain;
+      margin-bottom: 10px;
+    }
   </style>
 </head>
 <body>
@@ -166,72 +173,72 @@
 </div>
 
 <script>
-  // قائمة المنتجات مع أسماء وأسعار
+  // قائمة المنتجات مع أسماء وأسعار وصور
   const productsList = [
-    { name: 'غطاء مقود', price: 600, image: 'images/steering.jpg' },
-    { name: 'حامل هاتف', price: 1200 },
-    { name: 'غطاء مقود جلد', price: 2500 },
-    { name: 'منظف زجاج', price: 800 },
-    { name: 'واقي شمس للسيارة', price: 1800 },
-    { name: 'ممسحة زجاج', price: 900 },
-    { name: 'غطاء مقعد', price: 2000 },
-    { name: 'مقعد أطفال', price: 5000 },
-    { name: 'مظلة للسيارة', price: 1200 },
-    { name: 'مجموعة أدوات إصلاح', price: 3000 },
-    { name: 'بطارية سيارة', price: 10000 },
-    { name: 'زيت محرك', price: 2500 },
-    { name: 'إطارات', price: 7000 },
-    { name: 'راديو سيارة', price: 3500 },
-    { name: 'مكيف هواء', price: 12000 },
-    { name: 'مروحة تبريد', price: 1800 },
-    { name: 'فرشاة تنظيف', price: 600 },
-    { name: 'كشاف ضوء', price: 1400 },
-    { name: 'غطاء عجلة', price: 1600 },
-    { name: 'مصابيح أمامية', price: 3000 },
-    { name: 'غطاء محرك', price: 4000 },
-    { name: 'مرآة جانبية', price: 2200 },
-    { name: 'مسجل موسيقى', price: 2500 },
-    { name: 'عداد سرعة', price: 2700 },
-    { name: 'عازل صوت', price: 3500 },
-    { name: 'غطاء أرضية', price: 1500 },
-    { name: 'شاحن سيارة', price: 1300 },
-    { name: 'مستشعر وقود', price: 1200 },
-    { name: 'وسادة هوائية', price: 9000 },
-    { name: 'كفر سيارة', price: 8000 },
-    { name: 'مقبض باب', price: 1400 },
-    { name: 'نظام GPS', price: 9000 },
-    { name: 'مجموعة فرامل', price: 5000 },
-    { name: 'مصباح ضباب', price: 1700 },
-    { name: 'واقي مطر', price: 1200 },
-    { name: 'غطاء دواسات', price: 1100 },
-    { name: 'حزام أمان', price: 900 },
-    { name: 'مغسلة سيارة', price: 4500 },
-    { name: 'مقود رياضي', price: 8000 },
-    { name: 'كاميرا خلفية', price: 5500 },
-    { name: 'مقود كهربائي', price: 6000 },
-    { name: 'مقاعد رياضية', price: 13000 },
-    { name: 'كشاف LED', price: 2500 },
-    { name: 'مقاعد جلد', price: 12000 },
-    { name: 'مخمدات صدمات', price: 7000 },
-    { name: 'ملاقط', price: 1100 },
-    { name: 'مجموعة مفاتيح', price: 1600 },
-    { name: 'مقاعد خلفية', price: 9000 },
-    { name: 'غطاء محرك خلفي', price: 4500 },
-    { name: 'مصفاة هواء', price: 2200 },
-    { name: 'مكواة لحام', price: 3500 },
-    { name: 'غطاء مرآة', price: 1200 },
-    { name: 'مكيف إضافي', price: 8000 },
-    { name: 'مصد أمامي', price: 7500 },
-    { name: 'غطاء تروس', price: 1500 },
-    { name: 'فرامل يد', price: 3000 },
-    { name: 'عجلات سبور', price: 10000 },
-    { name: 'غطاء سقف', price: 4200 },
-    { name: 'زر إضاءة', price: 900 },
-    { name: 'فرش مقاعد', price: 6000 },
-    { name: 'موزع هواء', price: 1200 },
-    { name: 'مفتاح إنارة', price: 1000 },
-    { name: 'مرآة خلفية', price: 2100 },
-    { name: 'كشاف جانبي', price: 1800 },
+    { name: 'غطاء مقود', price: 600, image: 'images/steering.jpg.png' },
+    { name: 'حامل هاتف', price: 1200, image: 'images/phone-holder.jpg.webp' },
+    { name: 'غطاء مقود جلد', price: 2500, image: 'images/leather-steering.jpg' },
+    { name: 'منظف زجاج', price: 800, image: 'images/glass-cleaner.jpg' },
+    { name: 'واقي شمس للسيارة', price: 1800, image: 'images/sun-shade.jpg' },
+    { name: 'ممسحة زجاج', price: 900, image: 'images/wiper.jpg' },
+    { name: 'غطاء مقعد', price: 2000, image: 'images/seat-cover.jpg' },
+    { name: 'مقعد أطفال', price: 5000, image: 'images/child-seat.jpg' },
+    { name: 'مظلة للسيارة', price: 1200, image: 'images/car-umbrella.jpg' },
+    { name: 'مجموعة أدوات إصلاح', price: 3000, image: 'images/tool-kit.jpg' },
+    { name: 'بطارية سيارة', price: 10000, image: 'images/car-battery.jpg' },
+    { name: 'زيت محرك', price: 2500, image: 'images/engine-oil.jpg' },
+    { name: 'إطارات', price: 7000, image: 'images/tires.jpg' },
+    { name: 'راديو سيارة', price: 3500, image: 'images/car-radio.jpg' },
+    { name: 'مكيف هواء', price: 12000, image: 'images/air-conditioner.jpg' },
+    { name: 'مروحة تبريد', price: 1800, image: 'images/cooling-fan.jpg' },
+    { name: 'فرشاة تنظيف', price: 600, image: 'images/cleaning-brush.jpg' },
+    { name: 'كشاف ضوء', price: 1400, image: 'images/headlight.jpg' },
+    { name: 'غطاء عجلة', price: 1600, image: 'images/wheel-cover.jpg' },
+    { name: 'مصابيح أمامية', price: 3000, image: 'images/front-lights.jpg' },
+    { name: 'غطاء محرك', price: 4000, image: 'images/hood.jpg' },
+    { name: 'مرآة جانبية', price: 2200, image: 'images/side-mirror.jpg' },
+    { name: 'مسجل موسيقى', price: 2500, image: 'images/music-player.jpg' },
+    { name: 'عداد سرعة', price: 2700, image: 'images/speedometer.jpg' },
+    { name: 'عازل صوت', price: 3500, image: 'images/sound-proof.jpg' },
+    { name: 'غطاء أرضية', price: 1500, image: 'images/floor-mat.jpg' },
+    { name: 'شاحن سيارة', price: 1300, image: 'images/car-charger.jpg' },
+    { name: 'مستشعر وقود', price: 1200, image: 'images/fuel-sensor.jpg' },
+    { name: 'وسادة هوائية', price: 9000, image: 'images/airbag.jpg' },
+    { name: 'كفر سيارة', price: 8000, image: 'images/car-cover.jpg' },
+    { name: 'مقبض باب', price: 1400, image: 'images/door-handle.jpg' },
+    { name: 'نظام GPS', price: 9000, image: 'images/gps.jpg' },
+    { name: 'مجموعة فرامل', price: 5000, image: 'images/brake-kit.jpg' },
+    { name: 'مصباح ضباب', price: 1700, image: 'images/fog-light.jpg' },
+    { name: 'واقي مطر', price: 1200, image: 'images/rain-guard.jpg' },
+    { name: 'غطاء دواسات', price: 1100, image: 'images/pedal-cover.jpg' },
+    { name: 'حزام أمان', price: 900, image: 'images/seat-belt.jpg' },
+    { name: 'مغسلة سيارة', price: 4500, image: 'images/car-wash.jpg' },
+    { name: 'مقود رياضي', price: 8000, image: 'images/sport-steering.jpg' },
+    { name: 'كاميرا خلفية', price: 5500, image: 'images/rear-camera.jpg' },
+    { name: 'مقود كهربائي', price: 6000, image: 'images/electric-steering.jpg' },
+    { name: 'مقاعد رياضية', price: 13000, image: 'images/sport-seats.jpg' },
+    { name: 'كشاف LED', price: 2500, image: 'images/led-light.jpg' },
+    { name: 'مقاعد جلد', price: 12000, image: 'images/leather-seats.jpg' },
+    { name: 'مخمدات صدمات', price: 7000, image: 'images/shock-absorber.jpg' },
+    { name: 'ملاقط', price: 1100, image: 'images/clamps.jpg' },
+    { name: 'مجموعة مفاتيح', price: 1600, image: 'images/tool-set.jpg' },
+    { name: 'مقاعد خلفية', price: 9000, image: 'images/rear-seats.jpg' },
+    { name: 'غطاء محرك خلفي', price: 4500, image: 'images/rear-hood.jpg' },
+    { name: 'مصفاة هواء', price: 2200, image: 'images/air-filter.jpg' },
+    { name: 'مكواة لحام', price: 3500, image: 'images/welding-iron.jpg' },
+    { name: 'غطاء مرآة', price: 1200, image: 'images/mirror-cover.jpg' },
+    { name: 'مكيف إضافي', price: 8000, image: 'images/extra-ac.jpg' },
+    { name: 'مصد أمامي', price: 7500, image: 'images/front-bumper.jpg' },
+    { name: 'غطاء تروس', price: 1500, image: 'images/gear-cover.jpg' },
+    { name: 'فرامل يد', price: 3000, image: 'images/handbrake.jpg' },
+    { name: 'عجلات سبور', price: 10000, image: 'images/sport-wheels.jpg' },
+    { name: 'غطاء سقف', price: 4200, image: 'images/roof-cover.jpg' },
+    { name: 'زر إضاءة', price: 900, image: 'images/light-switch.jpg' },
+    { name: 'فرش مقاعد', price: 6000, image: 'images/seat-mat.jpg' },
+    { name: 'موزع هواء', price: 1200, image: 'images/air-distributor.jpg' },
+    { name: 'مفتاح إنارة', price: 1000, image: 'images/light-key.jpg' },
+    { name: 'مرآة خلفية', price: 2100, image: 'images/rear-mirror.jpg' },
+    { name: 'كشاف جانبي', price: 1800, image: 'images/side-light.jpg' },
   ];
 
   let cart = JSON.parse(localStorage.getItem('cart')) || [];
@@ -260,6 +267,7 @@
       div.className = 'product';
       div.innerHTML = `
         <h3>${product.name}</h3>
+        ${product.image ? `<img src="${product.image}" alt="${product.name}">` : ''}
         <p>السعر: ${product.price} دج</p>
         <button onclick="addToCart('${product.name}', ${product.price})">➕ أضف إلى السلة</button>
       `;
@@ -324,7 +332,7 @@
       alert('السلة فارغة! الرجاء إضافة منتجات.');
       return;
     }
-    window.location.href = 'confirm.html'; // غير اسم الملف حسب حاجتك
+    window.location.href = 'confirm.html'; 
   }
 
   renderProducts();
@@ -333,4 +341,7 @@
 
 </body>
 </html>
+
+</html>
+
 
