@@ -13,7 +13,7 @@
     }
 
     header {
-      background-color: #4cc1215c;
+      background-color: #e2ca76;
       color: #050505;
       padding: 20px;
       text-align: center;
@@ -24,7 +24,7 @@
       font-family: "Cairo", sans-serif; /* تقدر تبدل لأي خط */
       font-size: 36px; /* حجم أكبر */
       font-weight: bold; /* يخليه غليظ */
-      color: #757c18; /* لون غامق */
+      color: #9f6616; /* لون غامق */
       text-shadow: 2px 2px 4px rgba(0,0,0,0.3); /* ظل خفيف */
       letter-spacing: 2px; /* مسافة بين الحروف */
     }
@@ -48,17 +48,17 @@
       gap: 20px;
       padding: 40px;
       flex-wrap: wrap;
-      background-color: #F5F5F5;
+      background-color: #e2ca76;
     }
 
     .product {
-      background-color: #FFFFFF;
-      padding: 20px;
-      width: 280px; /* كبرنا شوية العرض */
-      border-radius: 10px;
+      background-color: #ffffff;
+      padding: 10px;
+      width: 330px; /* كبرنا شوية العرض */
+      border-radius: 20px;
       text-align: center;
-      box-shadow: 0 0 10px #ccc;
-      box-sizing: border-box;
+      box-shadow: 0 0 10px #000000;
+      box-sizing: circle;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -183,7 +183,7 @@
 
     /* 🔥 شريط الإعلانات */
     .ads-bar {
-      background-color: #92832c; /* ذهبي */
+      background-color: #bc863b; /* ذهبي */
       color: #000000; /* أسود غامق */
       height: 2cm; /* 2 سم */
       display: flex;
@@ -239,7 +239,9 @@
     </marquee>
   </div>
 
-  
+ 
+  }
+}
 
   </style>
 
@@ -261,32 +263,32 @@
 
   <script>
     const productsList = [
-      { name: 'غطاء مقود', price: 600, image: 'images/steering.jpg' },
-      { name: 'حامل هاتف', price: 1200, image: 'images/holder.jpg' },
-      { name: 'غطاء مقود جلد', price: 2500, image: 'images/leather_steering.jpg' },
-      { name: 'TAPIS 7D.ج', price: 800, image: 'images/TAPIS-7D.jpg' },
-      { name: 'واقي شمس للسيارة', price: 1800, image: 'images/sun_protector.jpg' },
-      { name: 'ممسحة زجاج', price: 900, image: 'images/wiper.jpg' },
-      { name: 'غطاء مقعد', price: 2000, image: 'images/seat_cover.jpg' },
-      { name: 'مقعد أطفال', price: 5000, image: 'images/kid_seat.jpg' },
-      { name: 'مظلة للسيارة', price: 1200, image: 'images/car_umbrella.jpg' },
-      { name: 'مجموعة أدوات إصلاح', price: 3000, image: 'images/toolkit.jpg' },
-      { name: 'بطارية سيارة', price: 10000, image: 'images/battery.jpg' },
+      { name: 'couvre vollon ', price: 600, image: 'images/steering.jpg' },
+      { name: 'SUPPORT MOBILE ', price: 1200, image: 'images/holder.jpg' },
+      { name: 'COUVRE VOLLON CUIR  ', price: 2500, image: 'images/leather_steering.jpg' },
+      { name: ' TAPIS 7D SUR MESURE.', price: 800, image: 'images/TAPIS-7D.jpg' },
+      { name: 'PATE ET WAX  ', price: 1800, image: 'images/sun_protector.jpg' },
+      { name: 'BALAIS ESSUIGLASS ', price: 900, image: 'images/wiper.jpg' },
+      { name: 'COUVRE SIEGE ', price: 2000, image: 'images/seat_cover.jpg' },
+      { name: 'SIEGE AUTO POUR BEBE', price: 5000, image: 'images/kid_seat.jpg' },
+      { name: 'PARASOL VOITURE ', price: 1200, image: 'images/car_umbrella.jpg' },
+      { name: 'KIT REPARATION', price: 3000, image: 'images/toolkit.jpg' },
+      { name: 'BATTERY', price: 10000, image: 'images/battery.jpg' },
       { name: 'زيت محرك', price: 2500, image: 'images/oil.jpg' },
       { name: 'إطارات', price: 7000, image: 'images/tires.jpg' },
-      { name: 'راديو سيارة', price: 3500, image: 'images/radio.jpg' },
+      { name: 'RADIO MP3 BLUETOOTH ', price: 3500, image: 'images/radio.jpg' },
       { name: 'مكيف هواء', price: 12000, image: 'images/ac.jpg' },
       { name: 'مروحة تبريد', price: 1800, image: 'images/fan.jpg' },
       { name: 'فرشاة تنظيف', price: 600, image: 'images/brush.jpg' },
-      { name: 'كشاف ضوء', price: 1400, image: 'images/light.jpg' },
-      { name: 'غطاء عجلة', price: 1600, image: 'images/wheel_cover.jpg' },
-      { name: 'مصابيح أمامية', price: 3000, image: 'images/headlights.jpg' },
+      { name: 'LED ', price: 1400, image: 'images/light.jpg' },
+      { name: 'ENJOLIVER ', price: 1600, image: 'images/wheel_cover.jpg' },
+      { name: 'LAMPES  ', price: 3000, image: 'images/headlights.jpg' },
       { name: 'غطاء محرك', price: 4000, image: 'images/hood.jpg' },
       { name: 'مرآة جانبية', price: 2200, image: 'images/mirror.jpg' },
       { name: 'مسجل موسيقى', price: 2500, image: 'images/music_player.jpg' },
       { name: 'عداد سرعة', price: 2700, image: 'images/speedometer.jpg' },
       { name: 'عازل صوت', price: 3500, image: 'images/soundproof.jpg' },
-      { name: 'غطاء أرضية', price: 1500, image: 'images/floor_cover.jpg' },
+      { name: 'TAPIS STANDARD ', price: 1500, image: 'images/floor_cover.jpg' },
       { name: 'شاحن سيارة', price: 1300, image: 'images/charger.jpg' },
       { name: 'مستشعر وقود', price: 1200, image: 'images/fuel_sensor.jpg' },
       { name: 'وسادة هوائية', price: 9000, image: 'images/airbag.jpg' },
@@ -437,6 +439,5 @@
   </script>
 </body>
 </html>
-
 
 
