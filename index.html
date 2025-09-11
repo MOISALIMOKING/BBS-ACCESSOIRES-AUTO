@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <title>ACCESSOIRE AUTO BBS</title>
+
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -13,12 +14,20 @@
     }
 
     header {
-      background-color: #68d4da;
+      background-color: #4cc1215c;
       color: #050505;
       padding: 20px;
       text-align: center;
       position: relative;
     }
+.site-title {
+  font-family: "Cairo", sans-serif; /* تقدر تبدل لأي خط */
+  font-size: 36px; /* حجم أكبر */
+  font-weight: bold; /* يخليه غليظ */
+  color: #757c18; /* لون غامق */
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.3); /* ظل خفيف */
+  letter-spacing: 2px; /* مسافة بين الحروف */
+}
 
     .cart-btn {
       position: fixed;
@@ -172,6 +181,18 @@
       opacity: 1;
     }
 
+    /* 🔥 شريط الإعلانات */
+    .ads-bar {
+      background-color: #92832c; /* ذهبي */
+      color: #000000; /* أسود غامق */
+      height: 2cm; /* 2 سم */
+      display: flex;
+      align-items: center;
+      font-weight: bold;
+      font-size: 18px;
+      overflow: hidden;
+    }
+
     /* Media Query للهاتف */
     @media (max-width: 768px) {
       .products {
@@ -203,10 +224,86 @@
 </head>
 <body>
 
+<!-- 🔥 شريط الإعلانات -->
+<div class="ads-bar">
+  <marquee behavior="scroll" direction="right" scrollamount="5">
+    🚗🔥 عروض خاصة اليوم فقط! خصومات حتى 50% على بعض المنتجات! 🔧🛠️
+  </marquee>
+</div>
+
 <header>
-  <h1>ACCESSOIRE AUTO BBS</h1>
+  <h1 class="site-title">ACCESSOIRE AUTO BBS</h1>
+
+  <img src="images/logo.png" alt="Logo" style="width:300px;height:300px;border-radius:50%;margin-top:10px;">
   <button class="cart-btn" onclick="toggleCart()">🛒 السلة <span id="cart-count">0</span></button>
 </header>
+
+<!-- 🔥 شريط الإعلانات -->
+<div class="ads-bar">
+  <marquee behavior="scroll" direction="left" scrollamount="5">
+    🚗🔥 التوصيل متوفر الى 58 ولاية______________المشتريات اكثر من 20000 دج توصيلها مجاني 🔧🛠️
+  </marquee>
+</div>
+
+<!-- ✅ مربعات على شكل ساعة / كالوندري -->
+<div class="welcome-clock">
+  <div class="flip-box">WELCOME</div>
+  <div class="flip-box">TO</div>
+  <div class="flip-box">ACCESSOIRE</div>
+  <div class="flip-box">AUTO</div>
+  <div class="flip-box">BBS</div>
+  <div class="flip-box">BEST</div>
+  <div class="flip-box">QUALITY</div>
+</div>
+
+<style>
+  .welcome-clock {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin: 40px 0;
+    direction: ltr; /* 👈 فرضنا LTR */
+  }
+
+  .flip-box {
+    background: #1d4816;
+    color: #FFD700;
+    font-size: 26px;
+    font-weight: bold;
+    padding: 20px 25px;
+    border-radius: 8px;
+    border: 2px solid #FFD700;
+    box-shadow: inset 0 -3px 0 rgba(255,215,0,0.4),
+                0 4px 8px rgba(99, 36, 36, 0.5);
+    text-align: center;
+    min-width: 120px;
+    perspective: 1000px;
+    opacity: 0;
+    transform: rotateX(90deg);
+    animation: flipBox 21s infinite;
+  }
+
+  /* 🔄 المربعات وحدة بوحدة */
+  .flip-box:nth-child(1) { animation-delay: 0s; }
+  .flip-box:nth-child(2) { animation-delay: 3s; }
+  .flip-box:nth-child(3) { animation-delay: 6s; }
+  .flip-box:nth-child(4) { animation-delay: 9s; }
+  .flip-box:nth-child(5) { animation-delay: 12s; }
+  .flip-box:nth-child(6) { animation-delay: 15s; }
+  .flip-box:nth-child(7) { animation-delay: 18s; }
+
+  @keyframes flipBox {
+    0%   { opacity: 0; transform: rotateX(90deg); }
+    5%   { opacity: 1; transform: rotateX(0deg); }
+    30%  { opacity: 1; transform: rotateX(0deg); }
+    35%  { opacity: 0; transform: rotateX(-90deg); }
+    100% { opacity: 0; transform: rotateX(-90deg); }
+  }
+</style>
+
+
 
 <div class="products" id="products-container"></div>
 
@@ -220,6 +317,9 @@
 
 <!-- 🔔 مكان الإشعار -->
 <div id="notification" class="notification">تمت إضافة المنتج للسلة ✅</div>
+
+<!-- ✅ مكان رسائل التحقق من الصور -->
+<div id="image-check" style="text-align:center; margin:10px 0;"></div>
 
 <script>
   const productsList = [
@@ -333,47 +433,31 @@
   }
 
   function renderCartItems() {
-    const cartItems = document.getElementById('cart-items');
-    cartItems.innerHTML = '';
+    const ul = document.getElementById('cart-items');
+    ul.innerHTML = '';
     let total = 0;
-
-    if (cart.length === 0) {
-      cartItems.innerHTML = '<li>السلة فارغة.</li>';
-    } else {
-      cart.forEach((item, index) => {
-        const li = document.createElement('li');
-        li.textContent = `${item.name} - ${item.price} دج`;
-
-        const btn = document.createElement('button');
-        btn.textContent = '❌';
-        btn.onclick = () => {
-          removeItem(index);
-        };
-        li.appendChild(btn);
-
-        cartItems.appendChild(li);
-        total += item.price;
-      });
-    }
-
+    cart.forEach((item, index) => {
+      const li = document.createElement('li');
+      li.innerHTML = `
+        ${item.name} - ${item.price} دج
+        <button onclick="removeFromCart(${index})">×</button>
+      `;
+      ul.appendChild(li);
+      total += item.price;
+    });
     document.getElementById('total').textContent = total;
   }
 
-  function removeItem(index) {
+  function removeFromCart(index) {
     cart.splice(index, 1);
     saveCart();
-    renderCartItems();
     updateCartCount();
+    renderCartItems();
   }
 
   function toggleCart() {
-    const cartPopup = document.getElementById('cart');
-    if (cartPopup.style.display === 'block') {
-      cartPopup.style.display = 'none';
-    } else {
-      renderCartItems();
-      cartPopup.style.display = 'block';
-    }
+    const cartDiv = document.getElementById('cart');
+    cartDiv.style.display = cartDiv.style.display === 'block' ? 'none' : 'block';
   }
 
   function closeCart() {
@@ -382,16 +466,47 @@
 
   function checkout() {
     if (cart.length === 0) {
-      alert('السلة فارغة! الرجاء إضافة منتجات.');
+      alert("⚠️ السلة فارغة!");
       return;
     }
-    window.location.href = 'confirm.html';
+
+    let orderDetails = "🛍️ طلب جديد:\n\n";
+    let total = 0;
+    cart.forEach(item => {
+      orderDetails += `- ${item.name}: ${item.price} دج\n`;
+      total += item.price;
+    });
+    orderDetails += `\nالمجموع: ${total} دج`;
+
+    const phoneNumber = "213657402933"; 
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(orderDetails)}`;
+
+    window.open(whatsappUrl, "_blank");
   }
 
+  // ✅ تحقق من وجود صور السلايدر
+  function checkSliderImages() {
+    const sliderImgs = document.querySelectorAll(".slides img");
+    let missing = [];
+    sliderImgs.forEach(img => {
+      img.onerror = () => {
+        missing.push(img.src);
+        document.getElementById("image-check").innerHTML += 
+          `<p style="color:red;">❌ الصورة ناقصة: ${img.src}</p>`;
+      };
+      img.onload = () => {
+        document.getElementById("image-check").innerHTML += 
+          `<p style="color:green;">✅ الصورة موجودة: ${img.src}</p>`;
+      };
+    });
+  }
+
+  // تشغيل
   renderProducts();
+  renderCartItems();
   updateCartCount();
+  checkSliderImages();
 </script>
 
 </body>
 </html>
-
