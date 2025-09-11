@@ -241,7 +241,75 @@
 
  
   }
+
+<!-- 🌊 أمواج ذهبية متدرجة أوضح -->
+<style>
+.wave-container {
+  position: relative;
+  width: 100%;
+  height: 250px;
+  background: linear-gradient(to bottom, #e2ca76, #b89c4d); /* خلفية ذهبية رملي */
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
+
+.wave {
+  position: absolute;
+  bottom: 0;
+  width: 200%;
+  height: 160px;
+  background: rgba(226, 202, 118, 0.7); /* ذهبي فاتح */
+  border-radius: 100% 50%;
+  animation: waveMove 6s ease-in-out infinite alternate;
+}
+
+.wave:nth-child(2) {
+  bottom: 20px;
+  background: rgba(184, 156, 77, 0.6); /* وسط */
+  animation-duration: 8s;
+}
+
+.wave:nth-child(3) {
+  bottom: 40px;
+  background: rgba(122, 95, 46, 0.5); /* أغمق */
+  animation-duration: 10s;
+}
+
+@keyframes waveMove {
+  0%   { transform: translateX(0)   translateY(0); }
+  25%  { transform: translateX(-30px) translateY(-50px); }
+  50%  { transform: translateX(0)   translateY(-25px); }
+  75%  { transform: translateX(30px)  translateY(-50px); }
+  100% { transform: translateX(0)   translateY(0); }
+}
+
+.welcome-text {
+  position: relative;
+  font-size: 42px;
+  font-weight: bold;
+  color: #3b2f14; /* بني غامق للتباين */
+  text-shadow: 0 0 8px rgba(255,255,255,0.6), 0 0 15px rgba(0,0,0,0.5);
+  z-index: 10;
+  animation: glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+  from { text-shadow: 0 0 5px #fff, 0 0 10px #b89c4d; }
+  to   { text-shadow: 0 0 20px #fff, 0 0 30px #e2ca76; }
+}
+</style>
+
+<div class="wave-container">
+  <div class="wave"></div>
+  <div class="wave"></div>
+  <div class="wave"></div>
+  <div class="welcome-text">WELCOME TO BBS SHOP</div>
+</div>
+
+
+
 
   </style>
 
@@ -439,5 +507,4 @@
   </script>
 </body>
 </html>
-
 
