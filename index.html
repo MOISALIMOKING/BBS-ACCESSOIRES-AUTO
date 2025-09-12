@@ -21,171 +21,19 @@
     }
 
     .site-title {
-      font-family: "Cairo", sans-serif; /* تقدر تبدل لأي خط */
-      font-size: 36px; /* حجم أكبر */
-      font-weight: bold; /* يخليه غليظ */
-      color: #0b2f3c; /* لون غامق */
-      text-shadow: 2px 2px 4px rgba(0,0,0,0.3); /* ظل خفيف */
-      letter-spacing: 2px; /* مسافة بين الحروف */
-    }
-
-    .cart-btn {
-      position: fixed;
-      top: 100px;
-      left: 20px;
-      background-color: #D32F2F;
-      color: #FFFFFF;
-      border: none;
-      padding: 10px 15px;
-      border-radius: 8px;
-      cursor: pointer;
-      z-index: 110;
-    }
-
-    .products {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      padding: 40px;
-      flex-wrap: wrap;
-      background-color: #55c6f0;
-    }
-
-    .product {
-      background-color: #ffffff;
-      padding: 10px;
-      width: 330px; /* كبرنا شوية العرض */
-      border-radius: 20px;
-      text-align: center;
-      box-shadow: 0 0 10px #000000;
-      box-sizing: circle;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-
-    .cart-popup {
-      position: fixed;
-      top: 100px;
-      left: 20px;
-      background-color: #FFFFFF;
-      padding: 30px;
-      width: 300px;
-      border-radius: 10px;
-      box-shadow: 0 0 15px #888;
-      z-index: 100;
-      display: none;
-      max-height: 70vh;
-      overflow-y: auto;
-    }
-
-    .cart-popup h2 {
-      margin-top: 0;
-      color: #000000;
-    }
-
-    .cart-popup ul {
-      list-style: none;
-      padding: 0;
-      margin: 0 0 15px 0;
-      max-height: 200px;
-      overflow-y: auto;
-    }
-
-    .cart-popup ul li {
-      margin-bottom: 8px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      color: #000000;
-    }
-
-    .cart-popup ul li button {
-      background-color: #D32F2F;
-      color: white;
-      border: none;
-      padding: 5px 10px;
-      border-radius: 50%;
-      width: 25px;
-      height: 25px;
-      cursor: pointer;
-      font-size: 16px;
-      line-height: 1;
-      transition: background-color 0.3s ease;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .cart-popup ul li button:hover {
-      background-color: #b71c1c;
-    }
-
-    #total {
-      color: #D32F2F;
+      font-family: "Cairo", sans-serif;
+      font-size: 36px;
       font-weight: bold;
-      font-size: 18px;
-      margin-bottom: 15px;
-    }
-
-    #checkout-btn {
-      background-color: #D32F2F;
-      color: white;
-      border: none;
-      padding: 10px;
-      width: 100%;
-      border-radius: 5px;
-      cursor: pointer;
-      margin-bottom: 10px;
-    }
-
-    #checkout-btn:hover {
-      background-color: #b71c1c;
-    }
-
-    #close-cart-btn {
-      background-color: #000000;
-      color: white;
-      border: none;
-      padding: 10px;
-      width: 100%;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-
-    #close-cart-btn:hover {
-      background-color: #333333;
-    }
-
-    img {
-      max-width: 100%;
-      height: auto;
-    }
-
-    /* 🔔 الإشعار */
-    .notification {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background-color: #25d366;
-      color: white;
-      padding: 12px 20px;
-      border-radius: 6px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.2);
-      opacity: 0;
-      transition: opacity 0.5s ease;
-      z-index: 200;
-    }
-
-    .notification.show {
-      opacity: 1;
+      color: #0b2f3c;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+      letter-spacing: 2px;
     }
 
     /* 🔥 شريط الإعلانات */
     .ads-bar {
-      background-color: #2a6277; /* ذهبي */
-      color: #000000; /* أسود غامق */
-      height: 2cm; /* 2 سم */
+      background-color: #2a6277;
+      color: #000000;
+      height: 2cm;
       display: flex;
       align-items: center;
       font-weight: bold;
@@ -193,29 +41,40 @@
       overflow: hidden;
     }
 
-    /* Media Query للهاتف */
-    @media (max-width: 768px) {
-      .products {
-        margin-left: 0;
-        padding: 20px;
-        justify-content: center;
-      }
-      .product {
-        width: 100% !important;
-      }
-      img {
-        max-width: 100% !important;
-        height: auto !important;
-      }
-      .cart-btn {
-        left: 10px;
-        top: 80px;
-      }
-      .cart-popup {
-        width: 90%;
-        left: 5%;
-      }
-    }
+.products {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* زوج منتجات في السطر */
+  gap: 30px; /* المسافة بين المنتجات */
+  padding: 40px;
+  background-color: #55c6f0;
+  justify-items: center;
+}
+
+.product {
+  background-color: #ffffff;
+  padding: 30px;
+  width: 500px;   /* ✨ زادت */
+  height: 500px;  /* ✨ زادت */
+  border-radius: 50%; 
+  text-align: center;
+  box-shadow: 0 0 15px #000000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  overflow: hidden;
+}
+
+.product img {
+  width: 400px;   /* ✨ كبرنا الصورة */
+  height: 400px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 15px;
+}
+
+
+
   </style>
 </head>
 <body>
@@ -229,7 +88,6 @@
   <header>
     <h1 class="site-title">ACCESSOIRE AUTO BBS</h1>
     <img src="images/logo.png" alt="Logo" style="width:300px;height:300px;border-radius:50%;margin-top:10px;">
-    <button class="cart-btn" onclick="toggleCart()">🛒 السلة <span id="cart-count">0</span></button>
   </header>
 
   <!-- 🔥 شريط الإعلانات -->
@@ -239,80 +97,67 @@
     </marquee>
   </div>
 
- 
-  }
-
-<!-- 🌊 أمواج ذهبية متدرجة أوضح -->
-<style>
-.wave-container {
-  position: relative;
-  width: 100%;
-  height: 250px;
-  background: linear-gradient(to bottom, #3489a8, #55c6f0); /* خلفية ذهبية رملي */
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.wave {
-  position: absolute;
-  bottom: 0;
-  width: 200%;
-  height: 160px;
-  background: rgba(73, 165, 145, 0.7); /* ذهبي فاتح */
-  border-radius: 100% 50%;
-  animation: waveMove 6s ease-in-out infinite alternate;
-}
-
-.wave:nth-child(2) {
-  bottom: 20px;
-  background: rgba(85, 239, 214, 0.6); /* وسط */
-  animation-duration: 8s;
-}
-
-.wave:nth-child(3) {
-  bottom: 40px;
-  background: rgba(38, 80, 129, 0.5); /* أغمق */
-  animation-duration: 10s;
-}
-
-@keyframes waveMove {
-  0%   { transform: translateX(0)   translateY(0); }
-  25%  { transform: translateX(-30px) translateY(-50px); }
-  50%  { transform: translateX(0)   translateY(-25px); }
-  75%  { transform: translateX(30px)  translateY(-50px); }
-  100% { transform: translateX(0)   translateY(0); }
-}
-
-.welcome-text {
-  position: relative;
-  font-size: 42px;
-  font-weight: bold;
-  color: #3b2f14; /* بني غامق للتباين */
-  text-shadow: 0 0 8px rgba(255,255,255,0.6), 0 0 15px rgba(0,0,0,0.5);
-  z-index: 10;
-  animation: glow 2s ease-in-out infinite alternate;
-}
-
-@keyframes glow {
-  from { text-shadow: 0 0 5px #4727a7, 0 0 10px #152f6e; }
-  to   { text-shadow: 0 0 20px #fff, 0 0 30px #256498; }
-}
-</style>
-
-<div class="wave-container">
-  <div class="wave"></div>
-  <div class="wave"></div>
-  <div class="wave"></div>
-  <div class="welcome-text">welcome to bbs car accessories world</div>
-</div>
-
-
-
-
+  <!-- 🌊 أمواج -->
+  <style>
+    .wave-container {
+      position: relative;
+      width: 100%;
+      height: 250px;
+      background: linear-gradient(to bottom, #3489a8, #55c6f0);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .wave {
+      position: absolute;
+      bottom: 0;
+      width: 200%;
+      height: 160px;
+      background: rgba(73, 165, 145, 0.7);
+      border-radius: 100% 50%;
+      animation: waveMove 6s ease-in-out infinite alternate;
+    }
+    .wave:nth-child(2) {
+      bottom: 20px;
+      background: rgba(85, 239, 214, 0.6);
+      animation-duration: 8s;
+    }
+    .wave:nth-child(3) {
+      bottom: 40px;
+      background: rgba(38, 80, 129, 0.5);
+      animation-duration: 10s;
+    }
+    @keyframes waveMove {
+      0%   { transform: translateX(0) translateY(0); }
+      25%  { transform: translateX(-30px) translateY(-50px); }
+      50%  { transform: translateX(0) translateY(-25px); }
+      75%  { transform: translateX(30px) translateY(-50px); }
+      100% { transform: translateX(0) translateY(0); }
+    }
+    .welcome-text {
+      position: relative;
+      font-size: 42px;
+      font-weight: bold;
+      color: #3b2f14;
+      text-shadow: 0 0 8px rgba(255,255,255,0.6), 0 0 15px rgba(0,0,0,0.5);
+      z-index: 10;
+      animation: glow 2s ease-in-out infinite alternate;
+    }
+    @keyframes glow {
+      from { text-shadow: 0 0 5px #4727a7, 0 0 10px #152f6e; }
+      to   { text-shadow: 0 0 20px #fff, 0 0 30px #256498; }
+    }
   </style>
 
+  <div class="wave-container">
+    <div class="wave"></div>
+    <div class="wave"></div>
+    <div class="wave"></div>
+    <div class="welcome-text">welcome to bbs car accessories world</div>
+  </div>
+
+  <!-- 🛒 المنتجات -->
   <div class="products" id="products-container"></div>
 
   <div id="cart" class="cart-popup">
@@ -342,59 +187,13 @@
       { name: 'PARASOL VOITURE ', price: 1200, image: 'images/car_umbrella.jpg' },
       { name: 'KIT REPARATION', price: 3000, image: 'images/toolkit.jpg' },
       { name: 'BATTERY', price: 10000, image: 'images/battery.jpg' },
-      { name: 'زيت محرك', price: 2500, image: 'images/oil.jpg' },
-      { name: 'إطارات', price: 7000, image: 'images/tires.jpg' },
       { name: 'RADIO MP3 BLUETOOTH ', price: 3500, image: 'images/radio.jpg' },
-      { name: 'مكيف هواء', price: 12000, image: 'images/ac.jpg' },
-      { name: 'مروحة تبريد', price: 1800, image: 'images/fan.jpg' },
-      { name: 'فرشاة تنظيف', price: 600, image: 'images/brush.jpg' },
       { name: 'LED ', price: 1400, image: 'images/light.jpg' },
       { name: 'ENJOLIVER ', price: 1600, image: 'images/wheel_cover.jpg' },
       { name: 'LAMPES  ', price: 3000, image: 'images/headlights.jpg' },
-      { name: 'غطاء محرك', price: 4000, image: 'images/hood.jpg' },
-      { name: 'مرآة جانبية', price: 2200, image: 'images/mirror.jpg' },
-      { name: 'مسجل موسيقى', price: 2500, image: 'images/music_player.jpg' },
-      { name: 'عداد سرعة', price: 2700, image: 'images/speedometer.jpg' },
-      { name: 'عازل صوت', price: 3500, image: 'images/soundproof.jpg' },
       { name: 'TAPIS STANDARD ', price: 1500, image: 'images/floor_cover.jpg' },
-      { name: 'شاحن سيارة', price: 1300, image: 'images/charger.jpg' },
-      { name: 'مستشعر وقود', price: 1200, image: 'images/fuel_sensor.jpg' },
-      { name: 'وسادة هوائية', price: 9000, image: 'images/airbag.jpg' },
-      { name: 'كفر سيارة', price: 8000, image: 'images/tire_cover.jpg' },
-      { name: 'مقبض باب', price: 1400, image: 'images/door_handle.jpg' },
       { name: 'نظام GPS', price: 9000, image: 'images/gps.jpg' },
-      { name: 'مجموعة فرامل', price: 5000, image: 'images/brake_kit.jpg' },
-      { name: 'مصباح ضباب', price: 1700, image: 'images/fog_light.jpg' },
-      { name: 'واقي مطر', price: 1200, image: 'images/rain_guard.jpg' },
-      { name: 'غطاء دواسات', price: 1100, image: 'images/pedal_cover.jpg' },
-      { name: 'حزام أمان', price: 900, image: 'images/seatbelt.jpg' },
-      { name: 'مغسلة سيارة', price: 4500, image: 'images/car_wash.jpg' },
-      { name: 'مقود رياضي', price: 8000, image: 'images/sport_steering.jpg' },
       { name: 'كاميرا خلفية', price: 5500, image: 'images/rear_camera.jpg' },
-      { name: 'مقود كهربائي', price: 6000, image: 'images/electric_steering.jpg' },
-      { name: 'مقاعد رياضية', price: 13000, image: 'images/sport_seats.jpg' },
-      { name: 'كشاف LED', price: 2500, image: 'images/led_light.jpg' },
-      { name: 'مقاعد جلد', price: 12000, image: 'images/leather_seats.jpg' },
-      { name: 'مخمدات صدمات', price: 7000, image: 'images/shock_absorber.jpg' },
-      { name: 'ملاقط', price: 1100, image: 'images/clamps.jpg' },
-      { name: 'مجموعة مفاتيح', price: 1600, image: 'images/wrench_set.jpg' },
-      { name: 'مقاعد خلفية', price: 9000, image: 'images/rear_seats.jpg' },
-      { name: 'غطاء محرك خلفي', price: 4500, image: 'images/rear_hood.jpg' },
-      { name: 'مصفاة هواء', price: 2200, image: 'images/air_filter.jpg' },
-      { name: 'مكواة لحام', price: 3500, image: 'images/welder.jpg' },
-      { name: 'غطاء مرآة', price: 1200, image: 'images/mirror_cover.jpg' },
-      { name: 'مكيف إضافي', price: 8000, image: 'images/extra_ac.jpg' },
-      { name: 'مصد أمامي', price: 7500, image: 'images/front_bumper.jpg' },
-      { name: 'غطاء تروس', price: 1500, image: 'images/gear_cover.jpg' },
-      { name: 'فرامل يد', price: 3000, image: 'images/handbrake.jpg' },
-      { name: 'عجلات سبور', price: 10000, image: 'images/sport_wheels.jpg' },
-      { name: 'غطاء سقف', price: 4200, image: 'images/roof_cover.jpg' },
-      { name: 'زر إضاءة', price: 900, image: 'images/light_button.jpg' },
-      { name: 'فرش مقاعد', price: 6000, image: 'images/seat_mats.jpg' },
-      { name: 'موزع هواء', price: 1200, image: 'images/air_distributor.jpg' },
-      { name: 'مفتاح إنارة', price: 1000, image: 'images/light_switch.jpg' },
-      { name: 'مرآة خلفية', price: 2100, image: 'images/rear_mirror.jpg' },
-      { name: 'كشاف جانبي', price: 1800, image: 'images/side_light.jpg' }
     ];
 
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
@@ -429,11 +228,14 @@
       container.innerHTML = '';
       productsList.forEach(product => {
         const div = document.createElement('div');
-        div.className = 'product';
-        div.innerHTML = `<h3>${product.name}</h3>
-          ${product.image ? `<img src="${product.image}" alt="${product.name}" width="200">` : ''}
-          <p>السعر: ${product.price} دج</p>
-          <button onclick="addToCart('${product.name}', ${product.price})">➕ أضف إلى السلة</button>`;
+        div.className = 'product-container';
+        div.innerHTML = `
+          <div class="product">
+            <img src="${product.image}" alt="${product.name}">
+          </div>
+          <div class="product-name">${product.name}</div>
+          <button onclick="addToCart('${product.name}', ${product.price})">➕ أضف إلى السلة</button>
+        `;
         container.appendChild(div);
       });
     }
@@ -484,7 +286,6 @@
       window.open(whatsappUrl, "_blank");
     }
 
-    // ✅ تحقق من وجود صور السلايدر
     function checkSliderImages() {
       const sliderImgs = document.querySelectorAll(".slides img");
       let missing = [];
@@ -499,7 +300,6 @@
       });
     }
 
-    // تشغيل
     renderProducts();
     renderCartItems();
     updateCartCount();
