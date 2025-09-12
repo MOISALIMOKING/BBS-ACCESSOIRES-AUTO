@@ -49,7 +49,6 @@
   background-color: #55c6f0;
   justify-items: center;
 }
-
 .product {
   background-color: #ffffff;
   padding: 20px;
@@ -121,6 +120,35 @@
     padding: 10px;
   }
 }
+
+/* 🎞️ السلايدر */
+.slider {
+  width: 100%;
+  height: 600px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #000;
+  overflow: hidden;
+}
+.slider img {
+  width: 200%;
+  height: 100%;
+  object-fit: contain; /* الافتراضي في PC */
+  background-color: #000;
+  border-radius: 15px;
+  transition: opacity 1s ease-in-out;
+}
+
+/* 📱 الهاتف */
+@media (max-width: 768px) {
+  .slider img {
+    object-fit: contain; /* الصور تبقى كاملة بلا تقص */
+    background-color: #000; /* الفراغات سود */
+  }
+}
+
+
 
   </style>
 </head>
@@ -204,6 +232,11 @@
     <div class="welcome-text">welcome to bbs car accessories world</div>
   </div>
 
+  <!-- 🎞️ السلايدر -->
+  <div class="slider">
+    <img id="slider-img" src="images/steering.jpg" alt="slider">
+  </div>
+
   <!-- 🛒 المنتجات -->
   <div class="products" id="products-container"></div>
 
@@ -245,6 +278,25 @@
     }
 
     renderProducts();
+
+    // 🎞️ السلايدر
+    const sliderImages = [
+      "images/KIT-SONO.jpg",
+      "images/radio.jpg",
+      "images/leather_steering.jpg",
+      "images/lampes.jpg"
+    ];
+    let currentIndex = 0;
+    const sliderImg = document.getElementById("slider-img");
+
+    setInterval(() => {
+      currentIndex = (currentIndex + 1) % sliderImages.length;
+      sliderImg.style.opacity = 0;
+      setTimeout(() => {
+        sliderImg.src = sliderImages[currentIndex];
+        sliderImg.style.opacity = 1;
+      }, 500);
+    }, 4000);
   </script>
 </body>
 </html>
