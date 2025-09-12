@@ -67,11 +67,24 @@
 }
 
 .product img {
-  width: 80%;
-  aspect-ratio: 1 / 1;
-  border-radius: 50%;
-  object-fit: cover;
-  margin-bottom: 15px;
+  width: 100%;
+  height: 100%;
+  border-radius: 100%;
+  object-fit: cover; /* ✨ يملأ الدائرة كامل */
+}
+
+
+/* ✅ اسم المنتج */
+.product-name {
+  font-size: 20px; /* يكبر الخط */
+  font-weight: bold;
+  background-color: #ffffff;
+  padding: 8px;
+  margin-top: 10px;
+  border-radius: 10px;
+  box-shadow: 0 0 5px rgba(0,0,0,0.2);
+  text-align: center;
+  color: #000;
 }
 
 /* 📱 الهاتف (شاشات صغيرة أقل من 600px) */
@@ -90,12 +103,22 @@
   .product img {
     width: 90%;
   }
+
+  .product-name {
+    font-size: 16px;
+    padding: 6px;
+  }
 }
 
 /* 💻 شاشات كبيرة (أكثر من 1200px) */
 @media (min-width: 1200px) {
   .product {
     max-width: 500px; /* يكبرو بزاف في PC */
+  }
+
+  .product-name {
+    font-size: 24px;
+    padding: 10px;
   }
 }
 
@@ -184,68 +207,26 @@
   <!-- 🛒 المنتجات -->
   <div class="products" id="products-container"></div>
 
-  <div id="cart" class="cart-popup">
-    <h2>🛍️ سلة التسوق</h2>
-    <ul id="cart-items"></ul>
-    <p>المجموع: <span id="total">0</span> دج</p>
-    <button id="checkout-btn" onclick="checkout()">شراء الآن</button>
-    <button id="close-cart-btn" onclick="closeCart()">إغلاق</button>
-  </div>
-
-  <!-- 🔔 مكان الإشعار -->
-  <div id="notification" class="notification">تمت إضافة المنتج للسلة ✅</div>
-
-  <!-- ✅ مكان رسائل التحقق من الصور -->
-  <div id="image-check" style="text-align:center; margin:10px 0;"></div>
-
   <script>
     const productsList = [
       { name: 'couvre vollon ', price: 600, image: 'images/steering.jpg' },
       { name: 'SUPPORT MOBILE ', price: 1200, image: 'images/holder.jpg' },
       { name: 'COUVRE VOLLON CUIR  ', price: 2500, image: 'images/leather_steering.jpg' },
-      { name: ' TAPIS 7D SUR MESURE.', price: 800, image: 'images/TAPIS-7D.jpg' },
-      { name: 'PATE ET WAX  ', price: 1800, image: 'images/sun_protector.jpg' },
+      { name: 'TAPIS 7D SUR MESURE.', price: 800, image: 'images/TAPIS-7D.jpg' },
+      { name: 'PATE ET WAX  ', price: 1800, image: 'images/kit-pate.jpg' },
       { name: 'BALAIS ESSUIGLASS ', price: 900, image: 'images/wiper.jpg' },
-      { name: 'COUVRE SIEGE ', price: 2000, image: 'images/seat_cover.jpg' },
-      { name: 'SIEGE AUTO POUR BEBE', price: 5000, image: 'images/kid_seat.jpg' },
+      { name: 'COUVRE SIEGE ', price: 2000, image: 'images/couvre-siege.jpg' },
+      { name: 'SIEGE AUTO POUR BEBE', price: 5000, image: 'images/SIEGE-BEBE.jpg' },
       { name: 'PARASOL VOITURE ', price: 1200, image: 'images/car_umbrella.jpg' },
-      { name: 'KIT REPARATION', price: 3000, image: 'images/toolkit.jpg' },
+      { name: 'KIT SONO', price: 3000, image: 'images/KIT-SONO.jpg' },
       { name: 'BATTERY', price: 10000, image: 'images/battery.jpg' },
       { name: 'RADIO MP3 BLUETOOTH ', price: 3500, image: 'images/radio.jpg' },
-      { name: 'LED ', price: 1400, image: 'images/light.jpg' },
-      { name: 'ENJOLIVER ', price: 1600, image: 'images/wheel_cover.jpg' },
-      { name: 'LAMPES  ', price: 3000, image: 'images/headlights.jpg' },
-      { name: 'TAPIS STANDARD ', price: 1500, image: 'images/floor_cover.jpg' },
-      { name: 'نظام GPS', price: 9000, image: 'images/gps.jpg' },
-      { name: 'كاميرا خلفية', price: 5500, image: 'images/rear_camera.jpg' },
+      { name: 'ENJOLIVER ', price: 1600, image: 'images/enjoliver.jpg' },
+      { name: 'LAMPES  ', price: 3000, image: 'images/lampes.jpg' },
+      { name: 'TAPIS STANDARD ', price: 1500, image: 'images/tapis-standard.jpg' },
+      { name: 'ALARMES ET SECUIRITE', price: 9000, image: 'images/tracker.jpg' },
+      { name: ' CAMERA AUTO', price: 5500, image: 'images/camauto.jpg' },
     ];
-
-    let cart = JSON.parse(localStorage.getItem('cart')) || [];
-
-    function updateCartCount() {
-      document.getElementById('cart-count').textContent = cart.length;
-    }
-
-    function saveCart() {
-      localStorage.setItem('cart', JSON.stringify(cart));
-    }
-
-    function showNotification(msg) {
-      const notif = document.getElementById('notification');
-      notif.textContent = msg;
-      notif.classList.add('show');
-      setTimeout(() => {
-        notif.classList.remove('show');
-      }, 2000);
-    }
-
-    function addToCart(name, price) {
-      cart.push({ name, price });
-      saveCart();
-      updateCartCount();
-      renderCartItems();
-      showNotification("✅ تمت إضافة " + name + " إلى السلة");
-    }
 
     function renderProducts() {
       const container = document.getElementById('products-container');
@@ -258,76 +239,12 @@
             <img src="${product.image}" alt="${product.name}">
           </div>
           <div class="product-name">${product.name}</div>
-          <button onclick="addToCart('${product.name}', ${product.price})">➕ أضف إلى السلة</button>
         `;
         container.appendChild(div);
       });
     }
 
-    function renderCartItems() {
-      const ul = document.getElementById('cart-items');
-      ul.innerHTML = '';
-      let total = 0;
-      cart.forEach((item, index) => {
-        const li = document.createElement('li');
-        li.innerHTML = `${item.name} - ${item.price} دج <button onclick="removeFromCart(${index})">×</button>`;
-        ul.appendChild(li);
-        total += item.price;
-      });
-      document.getElementById('total').textContent = total;
-    }
-
-    function removeFromCart(index) {
-      cart.splice(index, 1);
-      saveCart();
-      updateCartCount();
-      renderCartItems();
-    }
-
-    function toggleCart() {
-      const cartDiv = document.getElementById('cart');
-      cartDiv.style.display = cartDiv.style.display === 'block' ? 'none' : 'block';
-    }
-
-    function closeCart() {
-      document.getElementById('cart').style.display = 'none';
-    }
-
-    function checkout() {
-      if (cart.length === 0) {
-        alert("⚠️ السلة فارغة!");
-        return;
-      }
-      let orderDetails = "🛍️ طلب جديد:\n\n";
-      let total = 0;
-      cart.forEach(item => {
-        orderDetails += `- ${item.name}: ${item.price} دج\n`;
-        total += item.price;
-      });
-      orderDetails += `\nالمجموع: ${total} دج`;
-      const phoneNumber = "213657402933";
-      const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(orderDetails)}`;
-      window.open(whatsappUrl, "_blank");
-    }
-
-    function checkSliderImages() {
-      const sliderImgs = document.querySelectorAll(".slides img");
-      let missing = [];
-      sliderImgs.forEach(img => {
-        img.onerror = () => {
-          missing.push(img.src);
-          document.getElementById("image-check").innerHTML += `<p style="color:red;">❌ الصورة ناقصة: ${img.src}</p>`;
-        };
-        img.onload = () => {
-          document.getElementById("image-check").innerHTML += `<p style="color:green;">✅ الصورة موجودة: ${img.src}</p>`;
-        };
-      });
-    }
-
     renderProducts();
-    renderCartItems();
-    updateCartCount();
-    checkSliderImages();
   </script>
 </body>
 </html>
