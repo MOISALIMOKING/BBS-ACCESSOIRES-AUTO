@@ -33,11 +33,11 @@
     .ads-bar {
       background-color: #2a6277;
       color: #000000;
-      height: 2cm;
+      height: 4cm;
       display: flex;
       align-items: center;
       font-weight: bold;
-      font-size: 18px;
+      font-size: 36px;
       overflow: hidden;
     }
 
@@ -172,6 +172,12 @@
     </marquee>
   </div>
 
+  
+  <!-- 🎞️ السلايدر -->
+  <div class="slider">
+    <img id="slider-img" src="images/steering.jpg" alt="slider">
+  </div>
+
   <!-- 🌊 أمواج -->
   <style>
     .wave-container {
@@ -232,52 +238,51 @@
     <div class="welcome-text">welcome to bbs car accessories world</div>
   </div>
 
-  <!-- 🎞️ السلايدر -->
-  <div class="slider">
-    <img id="slider-img" src="images/steering.jpg" alt="slider">
-  </div>
-
   <!-- 🛒 المنتجات -->
   <div class="products" id="products-container"></div>
 
-  <script>
-    const productsList = [
-      { name: 'couvre vollon ', price: 600, image: 'images/steering.jpg' },
-      { name: 'SUPPORT MOBILE ', price: 1200, image: 'images/holder.jpg' },
-      { name: 'COUVRE VOLLON CUIR  ', price: 2500, image: 'images/leather_steering.jpg' },
-      { name: 'TAPIS 7D SUR MESURE.', price: 800, image: 'images/TAPIS-7D.jpg' },
-      { name: 'PATE ET WAX  ', price: 1800, image: 'images/kit-pate.jpg' },
-      { name: 'BALAIS ESSUIGLASS ', price: 900, image: 'images/wiper.jpg' },
-      { name: 'COUVRE SIEGE ', price: 2000, image: 'images/couvre-siege.jpg' },
-      { name: 'SIEGE AUTO POUR BEBE', price: 5000, image: 'images/SIEGE-BEBE.jpg' },
-      { name: 'PARASOL VOITURE ', price: 1200, image: 'images/car_umbrella.jpg' },
-      { name: 'KIT SONO', price: 3000, image: 'images/KIT-SONO.jpg' },
-      { name: 'BATTERY', price: 10000, image: 'images/battery.jpg' },
-      { name: 'RADIO MP3 BLUETOOTH ', price: 3500, image: 'images/radio.jpg' },
-      { name: 'ENJOLIVER ', price: 1600, image: 'images/enjoliver.jpg' },
-      { name: 'LAMPES  ', price: 3000, image: 'images/lampes.jpg' },
-      { name: 'TAPIS STANDARD ', price: 1500, image: 'images/tapis-standard.jpg' },
-      { name: 'ALARMES ET SECUIRITE', price: 9000, image: 'images/tracker.jpg' },
-      { name: ' CAMERA AUTO', price: 5500, image: 'images/camauto.jpg' },
-    ];
+ <script>
+  const productsList = [
+    { name: 'couvre vollon ', price: 600, image: 'images/steering.jpg', link: 'couvre-vollon/index.html' },
+    { name: 'SUPPORT MOBILE ', price: 1200, image: 'images/holder.jpg', link: 'support-mobile/index.html' },
+    { name: 'COUVRE VOLLON CUIR  ', price: 2500, image: 'images/leather_steering.jpg', link: 'couvre-vollon-cuir/index.html' },
+    { name: 'TAPIS 7D SUR MESURE.', price: 800, image: 'images/TAPIS-7D.jpg', link: 'tapis-7d/index.html' },
+    { name: 'PATE ET WAX  ', price: 1800, image: 'images/kit-pate.jpg', link: 'pate-wax/index.html' },
+    { name: 'BALAIS ESSUIGLASS ', price: 900, image: 'images/wiper.jpg', link: 'balais-essuiglass/index.html' },
+    { name: 'COUVRE SIEGE ', price: 2000, image: 'images/couvre-siege.jpg', link: 'couvre-siege/index.html' },
+    { name: 'SIEGE AUTO POUR BEBE', price: 5000, image: 'images/SIEGE-BEBE.jpg', link: 'siege-bebe/index.html' },
+    { name: 'PARASOL VOITURE ', price: 1200, image: 'images/car_umbrella.jpg', link: 'parasol/index.html' },
+    { name: 'KIT SONO', price: 3000, image: 'images/KIT-SONO.jpg', link: 'kit-sono/index.html' },
+    { name: 'BATTERY', price: 10000, image: 'images/battery.jpg', link: 'battery/index.html' },
+    { name: 'RADIO MP3 BLUETOOTH ', price: 3500, image: 'images/radio.jpg', link: 'radio/index.html' },
+    { name: 'ENJOLIVER ', price: 1600, image: 'images/enjoliver.jpg', link: 'enjoliver/index.html' },
+    { name: 'LAMPES  ', price: 3000, image: 'images/lampes.jpg', link: 'lampes/index.html' },
+    { name: 'TAPIS STANDARD ', price: 1500, image: 'images/tapis-standard.jpg', link: 'tapis-standard/index.html' },
+    { name: 'ALARMES ET SECUIRITE', price: 9000, image: 'images/tracker.jpg', link: 'alarmes/index.html' },
+    { name: ' CAMERA AUTO', price: 5500, image: 'images/camauto.jpg', link: 'camera-auto/index.html' },
+  ];
 
-    function renderProducts() {
-      const container = document.getElementById('products-container');
-      container.innerHTML = '';
-      productsList.forEach(product => {
-        const div = document.createElement('div');
-        div.className = 'product-container';
-        div.innerHTML = `
+  function renderProducts() {
+    const container = document.getElementById('products-container');
+    container.innerHTML = '';
+    productsList.forEach(product => {
+      const div = document.createElement('div');
+      div.className = 'product-container';
+      div.innerHTML = `
+        <a href="${product.link}">
           <div class="product">
             <img src="${product.image}" alt="${product.name}">
           </div>
           <div class="product-name">${product.name}</div>
-        `;
-        container.appendChild(div);
-      });
-    }
+        </a>
+      `;
+      container.appendChild(div);
+    });
+  }
 
-    renderProducts();
+  renderProducts();
+</script>
+
 
     // 🎞️ السلايدر
     const sliderImages = [
@@ -300,5 +305,3 @@
   </script>
 </body>
 </html>
-
-
