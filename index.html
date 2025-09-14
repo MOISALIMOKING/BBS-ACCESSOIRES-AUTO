@@ -41,115 +41,193 @@
       overflow: hidden;
     }
 
-.products {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr); /* زوج منتجات في السطر */
-  gap: 30px;
-  padding: 40px;
-  background-color: #55c6f0;
-  justify-items: center;
-}
-.product {
-  background-color: #ffffff;
-  padding: 20px;
-  width: 90%;
-  max-width: 400px;   /* ✨ أكبر حجم ممكن */
-  aspect-ratio: 1 / 1;
-  border-radius: 50%;
-  text-align: center;
-  box-shadow: 0 0 15px #000000;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  overflow: hidden;
-}
+    .products {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 30px;
+      padding: 40px;
+      background-color: #55c6f0;
+      justify-items: center;
+    }
+    .product {
+      background-color: #ffffff;
+      padding: 20px;
+      width: 90%;
+      max-width: 400px;
+      aspect-ratio: 1 / 1;
+      border-radius: 50%;
+      text-align: center;
+      box-shadow: 0 0 15px #000000;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      overflow: hidden;
+    }
 
-.product img {
+    .product img {
+      width: 100%;
+      height: 100%;
+      border-radius: 100%;
+      object-fit: cover;
+    }
+
+    .product-name {
+      font-size: 20px;
+      font-weight: bold;
+      background-color: #ffffff;
+      padding: 8px;
+      margin-top: 10px;
+      border-radius: 10px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.2);
+      text-align: center;
+      color: #000;
+    }
+
+    @media (max-width: 600px) {
+      .products { grid-template-columns: repeat(2, 1fr); gap: 15px; padding: 20px; }
+      .product { max-width: 180px; padding: 10px; }
+      .product img { width: 90%; }
+      .product-name { font-size: 16px; padding: 6px; }
+    }
+
+    @media (min-width: 1200px) {
+      .product { max-width: 500px; }
+      .product-name { font-size: 24px; padding: 10px; }
+    }
+
+    .slider {
   width: 100%;
-  height: 100%;
-  border-radius: 100%;
-  object-fit: cover; /* ✨ يملأ الدائرة كامل */
-}
-
-
-/* ✅ اسم المنتج */
-.product-name {
-  font-size: 20px; /* يكبر الخط */
-  font-weight: bold;
-  background-color: #ffffff;
-  padding: 8px;
-  margin-top: 10px;
-  border-radius: 10px;
-  box-shadow: 0 0 5px rgba(0,0,0,0.2);
-  text-align: center;
-  color: #000;
-}
-
-/* 📱 الهاتف (شاشات صغيرة أقل من 600px) */
-@media (max-width: 600px) {
-  .products {
-    grid-template-columns: repeat(2, 1fr); /* زوج برك في السطر */
-    gap: 15px;
-    padding: 20px;
-  }
-
-  .product {
-    max-width: 180px; /* تصغار أوتوماتيكياً */
-    padding: 10px;
-  }
-
-  .product img {
-    width: 90%;
-  }
-
-  .product-name {
-    font-size: 16px;
-    padding: 6px;
-  }
-}
-
-/* 💻 شاشات كبيرة (أكثر من 1200px) */
-@media (min-width: 1200px) {
-  .product {
-    max-width: 500px; /* يكبرو بزاف في PC */
-  }
-
-  .product-name {
-    font-size: 24px;
-    padding: 10px;
-  }
-}
-
-/* 🎞️ السلايدر */
-.slider {
-  width: 100%;
-  height: 600px;
+  height: 500px; /* تقدر تعدل الطول كيما تحب */
   display: flex;
   align-items: center;
   justify-content: center;
   background: #000;
   overflow: hidden;
 }
+
 .slider img {
-  width: 200%;
+  width: 100%;
   height: 100%;
-  object-fit: contain; /* الافتراضي في PC */
-  background-color: #000;
+  object-fit: cover; /* يخلي الصورة تفرش كامل بلا فراغات */
   border-radius: 15px;
   transition: opacity 1s ease-in-out;
 }
 
-/* 📱 الهاتف */
-@media (max-width: 768px) {
-  .slider img {
-    object-fit: contain; /* الصور تبقى كاملة بلا تقص */
-    background-color: #000; /* الفراغات سود */
-  }
-}
+    @media (max-width: 768px) {
+      .slider img { object-fit: contain; background-color: #000; }
+    }
 
+    /* 🌊 الأمواج */
+    .wave-container {
+      position: relative;
+      width: 100%;
+      height: 250px;
+      background: linear-gradient(to bottom, #bb4227, #af290b);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .wave {
+      position: absolute;
+      bottom: 0;
+      width: 200%;
+      height: 160px;
+      background: rgba(155, 51, 20, 0.7);
+      border-radius: 100% 50%;
+      animation: waveMove 6s ease-in-out infinite alternate;
+    }
+    .wave:nth-child(2) { bottom: 20px; background: rgba(239, 100, 85, 0.6); animation-duration: 8s; }
+    .wave:nth-child(3) { bottom: 40px; background: rgba(38, 129, 129, 0.5); animation-duration: 10s; }
+    @keyframes waveMove {
+      0% { transform: translateX(0) translateY(0); }
+      25% { transform: translateX(-30px) translateY(-50px); }
+      50% { transform: translateX(0) translateY(-25px); }
+      75% { transform: translateX(30px) translateY(-50px); }
+      100% { transform: translateX(0) translateY(0); }
+    }
+    .welcome-text {
+      position: relative;
+      font-size: 42px;
+      font-weight: bold;
+      color: #3b2f14;
+      text-shadow: 0 0 8px rgba(255,255,255,0.6), 0 0 15px rgba(0,0,0,0.5);
+      z-index: 10;
+      animation: glow 2s ease-in-out infinite alternate;
+    }
+    @keyframes glow {
+      from { text-shadow: 0 0 5px #4727a7, 0 0 10px #152f6e; }
+      to { text-shadow: 0 0 20px #fff, 0 0 30px #256498; }
+    }
 
+    /* 🛒 أيقونة السلة */
+    #cart-icon {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      background: #fff;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+      cursor: pointer;
+      z-index: 1000;
+    }
+    #cart-icon span {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      background: red;
+      color: white;
+      font-size: 14px;
+      padding: 2px 6px;
+      border-radius: 50%;
+    }
 
+    /* 🛒 صندوق السلة */
+    #cart-box {
+      position: fixed;
+      top: 80px;
+      left: 20px;
+      width: 300px;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.4);
+      padding: 15px;
+      display: none;
+      z-index: 1000;
+    }
+    #cart-box h3 { margin: 0 0 10px; font-size: 20px; }
+    #cart-items { list-style: none; padding: 0; margin: 0; max-height: 200px; overflow-y: auto; }
+    #cart-items li {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 6px 0;
+      border-bottom: 1px solid #ddd;
+    }
+    #cart-items li button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    #cart-total { margin-top: 10px; font-weight: bold; }
+    #checkout-btn {
+      margin-top: 15px;
+      width: 100%;
+      padding: 10px;
+      background: #55c6f0;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+    }
   </style>
 </head>
 <body>
@@ -165,72 +243,18 @@
     <img src="images/logo.png" alt="Logo" style="width:300px;height:300px;border-radius:50%;margin-top:10px;">
   </header>
 
-  <!-- 🔥 شريط الإعلانات -->
   <div class="ads-bar">
     <marquee behavior="scroll" direction="left" scrollamount="5">
       🚗🔥 التوصيل متوفر الى 58 ولاية______________المشتريات اكثر من 20000 دج توصيلها مجاني 🔧🛠️
     </marquee>
   </div>
 
-  
   <!-- 🎞️ السلايدر -->
   <div class="slider">
-    <img id="slider-img" src="images/steering.jpg" alt="slider">
+    <img id="slider-img" src="images/shop1.jpg" alt="slider">
   </div>
 
   <!-- 🌊 أمواج -->
-  <style>
-    .wave-container {
-      position: relative;
-      width: 100%;
-      height: 250px;
-      background: linear-gradient(to bottom, #3489a8, #55c6f0);
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .wave {
-      position: absolute;
-      bottom: 0;
-      width: 200%;
-      height: 160px;
-      background: rgba(73, 165, 145, 0.7);
-      border-radius: 100% 50%;
-      animation: waveMove 6s ease-in-out infinite alternate;
-    }
-    .wave:nth-child(2) {
-      bottom: 20px;
-      background: rgba(85, 239, 214, 0.6);
-      animation-duration: 8s;
-    }
-    .wave:nth-child(3) {
-      bottom: 40px;
-      background: rgba(38, 80, 129, 0.5);
-      animation-duration: 10s;
-    }
-    @keyframes waveMove {
-      0%   { transform: translateX(0) translateY(0); }
-      25%  { transform: translateX(-30px) translateY(-50px); }
-      50%  { transform: translateX(0) translateY(-25px); }
-      75%  { transform: translateX(30px) translateY(-50px); }
-      100% { transform: translateX(0) translateY(0); }
-    }
-    .welcome-text {
-      position: relative;
-      font-size: 42px;
-      font-weight: bold;
-      color: #3b2f14;
-      text-shadow: 0 0 8px rgba(255,255,255,0.6), 0 0 15px rgba(0,0,0,0.5);
-      z-index: 10;
-      animation: glow 2s ease-in-out infinite alternate;
-    }
-    @keyframes glow {
-      from { text-shadow: 0 0 5px #4727a7, 0 0 10px #152f6e; }
-      to   { text-shadow: 0 0 20px #fff, 0 0 30px #256498; }
-    }
-  </style>
-
   <div class="wave-container">
     <div class="wave"></div>
     <div class="wave"></div>
@@ -238,62 +262,64 @@
     <div class="welcome-text">welcome to bbs car accessories world</div>
   </div>
 
+  <!-- 🛒 أيقونة السلة -->
+  <div id="cart-icon">🛒 <span id="cart-count">0</span></div>
+
+  <!-- 🛒 صندوق السلة -->
+  <div id="cart-box">
+    <h3>سلة المشتريات</h3>
+    <ul id="cart-items"></ul>
+    <div id="cart-total">المجموع: 0 دج</div>
+    <button id="checkout-btn">شراء الآن</button>
+  </div>
+
   <!-- 🛒 المنتجات -->
   <div class="products" id="products-container"></div>
 
- <script>
-  const productsList = [
-    { name: 'couvre vollon ', price: 600, image: 'images/steering.jpg', link: 'couvre-vollon/index.html' },
-    { name: 'SUPPORT MOBILE ', price: 1200, image: 'images/holder.jpg', link: 'support-mobile/index.html' },
-    { name: 'COUVRE VOLLON CUIR  ', price: 2500, image: 'images/leather_steering.jpg', link: 'couvre-vollon-cuir/index.html' },
-    { name: 'TAPIS 7D SUR MESURE.', price: 800, image: 'images/TAPIS-7D.jpg', link: 'tapis-7d/index.html' },
-    { name: 'PATE ET WAX  ', price: 1800, image: 'images/kit-pate.jpg', link: 'pate-wax/index.html' },
-    { name: 'BALAIS ESSUIGLASS ', price: 900, image: 'images/wiper.jpg', link: 'balais-essuiglass/index.html' },
-    { name: 'COUVRE SIEGE ', price: 2000, image: 'images/couvre-siege.jpg', link: 'couvre-siege/index.html' },
-    { name: 'SIEGE AUTO POUR BEBE', price: 5000, image: 'images/SIEGE-BEBE.jpg', link: 'siege-bebe/index.html' },
-    { name: 'PARASOL VOITURE ', price: 1200, image: 'images/car_umbrella.jpg', link: 'parasol/index.html' },
-    { name: 'KIT SONO', price: 3000, image: 'images/KIT-SONO.jpg', link: 'kit-sono/index.html' },
-    { name: 'BATTERY', price: 10000, image: 'images/battery.jpg', link: 'battery/index.html' },
-    { name: 'RADIO MP3 BLUETOOTH ', price: 3500, image: 'images/radio.jpg', link: 'radio/index.html' },
-    { name: 'ENJOLIVER ', price: 1600, image: 'images/enjoliver.jpg', link: 'enjoliver/index.html' },
-    { name: 'LAMPES  ', price: 3000, image: 'images/lampes.jpg', link: 'lampes/index.html' },
-    { name: 'TAPIS STANDARD ', price: 1500, image: 'images/tapis-standard.jpg', link: 'tapis-standard/index.html' },
-    { name: 'ALARMES ET SECUIRITE', price: 9000, image: 'images/tracker.jpg', link: 'alarmes/index.html' },
-    { name: ' CAMERA AUTO', price: 5500, image: 'images/camauto.jpg', link: 'camera-auto/index.html' },
-  ];
+  <script>
+    const productsList = [
+      { name: 'couvre vollon', image: 'images/steering.jpg', link: 'couvre-vollon/index.html' },
+      { name: 'SUPPORT MOBILE', image: 'images/holder.jpg', link: 'support-mobile/index.html' },
+      { name: 'COUVRE VOLLON CUIR', image: 'images/leather_steering.jpg', link: 'couvre-vollon-cuir/index.html' },
+      { name: 'TAPIS 7D SUR MESURE', image: 'images/TAPIS-7D.jpg', link: 'tapis-7d/index.html' },
+      { name: 'PATE ET WAX', image: 'images/kit-pate.jpg', link: 'pate-wax/index.html' },
+      { name: 'BALAIS ESSUIGLASS', image: 'images/wiper.jpg', link: 'balais-essuiglass/index.html' },
+      { name: 'COUVRE SIEGE', image: 'images/couvre-siege.jpg', link: 'couvre-siege/index.html' },
+      { name: 'SIEGE AUTO POUR BEBE', image: 'images/SIEGE-BEBE.jpg', link: 'siege-bebe/index.html' },
+      { name: 'PARASOL VOITURE', image: 'images/car_umbrella.jpg', link: 'parasol/index.html' },
+      { name: 'KIT SONO', image: 'images/KIT-SONO.jpg', link: 'kit-sono/index.html' },
+      { name: 'BATTERY', image: 'images/battery.jpg', link: 'battery/index.html' },
+      { name: 'RADIO MP3 BLUETOOTH', image: 'images/radio.jpg', link: 'radio/index.html' },
+      { name: 'ENJOLIVER', image: 'images/enjoliver.jpg', link: 'enjoliver/index.html' },
+      { name: 'LAMPES', image: 'images/lampes.jpg', link: 'lampes/index.html' },
+      { name: 'TAPIS STANDARD', image: 'images/tapis-standard.jpg', link: 'tapis-standard/index.html' },
+      { name: 'ALARMES ET SECURITE', image: 'images/tracker.jpg', link: 'alarmes/index.html' },
+      { name: 'CAMERA AUTO', image: 'images/camauto.jpg', link: 'camera-auto/index.html' },
+    ];
 
-  function renderProducts() {
-    const container = document.getElementById('products-container');
-    container.innerHTML = '';
-    productsList.forEach(product => {
-      const div = document.createElement('div');
-      div.className = 'product-container';
-      div.innerHTML = `
-        <a href="${product.link}">
-          <div class="product">
-            <img src="${product.image}" alt="${product.name}">
-          </div>
-          <div class="product-name">${product.name}</div>
-        </a>
-      `;
-      container.appendChild(div);
-    });
-  }
-
-  renderProducts();
-</script>
-
+    function renderProducts() {
+      const container = document.getElementById('products-container');
+      container.innerHTML = '';
+      productsList.forEach(product => {
+        const div = document.createElement('div');
+        div.className = 'product-container';
+        div.innerHTML = `
+          <a href="${product.link}">
+            <div class="product">
+              <img src="${product.image}" alt="${product.name}">
+            </div>
+            <div class="product-name">${product.name}</div>
+          </a>
+        `;
+        container.appendChild(div);
+      });
+    }
+    renderProducts();
 
     // 🎞️ السلايدر
-    const sliderImages = [
-      "images/KIT-SONO.jpg",
-      "images/radio.jpg",
-      "images/slide5.jpg",
-      "images/lampes.jpg"
-    ];
+    const sliderImages = ["images/shop1.jpg","images/shop2.jpg","images/shop3.jpg","images/shop4.jpg"];
     let currentIndex = 0;
     const sliderImg = document.getElementById("slider-img");
-
     setInterval(() => {
       currentIndex = (currentIndex + 1) % sliderImages.length;
       sliderImg.style.opacity = 0;
@@ -302,6 +328,68 @@
         sliderImg.style.opacity = 1;
       }, 500);
     }, 4000);
+
+    // 🛒 التحكم في السلة
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    function updateCartCount() {
+      const totalCount = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
+      document.getElementById('cart-count').textContent = totalCount;
+    }
+
+    function renderCartItems() {
+      const cartItems = document.getElementById('cart-items');
+      cartItems.innerHTML = '';
+      let total = 0;
+
+      if (cart.length === 0) {
+        cartItems.innerHTML = '<li>السلة فارغة.</li>';
+      } else {
+        cart.forEach((item, index) => {
+          const price = item.price ? item.price : 0;   // ✅ ما يخليهاش undefined
+          const quantity = item.quantity ? item.quantity : 1;
+          const itemTotal = price * quantity;
+
+          const li = document.createElement('li');
+          li.innerHTML = `
+            <span>${item.name} × ${quantity}</span>
+            <span>${itemTotal} دج</span>
+            <button onclick="removeItem(${index})">❌</button>
+          `;
+          cartItems.appendChild(li);
+          total += itemTotal;
+        });
+      }
+
+      document.getElementById('cart-total').textContent = "المجموع: " + total + " دج";
+      localStorage.setItem('cart', JSON.stringify(cart));
+    }
+
+    function removeItem(index) {
+      cart.splice(index, 1);
+      renderCartItems();
+      updateCartCount();
+    }
+
+    document.getElementById('cart-icon').onclick = () => {
+      const box = document.getElementById('cart-box');
+      box.style.display = (box.style.display === 'block') ? 'none' : 'block';
+      renderCartItems();
+    };
+
+    document.getElementById('checkout-btn').onclick = () => {
+      window.location.href = "checkout.html";
+    };
+
+    document.addEventListener('DOMContentLoaded', () => {
+      updateCartCount();
+      renderCartItems();
+    });
   </script>
 </body>
 </html>
+
+  </script>
+</body>
+</html>
+
