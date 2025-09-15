@@ -2,120 +2,313 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ACCESSOIRE AUTO BBS</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #080808;
+    :root {
+      --primary-color: #0b2f3c;
+      --secondary-color: #55c6f0;
+      --accent-color: #af290b;
+      --text-color: #333;
+      --light-bg: #f5f5f5;
+      --dark-bg: #080808;
+    }
+    
+    * {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
-      color: #190aa4;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--light-bg);
+      margin: 0;
+      padding: 0;
+      color: var(--text-color);
+      line-height: 1.6;
+    }
+
+    /* شريط التنقل */
+    .navbar {
+      background-color: var(--primary-color);
+      padding: 15px 0;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    }
+    
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+    }
+    
+    .logo img {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      margin-left: 10px;
+    }
+    
+    .logo-text {
+      color: white;
+      font-size: 22px;
+      font-weight: bold;
+    }
+    
+    .nav-links {
+      display: flex;
+      list-style: none;
+    }
+    
+    .nav-links li {
+      margin: 0 15px;
+    }
+    
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+    
+    .nav-links a:hover {
+      color: var(--secondary-color);
+    }
+    
+    .mobile-menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 24px;
+      cursor: pointer;
     }
 
     header {
-      background-color: #55c6f0;
-      color: #050505;
-      padding: 20px;
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      color: white;
+      padding: 40px 20px;
       text-align: center;
-      position: relative;
     }
 
     .site-title {
       font-family: "Cairo", sans-serif;
       font-size: 36px;
       font-weight: bold;
-      color: #0b2f3c;
+      color: white;
       text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
       letter-spacing: 2px;
+      margin-bottom: 15px;
+    }
+    
+    .header-subtitle {
+      font-size: 18px;
+      margin-bottom: 20px;
     }
 
     /* 🔥 شريط الإعلانات */
     .ads-bar {
       background-color: #2a6277;
-      color: #000000;
-      height: 4cm;
-      display: flex;
-      align-items: center;
+      color: white;
+      padding: 12px 0;
       font-weight: bold;
-      font-size: 36px;
+      font-size: 18px;
       overflow: hidden;
+      text-align: center;
     }
 
     .products {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
       gap: 30px;
       padding: 40px;
-      background-color: #55c6f0;
+      background-color: #f0f8fc;
       justify-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
     }
+    
+    .product-container {
+      position: relative;
+      text-align: center;
+      transition: transform 0.3s;
+    }
+    
+    .product-container:hover {
+      transform: translateY(-5px);
+    }
+    
     .product {
       background-color: #ffffff;
-      padding: 20px;
-      width: 90%;
-      max-width: 400px;
-      aspect-ratio: 1 / 1;
+      padding: 15px;
+      width: 250px;
+      height: 250px;
       border-radius: 50%;
       text-align: center;
-      box-shadow: 0 0 15px #000000;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: flex-start;
+      justify-content: center;
       overflow: hidden;
+      transition: all 0.3s;
+      margin-bottom: 15px;
+      position: relative;
+    }
+    
+    .product:hover {
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
     }
 
     .product img {
-      width: 100%;
-      height: 100%;
+      width: 85%;
+      height: 85%;
       border-radius: 100%;
       object-fit: cover;
+      transition: transform 0.3s;
+    }
+    
+    .product:hover img {
+      transform: scale(1.05);
     }
 
     .product-name {
-      font-size: 20px;
+      font-size: 18px;
       font-weight: bold;
       background-color: #ffffff;
-      padding: 8px;
+      padding: 8px 15px;
       margin-top: 10px;
-      border-radius: 10px;
-      box-shadow: 0 0 5px rgba(0,0,0,0.2);
+      border-radius: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
       text-align: center;
-      color: #000;
+      color: var(--primary-color);
+      display: inline-block;
+    }
+    
+    .view-products-btn {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 8px 20px;
+      background-color: var(--secondary-color);
+      color: white;
+      text-decoration: none;
+      border-radius: 20px;
+      font-size: 14px;
+      transition: background-color 0.3s;
+    }
+    
+    .view-products-btn:hover {
+      background-color: var(--primary-color);
     }
 
-    @media (max-width: 600px) {
-      .products { grid-template-columns: repeat(2, 1fr); gap: 15px; padding: 20px; }
-      .product { max-width: 180px; padding: 10px; }
-      .product img { width: 90%; }
-      .product-name { font-size: 16px; padding: 6px; }
+    @media (max-width: 768px) {
+      .products {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+        padding: 20px;
+      }
+      
+      .product {
+        width: 150px;
+        height: 150px;
+        padding: 10px;
+      }
+      
+      .product-name {
+        font-size: 14px;
+        padding: 6px 10px;
+      }
+      
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background-color: var(--primary-color);
+        padding: 20px;
+      }
+      
+      .nav-links.active {
+        display: flex;
+      }
+      
+      .nav-links li {
+        margin: 10px 0;
+      }
+      
+      .mobile-menu-btn {
+        display: block;
+      }
     }
 
     @media (min-width: 1200px) {
-      .product { max-width: 500px; }
-      .product-name { font-size: 24px; padding: 10px; }
+      .products {
+        grid-template-columns: repeat(4, 1fr);
+      }
     }
 
     .slider {
-  width: 100%;
-  height: 500px; /* تقدر تعدل الطول كيما تحب */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #000;
-  overflow: hidden;
-}
+      width: 100%;
+      height: 500px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #000;
+      overflow: hidden;
+      position: relative;
+    }
 
-.slider img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover; /* يخلي الصورة تفرش كامل بلا فراغات */
-  border-radius: 15px;
-  transition: opacity 1s ease-in-out;
-}
+    .slider img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 0;
+      transition: opacity 1s ease-in-out;
+    }
+    
+    .slider-dots {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+    }
+    
+    .slider-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background-color: rgba(255,255,255,0.5);
+      margin: 0 5px;
+      cursor: pointer;
+    }
+    
+    .slider-dot.active {
+      background-color: white;
+    }
 
     @media (max-width: 768px) {
-      .slider img { object-fit: contain; background-color: #000; }
+      .slider {
+        height: 300px;
+      }
+      
+      .slider img {
+        object-fit: cover;
+      }
     }
 
     /* 🌊 الأمواج */
@@ -128,7 +321,9 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      margin: 40px 0;
     }
+    
     .wave {
       position: absolute;
       bottom: 0;
@@ -138,8 +333,19 @@
       border-radius: 100% 50%;
       animation: waveMove 6s ease-in-out infinite alternate;
     }
-    .wave:nth-child(2) { bottom: 20px; background: rgba(239, 100, 85, 0.6); animation-duration: 8s; }
-    .wave:nth-child(3) { bottom: 40px; background: rgba(38, 129, 129, 0.5); animation-duration: 10s; }
+    
+    .wave:nth-child(2) {
+      bottom: 20px;
+      background: rgba(239, 100, 85, 0.6);
+      animation-duration: 8s;
+    }
+    
+    .wave:nth-child(3) {
+      bottom: 40px;
+      background: rgba(38, 129, 129, 0.5);
+      animation-duration: 10s;
+    }
+    
     @keyframes waveMove {
       0% { transform: translateX(0) translateY(0); }
       25% { transform: translateX(-30px) translateY(-50px); }
@@ -147,15 +353,19 @@
       75% { transform: translateX(30px) translateY(-50px); }
       100% { transform: translateX(0) translateY(0); }
     }
+    
     .welcome-text {
       position: relative;
       font-size: 42px;
       font-weight: bold;
-      color: #3b2f14;
-      text-shadow: 0 0 8px rgba(255,255,255,0.6), 0 0 15px rgba(0,0,0,0.5);
+      color: white;
+      text-shadow: 0 0 8px rgba(0,0,0,0.6), 0 0 15px rgba(0,0,0,0.5);
       z-index: 10;
       animation: glow 2s ease-in-out infinite alternate;
+      text-align: center;
+      padding: 0 20px;
     }
+    
     @keyframes glow {
       from { text-shadow: 0 0 5px #4727a7, 0 0 10px #152f6e; }
       to { text-shadow: 0 0 20px #fff, 0 0 30px #256498; }
@@ -165,93 +375,291 @@
     #cart-icon {
       position: fixed;
       top: 20px;
-      left: 20px;
-      background: #fff;
+      right: 20px;
+      background: var(--secondary-color);
       border-radius: 50%;
-      width: 50px;
-      height: 50px;
+      width: 60px;
+      height: 60px;
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+      box-shadow: 0 3px 10px rgba(0,0,0,0.2);
       cursor: pointer;
       z-index: 1000;
+      transition: background-color 0.3s;
     }
+    
+    #cart-icon:hover {
+      background: var(--primary-color);
+    }
+    
+    #cart-icon i {
+      font-size: 24px;
+      color: white;
+    }
+    
     #cart-icon span {
       position: absolute;
-      top: -8px;
-      right: -8px;
-      background: red;
+      top: -5px;
+      left: -5px;
+      background: var(--accent-color);
       color: white;
       font-size: 14px;
-      padding: 2px 6px;
+      padding: 3px 8px;
       border-radius: 50%;
+      min-width: 20px;
+      text-align: center;
     }
 
     /* 🛒 صندوق السلة */
     #cart-box {
       position: fixed;
-      top: 80px;
-      left: 20px;
-      width: 300px;
+      top: 90px;
+      right: 20px;
+      width: 350px;
       background: #fff;
       border-radius: 12px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.4);
-      padding: 15px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+      padding: 20px;
       display: none;
       z-index: 1000;
+      max-height: 80vh;
+      overflow-y: auto;
     }
-    #cart-box h3 { margin: 0 0 10px; font-size: 20px; }
-    #cart-items { list-style: none; padding: 0; margin: 0; max-height: 200px; overflow-y: auto; }
+    
+    #cart-box h3 {
+      margin: 0 0 15px;
+      font-size: 20px;
+      color: var(--primary-color);
+      padding-bottom: 10px;
+      border-bottom: 1px solid #eee;
+    }
+    
+    #cart-items {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      max-height: 300px;
+      overflow-y: auto;
+    }
+    
     #cart-items li {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 6px 0;
-      border-bottom: 1px solid #ddd;
+      padding: 10px 0;
+      border-bottom: 1px solid #eee;
     }
+    
+    #cart-items li:last-child {
+      border-bottom: none;
+    }
+    
+    #cart-items li .item-info {
+      flex-grow: 1;
+    }
+    
+    #cart-items li .item-name {
+      font-weight: 500;
+    }
+    
+    #cart-items li .item-price {
+      color: var(--accent-color);
+      font-size: 14px;
+    }
+    
     #cart-items li button {
       background: none;
       border: none;
       cursor: pointer;
       font-size: 16px;
+      color: #999;
+      transition: color 0.3s;
     }
-    #cart-total { margin-top: 10px; font-weight: bold; }
+    
+    #cart-items li button:hover {
+      color: var(--accent-color);
+    }
+    
+    #cart-total {
+      margin-top: 15px;
+      font-weight: bold;
+      font-size: 18px;
+      padding-top: 15px;
+      border-top: 2px solid #eee;
+    }
+    
     #checkout-btn {
       margin-top: 15px;
       width: 100%;
-      padding: 10px;
-      background: #55c6f0;
+      padding: 12px;
+      background: var(--accent-color);
       color: #fff;
       border: none;
       border-radius: 8px;
       cursor: pointer;
       font-size: 16px;
+      font-weight: bold;
+      transition: background-color 0.3s;
+    }
+    
+    #checkout-btn:hover {
+      background: #8d2008;
+    }
+    
+    .empty-cart {
+      text-align: center;
+      padding: 20px;
+      color: #777;
+    }
+    
+    .empty-cart i {
+      font-size: 40px;
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    footer {
+      background-color: var(--primary-color);
+      color: white;
+      padding: 40px 20px;
+      text-align: center;
+    }
+    
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+      text-align: right;
+    }
+    
+    .footer-section h3 {
+      margin-bottom: 15px;
+      font-size: 18px;
+    }
+    
+    .footer-section p, .footer-section a {
+      color: #ddd;
+      margin-bottom: 10px;
+      display: block;
+      text-decoration: none;
+    }
+    
+    .footer-section a:hover {
+      color: var(--secondary-color);
+    }
+    
+    .social-icons {
+      display: flex;
+      gap: 15px;
+      margin-top: 15px;
+    }
+    
+    .social-icons a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 50%;
+      transition: background 0.3s;
+    }
+    
+    .social-icons a:hover {
+      background: var(--secondary-color);
+    }
+    
+    .copyright {
+      margin-top: 30px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+
+    /* شريط البحث */
+    .search-bar {
+      display: flex;
+      margin: 20px auto;
+      max-width: 500px;
+      padding: 0 20px;
+    }
+    
+    .search-bar input {
+      flex-grow: 1;
+      padding: 12px 15px;
+      border: 1px solid #ddd;
+      border-radius: 30px 0 0 30px;
+      font-size: 16px;
+    }
+    
+    .search-bar button {
+      padding: 12px 20px;
+      background: var(--secondary-color);
+      color: white;
+      border: none;
+      border-radius: 0 30px 30px 0;
+      cursor: pointer;
     }
   </style>
 </head>
 <body>
+  <!-- شريط التنقل -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="logo">
+        <img src="images/logo.png" alt="Logo">
+        <div class="logo-text">ACCESSOIRE AUTO BBS</div>
+      </div>
+      
+      <ul class="nav-links">
+        <li><a href="#">الرئيسية</a></li>
+        <li><a href="#">المنتجات</a></li>
+        <li><a href="#">عروض خاصة</a></li>
+        <li><a href="#">اتصل بنا</a></li>
+      </ul>
+      
+      <button class="mobile-menu-btn">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+  </nav>
+
   <!-- 🔥 شريط الإعلانات -->
   <div class="ads-bar">
-    <marquee behavior="scroll" direction="right" scrollamount="5">
+    <marquee behavior="scroll" direction="right" scrollamount="6">
       🚗🔥 عروض خاصة اليوم فقط! خصومات حتى 50% على بعض المنتجات! 🔧🛠️
     </marquee>
   </div>
 
   <header>
     <h1 class="site-title">ACCESSOIRE AUTO BBS</h1>
-    <img src="images/logo.png" alt="Logo" style="width:300px;height:300px;border-radius:50%;margin-top:10px;">
+    <p class="header-subtitle">كل ما تحتاجه لسيارتك في مكان واحد</p>
+    <img src="images/logo.png" alt="Logo" style="width:200px;height:200px;border-radius:50%;margin-top:10px;">
   </header>
 
   <div class="ads-bar">
-    <marquee behavior="scroll" direction="left" scrollamount="5">
+    <marquee behavior="scroll" direction="left" scrollamount="6">
       🚗🔥 التوصيل متوفر الى 58 ولاية______________المشتريات اكثر من 20000 دج توصيلها مجاني 🔧🛠️
     </marquee>
+  </div>
+
+  <!-- شريط البحث -->
+  <div class="search-bar">
+    <input type="text" placeholder="ابحث عن المنتج الذي تريد...">
+    <button><i class="fas fa-search"></i></button>
   </div>
 
   <!-- 🎞️ السلايدر -->
   <div class="slider">
     <img id="slider-img" src="images/shop1.jpg" alt="slider">
+    <div class="slider-dots">
+      <span class="slider-dot active" data-index="0"></span>
+      <span class="slider-dot" data-index="1"></span>
+      <span class="slider-dot" data-index="2"></span>
+      <span class="slider-dot" data-index="3"></span>
+    </div>
   </div>
 
   <!-- 🌊 أمواج -->
@@ -259,11 +667,14 @@
     <div class="wave"></div>
     <div class="wave"></div>
     <div class="wave"></div>
-    <div class="welcome-text">welcome to bbs car accessories world</div>
+    <div class="welcome-text">مرحبا بكم في عالم إكسسوارات السيارات BBS</div>
   </div>
 
   <!-- 🛒 أيقونة السلة -->
-  <div id="cart-icon">🛒 <span id="cart-count">0</span></div>
+  <div id="cart-icon">
+    <i class="fas fa-shopping-cart"></i>
+    <span id="cart-count">0</span>
+  </div>
 
   <!-- 🛒 صندوق السلة -->
   <div id="cart-box">
@@ -275,6 +686,40 @@
 
   <!-- 🛒 المنتجات -->
   <div class="products" id="products-container"></div>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3>عن المتجر</h3>
+        <p>متجر BBS يوفر لكم أفضل إكسسوارات السيارات بأعلى جودة وأفضل الأسعار في السوق.</p>
+      </div>
+      
+      <div class="footer-section">
+        <h3>روابط سريعة</h3>
+        <a href="#">الرئيسية</a>
+        <a href="#">جميع المنتجات</a>
+        <a href="#">عروض خاصة</a>
+        <a href="#">اتصل بنا</a>
+      </div>
+      
+      <div class="footer-section">
+        <h3>معلومات الاتصال</h3>
+        <p>الهاتف: 0550 123 456</p>
+        <p>البريد الإلكتروني: info@bbs-auto.com</p>
+        <p>العنوان: الجزائر العاصمة</p>
+        
+        <div class="social-icons">
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-whatsapp"></i></a>
+        </div>
+      </div>
+    </div>
+    
+    <div class="copyright">
+      &copy; 2023 ACCESSOIRE AUTO BBS. جميع الحقوق محفوظة.
+    </div>
+  </footer>
 
   <script>
     const productsList = [
@@ -310,6 +755,7 @@
             </div>
             <div class="product-name">${product.name}</div>
           </a>
+          <a href="${product.link}" class="view-products-btn">عرض المنتجات</a>
         `;
         container.appendChild(div);
       });
@@ -320,53 +766,86 @@
     const sliderImages = ["images/shop1.jpg","images/shop2.jpg","images/shop3.jpg","images/shop4.jpg"];
     let currentIndex = 0;
     const sliderImg = document.getElementById("slider-img");
-    setInterval(() => {
-      currentIndex = (currentIndex + 1) % sliderImages.length;
+    
+    function updateSliderDots() {
+      document.querySelectorAll('.slider-dot').forEach((dot, index) => {
+        dot.classList.toggle('active', index === currentIndex);
+      });
+    }
+    
+    function changeSlide(index) {
+      currentIndex = index;
       sliderImg.style.opacity = 0;
       setTimeout(() => {
         sliderImg.src = sliderImages[currentIndex];
         sliderImg.style.opacity = 1;
+        updateSliderDots();
       }, 500);
+    }
+    
+    setInterval(() => {
+      changeSlide((currentIndex + 1) % sliderImages.length);
     }, 4000);
+    
+    // النقر على نقاط السلايدر
+    document.querySelectorAll('.slider-dot').forEach((dot, index) => {
+      dot.addEventListener('click', () => {
+        changeSlide(index);
+      });
+    });
 
-    // 🛒 التحكم في السلة
-    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    // 🛒 التحكم في السلة - استخدام نفس نظام التخزين من الصفحات الفرعية
+    function loadCart() {
+      // استخدام نفس المفتاح الذي تستخدمه الصفحات الفرعية
+      const cartData = localStorage.getItem('cart');
+      return cartData ? JSON.parse(cartData) : [];
+    }
 
     function updateCartCount() {
+      const cart = loadCart();
       const totalCount = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
       document.getElementById('cart-count').textContent = totalCount;
     }
 
     function renderCartItems() {
+      const cart = loadCart();
       const cartItems = document.getElementById('cart-items');
       cartItems.innerHTML = '';
       let total = 0;
 
       if (cart.length === 0) {
-        cartItems.innerHTML = '<li>السلة فارغة.</li>';
+        cartItems.innerHTML = `
+          <div class="empty-cart">
+            <i class="fas fa-shopping-cart"></i>
+            <p>سلة التسوق فارغة</p>
+          </div>
+        `;
       } else {
         cart.forEach((item, index) => {
-          const price = item.price ? item.price : 0;   // ✅ ما يخليهاش undefined
+          const price = item.price ? parseInt(item.price) : 0;
           const quantity = item.quantity ? item.quantity : 1;
           const itemTotal = price * quantity;
+          total += itemTotal;
 
           const li = document.createElement('li');
           li.innerHTML = `
-            <span>${item.name} × ${quantity}</span>
-            <span>${itemTotal} دج</span>
-            <button onclick="removeItem(${index})">❌</button>
+            <div class="item-info">
+              <div class="item-name">${item.name}</div>
+              <div class="item-price">${price} دج × ${quantity}</div>
+            </div>
+            <button onclick="removeItemFromCart(${index})"><i class="fas fa-trash"></i></button>
           `;
           cartItems.appendChild(li);
-          total += itemTotal;
         });
       }
 
-      document.getElementById('cart-total').textContent = "المجموع: " + total + " دج";
-      localStorage.setItem('cart', JSON.stringify(cart));
+      document.getElementById('cart-total').textContent = "المجموع: " + total.toLocaleString() + " دج";
     }
 
-    function removeItem(index) {
+    function removeItemFromCart(index) {
+      const cart = loadCart();
       cart.splice(index, 1);
+      localStorage.setItem('cart', JSON.stringify(cart));
       renderCartItems();
       updateCartCount();
     }
@@ -378,18 +857,40 @@
     };
 
     document.getElementById('checkout-btn').onclick = () => {
-      window.location.href = "checkout.html";
+      const cart = loadCart();
+      if (cart.length === 0) {
+        alert('سلة التسوق فارغة');
+        return;
+      }
+      
+      // هنا يمكنك توجيه المستخدم إلى صفحة الدفع
+      alert('سيتم نقل вас إلى صفحة الدفع قريباً');
+      // window.location.href = "checkout.html";
     };
 
+    // إغلاق السلة عند النقر خارجها
+    document.addEventListener('click', (e) => {
+      const cartBox = document.getElementById('cart-box');
+      const cartIcon = document.getElementById('cart-icon');
+      
+      if (cartBox.style.display === 'block' && !cartBox.contains(e.target) && !cartIcon.contains(e.target)) {
+        cartBox.style.display = 'none';
+      }
+    });
+
+    // القائمة المتنقلة
+    document.querySelector('.mobile-menu-btn').addEventListener('click', () => {
+      document.querySelector('.nav-links').classList.toggle('active');
+    });
+
+    // تحديث عدد العناصر في السلة عند تحميل الصفحة
     document.addEventListener('DOMContentLoaded', () => {
       updateCartCount();
-      renderCartItems();
+      updateSliderDots();
+      
+      // تحديث السلة كل ثانيتين لضمان عرض أحدث المحتويات
+      setInterval(updateCartCount, 2000);
     });
   </script>
 </body>
 </html>
-
-  </script>
-</body>
-</html>
-
