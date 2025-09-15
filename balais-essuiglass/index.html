@@ -7,149 +7,149 @@
     body {
       font-family: Arial, sans-serif;
       background: #f5f5f5;
-      margin:0;
-      padding:20px;
-      text-align:center;
+      margin: 0;
+      padding: 20px;
+      text-align: center;
     }
     header {
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      background:#55c6f0;
-      padding:15px 30px;
-      border-radius:10px;
-      color:#fff;
-      position:relative;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #55c6f0;
+      padding: 15px 30px;
+      border-radius: 10px;
+      color: #fff;
+      position: relative;
     }
     .site-title {
-      font-size:24px;
-      font-weight:bold;
+      font-size: 24px;
+      font-weight: bold;
     }
     .cart-icon {
-      position:relative;
-      font-size:28px;
-      cursor:pointer;
+      position: relative;
+      font-size: 28px;
+      cursor: pointer;
     }
     .cart-count {
-      position:absolute;
-      top:-8px;
-      right:-10px;
-      background:red;
-      color:white;
-      font-size:14px;
-      font-weight:bold;
-      border-radius:50%;
-      padding:3px 7px;
+      position: absolute;
+      top: -8px;
+      right: -10px;
+      background: red;
+      color: white;
+      font-size: 14px;
+      font-weight: bold;
+      border-radius: 50%;
+      padding: 3px 7px;
     }
     .notification {
-      position:fixed;
-      top:80px;
-      right:50%;
-      transform:translateX(50%);
-      background:green;
-      color:#fff;
-      padding:8px 15px;
-      border-radius:8px;
-      font-size:14px;
-      display:none;
-      z-index:2000;
+      position: fixed;
+      top: 80px;
+      right: 50%;
+      transform: translateX(50%);
+      background: green;
+      color: #fff;
+      padding: 8px 15px;
+      border-radius: 8px;
+      font-size: 14px;
+      display: none;
+      z-index: 2000;
     }
     .products {
-      display:grid;
+      display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap:20px;
-      margin-top:30px;
+      gap: 20px;
+      margin-top: 30px;
     }
     .product {
-      background:#fff;
-      border-radius:15px;
-      padding:15px;
-      box-shadow:0 0 10px rgba(0,0,0,0.2);
-      display:flex;
-      flex-direction:column;
-      justify-content:center;
-      align-items:center;
+      background: #fff;
+      border-radius: 15px;
+      padding: 15px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
     }
     .product img {
       width: 120px;
       height: 120px;
       object-fit: cover;
       margin-bottom: 10px;
-      border-radius:10px;
+      border-radius: 10px;
     }
     .product-name {
-      font-size:18px;
-      font-weight:bold;
-      margin-bottom:8px;
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 8px;
     }
     .product-price {
-      font-size:16px;
-      color:#333;
-      margin-bottom:10px;
+      font-size: 16px;
+      color: #333;
+      margin-bottom: 10px;
     }
     .add-btn {
-      background:#55c6f0;
-      color:#fff;
-      border:none;
-      padding:8px 15px;
-      border-radius:8px;
-      cursor:pointer;
-      transition:0.3s;
+      background: #55c6f0;
+      color: #fff;
+      border: none;
+      padding: 8px 15px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s;
     }
     .add-btn:hover {
-      background:#3489a8;
+      background: #3489a8;
     }
     .cart-container {
-      display:none;
-      position:fixed;
-      top:50%;
-      left:50%;
-      transform:translate(-50%, -50%);
-      background:#fff;
-      border-radius:15px;
-      padding:20px;
-      box-shadow:0 0 20px rgba(0,0,0,0.4);
-      text-align:right;
-      width:400px;
-      z-index:1000;
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #fff;
+      border-radius: 15px;
+      padding: 20px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+      text-align: right;
+      width: 400px;
+      z-index: 1000;
     }
     .cart-container h2 {
-      text-align:center;
-      margin-bottom:20px;
+      text-align: center;
+      margin-bottom: 20px;
     }
     ul {
-      list-style:none;
-      padding:0;
-      max-height:200px;
-      overflow-y:auto;
+      list-style: none;
+      padding: 0;
+      max-height: 200px;
+      overflow-y: auto;
     }
     li {
-      margin:5px 0;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
+      margin: 5px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
     .remove-btn {
-      background:red;
-      color:#fff;
-      border:none;
-      padding:3px 8px;
-      border-radius:5px;
-      cursor:pointer;
+      background: red;
+      color: #fff;
+      border: none;
+      padding: 3px 8px;
+      border-radius: 5px;
+      cursor: pointer;
     }
     .close-btn, .buy-btn {
-      display:block;
-      margin:10px auto 0;
-      background:#55c6f0;
-      color:#fff;
-      border:none;
-      padding:8px 15px;
-      border-radius:8px;
-      cursor:pointer;
+      display: block;
+      margin: 10px auto 0;
+      background: #55c6f0;
+      color: #fff;
+      border: none;
+      padding: 8px 15px;
+      border-radius: 8px;
+      cursor: pointer;
     }
     .buy-btn {
-      background:green;
-      margin-top:15px;
+      background: green;
+      margin-top: 15px;
     }
   </style>
 </head>
@@ -163,156 +163,222 @@
     </div>
   </header>
 
-  <!-- ✅ إشعار صغير -->
   <div id="notification" class="notification">✔ تم إضافة المنتج للسلة</div>
 
-  <!-- ✅ قائمة المنتجات -->
   <div class="products">
     <div class="product">
-      <img src="images/tapis1.jpg" alt="TAPIS-7D KANGOO COMMERCIAL">
-      <div class="product-name">TAPIS-7D KANGOO COMMERCIAL</div>
-      <div class="product-price">7500 دج</div>
-      <button class="add-btn" onclick="addToCart('TAPIS-7D KANGOO COMMERCIAL', 7500)">🛒 أضف للسلة</button>
+      <img src="images/wiper1.jpg" alt="ممسحة زجاج سيارة تويوتا">
+      <div class="product-name">ممسحة زجاج سيارة تويوتا</div>
+      <div class="product-price">1500 دج</div>
+      <button class="add-btn" onclick="addToCart('ممسحة زجاج سيارة تويوتا', 1500)">🛒 أضف للسلة</button>
     </div>
 
     <div class="product">
-      <img src="images/tapis2.jpg" alt="TAPIS-7D KANGOO VITREE">
-      <div class="product-name">TAPIS-7D KANGOO VITREE</div>
-      <div class="product-price">8500 دج</div>
-      <button class="add-btn" onclick="addToCart('TAPIS-7D KANGOO VITREE', 8500)">🛒 أضف للسلة</button>
-    </div>
-
-    <!-- ⚡ باقي المنتجات بنفس النموذج فقط بدل اسم وصورة -->
-    <!-- مثال -->
-    <div class="product">
-      <img src="images/tapis3.jpg" alt="TAPIS-7D DOBLO COMMERCIAL">
-      <div class="product-name">TAPIS-7D DOBLO COMMERCIAL</div>
-      <div class="product-price">7500 دج</div>
-      <button class="add-btn" onclick="addToCart('TAPIS-7D DOBLO COMMERCIAL', 7500)">🛒 أضف للسلة</button>
+      <img src="images/wiper2.jpg" alt="ممسحة زجاج سيارة هوندا">
+      <div class="product-name">ممسحة زجاج سيارة هوندا</div>
+      <div class="product-price">1600 دج</div>
+      <button class="add-btn" onclick="addToCart('ممسحة زجاج سيارة هوندا', 1600)">🛒 أضف للسلة</button>
     </div>
 
     <div class="product">
-      <img src="images/tapis3.jpg" alt="TAPIS-7D DOBLO COMMERCIAL">
-      <div class="product-name">TAPIS-7D DOBLO COMMERCIAL</div>
-      <div class="product-price">7500 دج</div>
-      <button class="add-btn" onclick="addToCart('TAPIS-7D DOBLO COMMERCIAL', 7500)">🛒 أضف للسلة</button>
+      <img src="images/wiper3.jpg" alt="ممسحة زجاج سيارة نيسان">
+      <div class="product-name">ممسحة زجاج سيارة نيسان</div>
+      <div class="product-price">1450 دج</div>
+      <button class="add-btn" onclick="addToCart('ممسحة زجاج سيارة نيسان', 1450)">🛒 أضف للسلة</button>
     </div>
 
     <div class="product">
-      <img src="images/tapis3.jpg" alt="TAPIS-7D DOBLO COMMERCIAL">
-      <div class="product-name">TAPIS-7D DOBLO COMMERCIAL</div>
-      <div class="product-price">7500 دج</div>
-      <button class="add-btn" onclick="addToCart('TAPIS-7D DOBLO COMMERCIAL', 7500)">🛒 أضف للسلة</button>
+      <img src="images/wiper4.jpg" alt="ممسحة زجاج سيارة فورد">
+      <div class="product-name">ممسحة زجاج سيارة فورد</div>
+      <div class="product-price">1550 دج</div>
+      <button class="add-btn" onclick="addToCart('ممسحة زجاج سيارة فورد', 1550)">🛒 أضف للسلة</button>
     </div>
 
     <div class="product">
-      <img src="images/tapis3.jpg" alt="TAPIS-7D DOBLO COMMERCIAL">
-      <div class="product-name">TAPIS-7D DOBLO COMMERCIAL</div>
-      <div class="product-price">7500 دج</div>
-      <button class="add-btn" onclick="addToCart('TAPIS-7D DOBLO COMMERCIAL', 7500)">🛒 أضف للسلة</button>
+      <img src="images/wiper5.jpg" alt="ممسحة زجاج سيارة تويوتا كورولا">
+      <div class="product-name">ممسحة زجاج سيارة تويوتا كورولا</div>
+      <div class="product-price">1400 دج</div>
+      <button class="add-btn" onclick="addToCart('ممسحة زجاج سيارة تويوتا كورولا', 1400)">🛒 أضف للسلة</button>
+    </div>
+    
+    <div class="product">
+      <img src="images/wiper6.jpg" alt="ممسحة زجاج سيارة مرسيدس">
+      <div class="product-name">ممسحة زجاج سيارة مرسيدس</div>
+      <div class="product-price">1700 دج</div>
+      <button class="add-btn" onclick="addToCart('ممسحة زجاج سيارة مرسيدس', 1700)">🛒 أضف للسلة</button>
     </div>
 
     <div class="product">
-      <img src="images/tapis3.jpg" alt="TAPIS-7D DOBLO COMMERCIAL">
-      <div class="product-name">TAPIS-7D DOBLO COMMERCIAL</div>
-      <div class="product-price">7500 دج</div>
-      <button class="add-btn" onclick="addToCart('TAPIS-7D DOBLO COMMERCIAL', 7500)">🛒 أضف للسلة</button>
+      <img src="images/wiper7.jpg" alt="ممسحة زجاج سيارة كيا">
+      <div class="product-name">ممسحة زجاج سيارة كيا</div>
+      <div class="product-price">1550 دج</div>
+      <button class="add-btn" onclick="addToCart('ممسحة زجاج سيارة كيا', 1550)">🛒 أضف للسلة</button>
     </div>
 
     <div class="product">
-      <img src="images/tapis3.jpg" alt="TAPIS-7D DOBLO COMMERCIAL">
-      <div class="product-name">TAPIS-7D DOBLO COMMERCIAL</div>
-      <div class="product-price">7500 دج</div>
-      <button class="add-btn" onclick="addToCart('TAPIS-7D DOBLO COMMERCIAL', 7500)">🛒 أضف للسلة</button>
+      <img src="images/wiper8.jpg" alt="ممسحة زجاج سيارة بي ام دبليو">
+      <div class="product-name">ممسحة زجاج سيارة بي ام دبليو</div>
+      <div class="product-price">1800 دج</div>
+      <button class="add-btn" onclick="addToCart('ممسحة زجاج سيارة بي ام دبليو', 1800)">🛒 أضف للسلة</button>
     </div>
 
     <div class="product">
-      <img src="images/tapis3.jpg" alt="TAPIS-7D DOBLO COMMERCIAL">
-      <div class="product-name">TAPIS-7D DOBLO COMMERCIAL</div>
-      <div class="product-price">7500 دج</div>
-      <button class="add-btn" onclick="addToCart('TAPIS-7D DOBLO COMMERCIAL', 7500)">🛒 أضف للسلة</button>
+      <img src="images/wiper9.jpg" alt="ممسحة زجاج سيارة هيونداي">
+      <div class="product-name">ممسحة زجاج سيارة هيونداي</div>
+      <div class="product-price">1400 دج</div>
+      <button class="add-btn" onclick="addToCart('ممسحة زجاج سيارة هيونداي', 1400)">🛒 أضف للسلة</button>
     </div>
 
     <div class="product">
-      <img src="images/tapis3.jpg" alt="TAPIS-7D DOBLO COMMERCIAL">
-      <div class="product-name">TAPIS-7D DOBLO COMMERCIAL</div>
-      <div class="product-price">7500 دج</div>
-      <button class="add-btn" onclick="addToCart('TAPIS-7D DOBLO COMMERCIAL', 7500)">🛒 أضف للسلة</button>
+      <img src="images/wiper10.jpg" alt="ممسحة زجاج سيارة شيفروليه">
+      <div class="product-name">ممسحة زجاج سيارة شيفروليه</div>
+      <div class="product-price">1500 دج</div>
+      <button class="add-btn" onclick="addToCart('ممسحة زجاج سيارة شيفروليه', 1500)">🛒 أضف للسلة</button>
+    </div>
+
+    <!-- تكرار المنتج بشكل عشوائي لأفضل 30 سيارة -->
+    <div class="product">
+      <img src="images/wiper11.jpg" alt="ممسحة زجاج سيارة أودي">
+      <div class="product-name">ممسحة زجاج سيارة أودي</div>
+      <div class="product-price">1900 دج</div>
+      <button class="add-btn" onclick="addToCart('ممسحة زجاج سيارة أودي', 1900)">🛒 أضف للسلة</button>
     </div>
 
     <div class="product">
-      <img src="images/tapis3.jpg" alt="TAPIS-7D DOBLO COMMERCIAL">
-      <div class="product-name">TAPIS-7D DOBLO COMMERCIAL</div>
-      <div class="product-price">7500 دج</div>
-      <button class="add-btn" onclick="addToCart('TAPIS-7D DOBLO COMMERCIAL', 7500)">🛒 أضف للسلة</button>
+      <img src="images/wiper12.jpg" alt="ممسحة زجاج سيارة فولكس فاجن">
+      <div class="product-name">ممسحة زجاج سيارة فولكس فاجن</div>
+      <div class="product-price">1600 دج</div>
+      <button class="add-btn" onclick="addToCart('ممسحة زجاج سيارة فولكس فاجن', 1600)">🛒 أضف للسلة</button>
     </div>
 
     <div class="product">
-      <img src="images/tapis3.jpg" alt="TAPIS-7D DOBLO COMMERCIAL">
-      <div class="product-name">TAPIS-7D DOBLO COMMERCIAL</div>
-      <div class="product-price">7500 دج</div>
-      <button class="add-btn" onclick="addToCart('TAPIS-7D DOBLO COMMERCIAL', 7500)">🛒 أضف للسلة</button>
+      <img src="images/wiper13.jpg" alt="ممسحة زجاج سيارة سوبارو">
+      <div class="product-name">ممسحة زجاج سيارة سوبارو</div>
+      <div class="product-price">1500 دج</div>
+      <button class="add-btn" onclick="addToCart('ممسحة زجاج سيارة سوبارو', 1500)">🛒 أضف للسلة</button>
     </div>
 
     <div class="product">
-      <img src="images/tapis3.jpg" alt="TAPIS-7D DOBLO COMMERCIAL">
-      <div class="product-name">TAPIS-7D DOBLO COMMERCIAL</div>
-      <div class="product-price">7500 دج</div>
-      <button class="add-btn" onclick="addToCart('TAPIS-7D DOBLO COMMERCIAL', 7500)">🛒 أضف للسلة</button>
+      <img src="images/wiper14.jpg" alt="ممسحة زجاج سيارة جاكوار">
+      <div class="product-name">ممسحة زجاج سيارة جاكوار</div>
+      <div class="product-price">2000 دج</div>
+      <button class="add-btn" onclick="addToCart('ممسحة زجاج سيارة جاكوار', 2000)">🛒 أضف للسلة</button>
     </div>
 
     <div class="product">
-      <img src="images/tapis3.jpg" alt="TAPIS-7D DOBLO COMMERCIAL">
-      <div class="product-name">TAPIS-7D DOBLO COMMERCIAL</div>
-      <div class="product-price">7500 دج</div>
-      <button class="add-btn" onclick="addToCart('TAPIS-7D DOBLO COMMERCIAL', 7500)">🛒 أضف للسلة</button>
+      <img src="images/wiper15.jpg" alt="ممسحة زجاج سيارة ميني">
+      <div class="product-name">ممسحة زجاج سيارة ميني</div>
+      <div class="product-price">1650 دج</div>
+      <button class="add-btn" onclick="addToCart('ممسحة زجاج سيارة ميني', 1650)">🛒 أضف للسلة</button>
     </div>
 
     <div class="product">
-      <img src="images/tapis3.jpg" alt="TAPIS-7D DOBLO COMMERCIAL">
-      <div class="product-name">TAPIS-7D DOBLO COMMERCIAL</div>
-      <div class="product-price">7500 دج</div>
-      <button class="add-btn" onclick="addToCart('TAPIS-7D DOBLO COMMERCIAL', 7500)">🛒 أضف للسلة</button>
+      <img src="images/wiper16.jpg" alt="ممسحة زجاج سيارة لاند روفر">
+      <div class="product-name">ممسحة زجاج سيارة لاند روفر</div>
+      <div class="product-price">2100 دج</div>
+      <button class="add-btn" onclick="addToCart('ممسحة زجاج سيارة لاند روفر', 2100)">🛒 أضف للسلة</button>
     </div>
 
     <div class="product">
-      <img src="images/tapis3.jpg" alt="TAPIS-7D DOBLO COMMERCIAL">
-      <div class="product-name">TAPIS-7D DOBLO COMMERCIAL</div>
-      <div class="product-price">7500 دج</div>
-      <button class="add-btn" onclick="addToCart('TAPIS-7D DOBLO COMMERCIAL', 7500)">🛒 أضف للسلة</button>
+      <img src="images/wiper17.jpg" alt="ممسحة زجاج سيارة كاديلاك">
+      <div class="product-name">ممسحة زجاج سيارة كاديلاك</div>
+      <div class="product-price">1800 دج</div>
+      <button class="add-btn" onclick="addToCart('ممسحة زجاج سيارة كاديلاك', 1800)">🛒 أضف للسلة</button>
     </div>
 
     <div class="product">
-      <img src="images/tapis3.jpg" alt="TAPIS-7D DOBLO COMMERCIAL">
-      <div class="product-name">TAPIS-7D DOBLO COMMERCIAL</div>
-      <div class="product-price">7500 دج</div>
-      <button class="add-btn" onclick="addToCart('TAPIS-7D DOBLO COMMERCIAL', 7500)">🛒 أضف للسلة</button>
+      <img src="images/wiper18.jpg" alt="ممسحة زجاج سيارة بيجو">
+      <div class="product-name">ممسحة زجاج سيارة بيجو</div>
+      <div class="product-price">1550 دج</div>
+      <button class="add-btn" onclick="addToCart('ممسحة زجاج سيارة بيجو', 1550)">🛒 أضف للسلة</button>
     </div>
 
     <div class="product">
-      <img src="images/tapis3.jpg" alt="TAPIS-7D DOBLO COMMERCIAL">
-      <div class="product-name">TAPIS-7D DOBLO COMMERCIAL</div>
-      <div class="product-price">7500 دج</div>
-      <button class="add-btn" onclick="addToCart('TAPIS-7D DOBLO COMMERCIAL', 7500)">🛒 أضف للسلة</button>
+      <img src="images/wiper19.jpg" alt="ممسحة زجاج سيارة سكودا">
+      <div class="product-name">ممسحة زجاج سيارة سكودا</div>
+      <div class="product-price">1400 دج</div>
+      <button class="add-btn" onclick="addToCart('ممسحة زجاج سيارة سكودا', 1400)">🛒 أضف للسلة</button>
     </div>
 
     <div class="product">
-      <img src="images/tapis3.jpg" alt="TAPIS-7D DOBLO COMMERCIAL">
-      <div class="product-name">TAPIS-7D DOBLO COMMERCIAL</div>
-      <div class="product-price">7500 دج</div>
-      <button class="add-btn" onclick="addToCart('TAPIS-7D DOBLO COMMERCIAL', 7500)">🛒 أضف للسلة</button>
+      <img src="images/wiper20.jpg" alt="ممسحة زجاج سيارة فيات">
+      <div class="product-name">ممسحة زجاج سيارة فيات</div>
+      <div class="product-price">1300 دج</div>
+      <button class="add-btn" onclick="addToCart('ممسحة زجاج سيارة فيات', 1300)">🛒 أضف للسلة</button>
     </div>
 
     <div class="product">
-      <img src="images/tapis3.jpg" alt="TAPIS-7D DOBLO COMMERCIAL">
-      <div class="product-name">TAPIS-7D DOBLO COMMERCIAL</div>
-      <div class="product-price">7500 دج</div>
-      <button class="add-btn" onclick="addToCart('TAPIS-7D DOBLO COMMERCIAL', 7500)">🛒 أضف للسلة</button>
+      <img src="images/wiper21.jpg" alt="ممسحة زجاج سيارة سيات">
+      <div class="product-name">ممسحة زجاج سيارة سيات</div>
+      <div class="product-price">1450 دج</div>
+      <button class="add-btn" onclick="addToCart('ممسحة زجاج سيارة سيات', 1450)">🛒 أضف للسلة</button>
     </div>
-    <!-- 🔥 انت كمل بنفس الشكل للمنتجات الأخرى -->
+
+    <div class="product">
+      <img src="images/wiper22.jpg" alt="ممسحة زجاج سيارة رينو">
+      <div class="product-name">ممسحة زجاج سيارة رينو</div>
+      <div class="product-price">1600 دج</div>
+      <button class="add-btn" onclick="addToCart('ممسحة زجاج سيارة رينو', 1600)">🛒 أضف للسلة</button>
+    </div>
+
+    <div class="product">
+      <img src="images/wiper23.jpg" alt="ممسحة زجاج سيارة سوزوكي">
+      <div class="product-name">ممسحة زجاج سيارة سوزوكي</div>
+      <div class="product-price">1350 دج</div>
+      <button class="add-btn" onclick="addToCart('ممسحة زجاج سيارة سوزوكي', 1350)">🛒 أضف للسلة</button>
+    </div>
+
+    <div class="product">
+      <img src="images/wiper24.jpg" alt="ممسحة زجاج سيارة سوبرا">
+      <div class="product-name">ممسحة زجاج سيارة سوبرا</div>
+      <div class="product-price">1700 دج</div>
+      <button class="add-btn" onclick="addToCart('ممسحة زجاج سيارة سوبرا', 1700)">🛒 أضف للسلة</button>
+    </div>
+
+    <div class="product">
+      <img src="images/wiper25.jpg" alt="ممسحة زجاج سيارة لوتس">
+      <div class="product-name">ممسحة زجاج سيارة لوتس</div>
+      <div class="product-price">2100 دج</div>
+      <button class="add-btn" onclick="addToCart('ممسحة زجاج سيارة لوتس', 2100)">🛒 أضف للسلة</button>
+    </div>
+
+    <div class="product">
+      <img src="images/wiper26.jpg" alt="ممسحة زجاج سيارة فيراري">
+      <div class="product-name">ممسحة زجاج سيارة فيراري</div>
+      <div class="product-price">2500 دج</div>
+      <button class="add-btn" onclick="addToCart('ممسحة زجاج سيارة فيراري', 2500)">🛒 أضف للسلة</button>
+    </div>
+
+    <div class="product">
+      <img src="images/wiper27.jpg" alt="ممسحة زجاج سيارة لامبورغيني">
+      <div class="product-name">ممسحة زجاج سيارة لامبورغيني</div>
+      <div class="product-price">3000 دج</div>
+      <button class="add-btn" onclick="addToCart('ممسحة زجاج سيارة لامبورغيني', 3000)">🛒 أضف للسلة</button>
+    </div>
+
+    <div class="product">
+      <img src="images/wiper28.jpg" alt="ممسحة زجاج سيارة أستون مارتن">
+      <div class="product-name">ممسحة زجاج سيارة أستون مارتن</div>
+      <div class="product-price">2800 دج</div>
+      <button class="add-btn" onclick="addToCart('ممسحة زجاج سيارة أستون مارتن', 2800)">🛒 أضف للسلة</button>
+    </div>
+
+    <div class="product">
+      <img src="images/wiper29.jpg" alt="ممسحة زجاج سيارة تسلا">
+      <div class="product-name">ممسحة زجاج سيارة تسلا</div>
+      <div class="product-price">3200 دج</div>
+      <button class="add-btn" onclick="addToCart('ممسحة زجاج سيارة تسلا', 3200)">🛒 أضف للسلة</button>
+    </div>
+
+    <div class="product">
+      <img src="images/wiper30.jpg" alt="ممسحة زجاج سيارة بي إم دبليو X5">
+      <div class="product-name">ممسحة زجاج سيارة بي إم دبليو X5</div>
+      <div class="product-price">2600 دج</div>
+      <button class="add-btn" onclick="addToCart('ممسحة زجاج سيارة بي إم دبليو X5', 2600)">🛒 أضف للسلة</button>
+    </div>
+
   </div>
 
-  <!-- ✅ السلة -->
   <div id="cart-container" class="cart-container">
     <h2>🛒 سلة المشتريات</h2>
     <ul id="cart-items"></ul>
@@ -322,7 +388,6 @@
   </div>
 
   <script>
-    // 🛒 تحميل السلة من localStorage إذا كانت موجودة
     let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
     function saveCart() {
@@ -387,7 +452,6 @@
       }, 3000);
     }
 
-    // 📌 تحديث السلة مباشرة عند فتح الصفحة
     updateCart();
   </script>
 
