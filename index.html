@@ -8,7 +8,7 @@
   <style>
     :root {
       --primary-color: #0b2f3c;
-      --secondary-color: #55c6f0;
+      --secondary-color: #55c655; /* اللون الرئيسي الجديد */
       --accent-color: #af290b;
       --text-color: #333;
       --light-bg: #f5f5f5;
@@ -56,18 +56,18 @@
     }
     
     .logo img {
-      width: 120px; /* زيادة حجم الشعار */
-      height: 120px; /* زيادة حجم الشعار */
+      width: 120px;
+      height: 120px;
       border-radius: 50%;
       margin-left: 10px;
       border: 3px solid var(--secondary-color);
-      box-shadow: 0 0 20px rgba(85, 198, 240, 0.5);
+      box-shadow: 0 0 20px rgba(85, 198, 85, 0.5);
       transition: transform 0.3s, box-shadow 0.3s;
     }
     
     .logo img:hover {
       transform: scale(1.05);
-      box-shadow: 0 0 25px rgba(85, 198, 240, 0.7);
+      box-shadow: 0 0 25px rgba(85, 198, 85, 0.7);
     }
     
     .logo::before, .logo::after {
@@ -90,7 +90,7 @@
     
     .logo-text {
       color: white;
-      font-size: 28px; /* زيادة حجم النص */
+      font-size: 28px;
       font-weight: bold;
       text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
     }
@@ -162,7 +162,7 @@
 
     .site-title {
       font-family: "Cairo", sans-serif;
-      font-size: 42px; /* زيادة حجم العنوان */
+      font-size: 42px;
       font-weight: bold;
       color: white;
       text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
@@ -171,7 +171,7 @@
     }
     
     .header-subtitle {
-      font-size: 20px; /* زيادة حجم النص الفرعي */
+      font-size: 20px;
       margin-bottom: 20px;
     }
 
@@ -709,6 +709,56 @@
       right: 0;
       background: radial-gradient(circle, var(--accent-color) 0%, transparent 70%);
     }
+
+    /* زر اتصل بنا */
+    .contact-btn {
+      display: inline-block;
+      background-color: var(--secondary-color);
+      color: white;
+      padding: 10px 20px;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: bold;
+      margin-top: 10px;
+      transition: background-color 0.3s;
+    }
+    
+    .contact-btn:hover {
+      background-color: var(--primary-color);
+    }
+
+    /* نتائج البحث */
+    .search-results {
+      position: absolute;
+      top: 100%;
+      left: 20px;
+      right: 20px;
+      background: white;
+      border-radius: 0 0 10px 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      max-height: 300px;
+      overflow-y: auto;
+      display: none;
+      z-index: 1000;
+    }
+    
+    .search-result-item {
+      padding: 10px 15px;
+      border-bottom: 1px solid #eee;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+    
+    .search-result-item:hover {
+      background-color: #f5f5f5;
+    }
+    
+    .search-container {
+      position: relative;
+      max-width: 500px;
+      margin: 20px auto;
+      padding: 0 20px;
+    }
   </style>
 </head>
 <body>
@@ -728,7 +778,7 @@
         <li><a href="#">الرئيسية</a></li>
         <li><a href="#">المنتجات</a></li>
         <li><a href="#">عروض خاصة</a></li>
-        <li><a href="#">اتصل بنا</a></li>
+        <li><a href="#contact">اتصل بنا</a></li>
       </ul>
       
       <button class="mobile-menu-btn">
@@ -759,9 +809,12 @@
   </div>
 
   <!-- شريط البحث -->
-  <div class="search-bar">
-    <input type="text" placeholder="ابحث عن المنتج الذي تريد...">
-    <button><i class="fas fa-search"></i></button>
+  <div class="search-container">
+    <div class="search-bar">
+      <input type="text" id="search-input" placeholder="ابحث عن المنتج الذي تريد...">
+      <button id="search-btn"><i class="fas fa-search"></i></button>
+    </div>
+    <div class="search-results" id="search-results"></div>
   </div>
 
   <!-- 🎞️ السلايدر -->
@@ -800,7 +853,7 @@
   <!-- 🛒 المنتجات -->
   <div class="products" id="products-container"></div>
 
-  <footer>
+  <footer id="contact">
     <div class="footer-content">
       <div class="footer-section">
         <h3>عن المتجر</h3>
@@ -812,20 +865,24 @@
         <a href="#">الرئيسية</a>
         <a href="#">جميع المنتجات</a>
         <a href="#">عروض خاصة</a>
-        <a href="#">اتصل بنا</a>
+        <a href="#contact">اتصل بنا</a>
       </div>
       
       <div class="footer-section">
         <h3>معلومات الاتصال</h3>
-        <p>الهاتف: 0550 123 456</p>
+        <p>الهاتف: 0662263598</p>
         <p>البريد الإلكتروني: info@bbs-auto.com</p>
         <p>العنوان: الجزائر العاصمة</p>
         
         <div class="social-icons">
           <a href="#"><i class="fab fa-facebook-f"></i></a>
           <a href="#"><i class="fab fa-instagram"></i></a>
-          <a href="#"><i class="fab fa-whatsapp"></i></a>
+          <a href="https://wa.me/213662263598" target="_blank"><i class="fab fa-whatsapp"></i></a>
         </div>
+        
+        <a href="https://wa.me/213662263598" class="contact-btn" target="_blank">
+          <i class="fab fa-whatsapp"></i> اتصل بنا عبر واتساب
+        </a>
       </div>
     </div>
     
@@ -905,6 +962,51 @@
       dot.addEventListener('click', () => {
         changeSlide(index);
       });
+    });
+
+    // 🔍 وظيفة البحث
+    const searchInput = document.getElementById('search-input');
+    const searchResults = document.getElementById('search-results');
+    const searchBtn = document.getElementById('search-btn');
+    
+    function performSearch() {
+      const query = searchInput.value.trim().toLowerCase();
+      searchResults.innerHTML = '';
+      
+      if (query.length < 2) {
+        searchResults.style.display = 'none';
+        return;
+      }
+      
+      const filteredProducts = productsList.filter(product => 
+        product.name.toLowerCase().includes(query)
+      );
+      
+      if (filteredProducts.length > 0) {
+        searchResults.style.display = 'block';
+        filteredProducts.forEach(product => {
+          const resultItem = document.createElement('div');
+          resultItem.className = 'search-result-item';
+          resultItem.textContent = product.name;
+          resultItem.addEventListener('click', () => {
+            window.location.href = product.link;
+          });
+          searchResults.appendChild(resultItem);
+        });
+      } else {
+        searchResults.style.display = 'block';
+        searchResults.innerHTML = '<div class="search-result-item">لا توجد نتائج</div>';
+      }
+    }
+    
+    searchInput.addEventListener('input', performSearch);
+    searchBtn.addEventListener('click', performSearch);
+    
+    // إغلاق نتائج البحث عند النقر خارجها
+    document.addEventListener('click', (e) => {
+      if (!searchInput.contains(e.target) && !searchResults.contains(e.target) && !searchBtn.contains(e.target)) {
+        searchResults.style.display = 'none';
+      }
     });
 
     // 🛒 التحكم في السلة - استخدام نفس نظام التخزين من الصفحات الفرعية
