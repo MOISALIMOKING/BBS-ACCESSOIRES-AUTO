@@ -287,7 +287,7 @@
                     <i class="fas fa-check-circle"></i>
                 </div>
                 <h2 style="color: var(--success-color); margin-bottom: 20px;">تم استلام طلبك بنجاح!</h2>
-                <p>تم استلام طلبك وسيتم توصيله في أقرب وقت ممكن</p>
+                <p>تم استلالطلبك وسيتم توصيله في أقرب وقت ممكن</p>
             </div>
             
             <div class="order-details">
@@ -295,7 +295,7 @@
                 
                 <div class="detail-row">
                     <span class="detail-label">رقم الطلب:</span>
-                    <span class="detail-value">BBS-2023-1586</span>
+                    <span class="detail-value" id="order-id">BBS-2023-1586</span>
                 </div>
                 
                 <div class="detail-row">
@@ -445,6 +445,7 @@
             const orderData = loadOrderData();
             
             // عرض معلومات الطلب
+            document.getElementById('order-id').textContent = orderData.orderId;
             document.getElementById('order-date').textContent = orderData.orderDate;
             document.getElementById('customer-name').textContent = orderData.customer.name;
             document.getElementById('customer-phone').textContent = orderData.customer.phone;
@@ -484,6 +485,11 @@
             
             // مسح سلة التسوق بعد تأكيد الطلب
             localStorage.removeItem('cart');
+            localStorage.removeItem('customerName');
+            localStorage.removeItem('customerPhone');
+            localStorage.removeItem('customerAddress');
+            localStorage.removeItem('customerState');
+            localStorage.removeItem('customerMunicipality');
         });
     </script>
 </body>
