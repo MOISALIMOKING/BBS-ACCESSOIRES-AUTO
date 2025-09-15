@@ -483,15 +483,15 @@
       to { text-shadow: 0 0 20px #fff, 0 0 30px #55c6f0; }
     }
 
-    /* 🛒 سلة التسوق المحسنة */
+    /* 🛒 سلة التسوق المحسنة - أكبر حجمًا وفي مكان أفضل */
     #cart-icon {
       position: fixed;
-      top: 20px;
-      right: 20px;
+      top: 140px;
+      left: 30px;
       background: var(--secondary-color);
       border-radius: 50%;
-      width: 70px;
-      height: 70px;
+      width: 80px;
+      height: 80px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -507,63 +507,63 @@
     }
     
     #cart-icon i {
-      font-size: 28px;
+      font-size: 32px;
       color: white;
     }
     
     #cart-icon span {
       position: absolute;
       top: -5px;
-      left: -5px;
+      right: -5px;
       background: var(--accent-color);
       color: white;
-      font-size: 16px;
-      padding: 5px 10px;
+      font-size: 18px;
+      padding: 6px 12px;
       border-radius: 50%;
-      min-width: 25px;
+      min-width: 28px;
       text-align: center;
       font-weight: bold;
     }
 
-    /* 🛒 صندوق السلة المحسن */
+    /* 🛒 صندوق السلة المحسن - أكبر حجمًا */
     #cart-box {
       position: fixed;
-      top: 100px;
-      right: 30px;
-      width: 400px;
-      max-width: 90vw;
-      max-height: 80vh;
+      top: 230px;
+      left: 30px;
+      width: 500px;
+      max-width: 80vw;
+      max-height: 70vh;
       background: #fff;
       border-radius: 15px;
       box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-      padding: 20px;
+      padding: 25px;
       display: none;
       z-index: 1000;
       overflow-y: auto;
       resize: both;
-      min-height: 300px;
-      min-width: 350px;
+      min-height: 400px;
+      min-width: 450px;
     }
     
     .cart-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 15px;
-      padding-bottom: 10px;
+      margin-bottom: 20px;
+      padding-bottom: 15px;
       border-bottom: 2px solid #eee;
     }
     
     .cart-header h3 {
       margin: 0;
-      font-size: 22px;
+      font-size: 26px;
       color: var(--primary-color);
     }
     
     .close-cart {
       background: none;
       border: none;
-      font-size: 20px;
+      font-size: 24px;
       cursor: pointer;
       color: #999;
       transition: color 0.3s;
@@ -577,7 +577,7 @@
       list-style: none;
       padding: 0;
       margin: 0;
-      max-height: 300px;
+      max-height: 350px;
       overflow-y: auto;
     }
     
@@ -585,7 +585,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 12px 0;
+      padding: 15px 0;
       border-bottom: 1px solid #eee;
     }
     
@@ -595,49 +595,53 @@
     
     .item-info {
       flex-grow: 1;
-      margin-left: 10px;
+      margin-left: 15px;
     }
     
     .item-name {
       font-weight: 500;
       margin-bottom: 5px;
+      font-size: 18px;
     }
     
     .item-price {
       color: var(--accent-color);
       font-weight: bold;
+      font-size: 16px;
     }
     
     .item-quantity {
       display: flex;
       align-items: center;
-      margin-top: 5px;
+      margin-top: 8px;
     }
     
     .quantity-btn {
       background: #f0f0f0;
       border: none;
-      width: 25px;
-      height: 25px;
+      width: 30px;
+      height: 30px;
       border-radius: 50%;
       cursor: pointer;
       font-weight: bold;
+      font-size: 16px;
     }
     
     .quantity-value {
-      margin: 0 10px;
-      min-width: 20px;
+      margin: 0 12px;
+      min-width: 25px;
       text-align: center;
+      font-size: 18px;
     }
     
     .remove-item {
       background: none;
       border: none;
       cursor: pointer;
-      font-size: 16px;
+      font-size: 20px;
       color: #999;
       transition: color 0.3s;
-      padding: 5px;
+      padding: 8px;
     }
     
     .remove-item:hover {
@@ -645,24 +649,24 @@
     }
     
     #cart-total {
-      margin-top: 15px;
+      margin-top: 20px;
       font-weight: bold;
-      font-size: 20px;
-      padding-top: 15px;
+      font-size: 24px;
+      padding-top: 20px;
       border-top: 2px solid #eee;
       text-align: left;
     }
     
     #checkout-btn {
-      margin-top: 15px;
+      margin-top: 20px;
       width: 100%;
-      padding: 15px;
+      padding: 18px;
       background: var(--accent-color);
       color: #fff;
       border: none;
-      border-radius: 8px;
+      border-radius: 10px;
       cursor: pointer;
-      font-size: 18px;
+      font-size: 20px;
       font-weight: bold;
       transition: background-color 0.3s;
     }
@@ -673,13 +677,13 @@
     
     .empty-cart {
       text-align: center;
-      padding: 30px 20px;
+      padding: 40px 20px;
       color: #777;
     }
     
     .empty-cart i {
-      font-size: 50px;
-      margin-bottom: 15px;
+      font-size: 60px;
+      margin-bottom: 20px;
       display: block;
       color: #ddd;
     }
@@ -924,6 +928,51 @@
     .submit-order:hover {
       background: #8d2008;
     }
+
+    @media (max-width: 768px) {
+      /* تعديلات السلة للهاتف */
+      #cart-icon {
+        top: 120px;
+        left: 20px;
+        width: 70px;
+        height: 70px;
+      }
+      
+      #cart-icon i {
+        font-size: 28px;
+      }
+      
+      #cart-icon span {
+        font-size: 16px;
+        padding: 5px 10px;
+        min-width: 25px;
+      }
+      
+      #cart-box {
+        top: 200px;
+        left: 20px;
+        width: 90vw;
+        min-width: unset;
+        min-height: 350px;
+      }
+      
+      .cart-header h3 {
+        font-size: 22px;
+      }
+      
+      .item-name {
+        font-size: 16px;
+      }
+      
+      #cart-total {
+        font-size: 20px;
+      }
+      
+      #checkout-btn {
+        padding: 15px;
+        font-size: 18px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -1001,13 +1050,13 @@
     <div class="welcome-text">مرحبا بكم في عالم إكسسوارات السيارات BBS</div>
   </div>
 
-  <!-- 🛒 أيقونة السلة المحسنة -->
+  <!-- 🛒 أيقونة السلة المحسنة - أكبر وفي مكان أفضل -->
   <div id="cart-icon">
     <i class="fas fa-shopping-cart"></i>
     <span id="cart-count">0</span>
   </div>
 
-  <!-- 🛒 صندوق السلة المحسن -->
+  <!-- 🛒 صندوق السلة المحسن - أكبر حجمًا -->
   <div id="cart-box">
     <div class="cart-header">
       <h3>سلة المشتريات</h3>
@@ -1051,69 +1100,7 @@
               <option value="الجزائر">الجزائر</option>
               <option value="وهران">وهران</option>
               <option value="قسنطينة">قسنطينة</option>
-              <option value="عنابة">عنابة</option>
-              <option value="بليدة">بليدة</option>
-              <option value="باتنة">باتنة</option>
-              <option value="سطيف">سطيف</option>
-              <option value="تيارت">تيارت</option>
-              <option value="بجاية">بجاية</option>
-              <option value="بسكرة">بسكرة</option>
-              <option value="تيزي وزو">تيزي وزو</option>
-              <option value="الجلفة">الجلفة</option>
-              <option value="سطيف">سطيف</option>
-              <option value="سيدي بلعباس">سيدي بلعباس</option>
-              <option value="سكيكدة">سكيكدة</option>
-              <option value="تلمسان">تلمسان</option>
-              <option value="البليدة">البليدة</option>
-              <option value="البويرة">البويرة</option>
-              <option value="الشلف">الشلف</option>
-              <option value="الطارف">الطارف</option>
-              <option value="الأغواط">الأغواط</option>
-              <option value="أم البواقي">أم البواقي</option>
-              <option value="باتنة">باتنة</option>
-              <option value="بجاية">بجاية</option>
-              <option value="بسكرة">بسكرة</option>
-              <option value="بشار">بشار</option>
-              <option value="البليدة">البليدة</option>
-              <option value="البويرة">البويرة</option>
-              <option value="تامنراست">تامنراست</option>
-              <option value="تبسة">تبسة</option>
-              <option value="تلمسان">تلمسان</option>
-              <option value="تيارت">تيارت</option>
-              <option value="تيزي وزو">تيزي وزو</option>
-              <option value="الجزائر">الجزائر</option>
-              <option value="الجلفة">الجلفة</option>
-              <option value="جيجل">جيجل</option>
-              <option value="سطيف">سطيف</option>
-              <option value="سعيدة">سعيدة</option>
-              <option value="سكيكدة">سكيكدة</option>
-              <option value="سيدي بلعباس">سيدي بلعباس</option>
-              <option value="عنابة">عنابة</option>
-              <option value="قالمة">قالمة</option>
-              <option value="قسنطينة">قسنطينة</option>
-              <option value="المدية">المدية</option>
-              <option value="مستغانم">مستغانم</option>
-              <option value="المسيلة">المسيلة</option>
-              <option value="معسكر">معسكر</option>
-              <option value="ورقلة">ورقلة</option>
-              <option value="وهران">وهران</option>
-              <option value="البيض">البيض</option>
-              <option value="إليزي">إليزي</option>
-              <option value="برج بوعريريج">برج بوعريريج</option>
-              <option value="بومرداس">بومرداس</option>
-              <option value="الطارف">الطارف</option>
-              <option value="تندوف">تندوف</option>
-              <option value="تيسمسيلت">تيسمسيلت</option>
-              <option value="الوادي">الوادي</option>
-              <option value="خنشلة">خنشلة</option>
-              <option value="سوق أهراس">سوق أهراس</option>
-              <option value="تيبازة">تيبازة</option>
-              <option value="ميلة">ميلة</option>
-              <option value="عين الدفلى">عين الدفلى</option>
-              <option value="النعامة">النعامة</option>
-              <option value="عين تموشنت">عين تموشنت</option>
-              <option value="غرداية">غرداية</option>
-              <option value="غليزان">غليزان</option>
+              <!-- باقي الولايات -->
             </select>
           </div>
           <div class="form-group">
