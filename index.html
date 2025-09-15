@@ -1031,7 +1031,7 @@
     <div class="search-results" id="search-results"></div>
   </div>
 
-  <!-- 🎞️ السلايدر -->
+  <!-- 🎞️ السلاイドر -->
   <div class="slider">
     <img id="slider-img" src="images/shop1.jpg" alt="slider">
     <div class="slider-dots">
@@ -1370,13 +1370,14 @@
       document.getElementById('cart-box').style.display = 'none';
     });
 
-    // التحكم في صفحة الدفع
+    // التحكم في صفحة الدفع - التعديل هنا
     document.getElementById('checkout-btn').addEventListener('click', () => {
       const cart = loadCart();
       if (cart.length === 0) {
         alert('سلة التسوق فارغة');
         return;
       }
+      // فتح نموذج الدفع بدلاً من الانتقال مباشرة
       document.getElementById('checkout-modal').style.display = 'block';
     });
 
@@ -1384,13 +1385,28 @@
       document.getElementById('checkout-modal').style.display = 'none';
     });
 
+    // عند تقديم نموذج الدفع - التعديل هنا
     document.getElementById('checkout-form').addEventListener('submit', (e) => {
       e.preventDefault();
-      alert('شكراً لك على طلبك! سيتم الاتصال بك قريباً لتأكيد الطلب.');
-      localStorage.removeItem('cart');
-      document.getElementById('checkout-modal').style.display = 'none';
-      document.getElementById('cart-box').style.display = 'none';
-      updateCartCount();
+      
+      // حفظ بيانات العميل
+      const customerData = {
+        name: document.getElementById('first-name').value + ' ' + document.getElementById('last-name').value,
+        phone: document.getElementById('phone').value,
+        address: document.getElementById('address').value,
+        state: document.getElementById('state').value,
+        municipality: document.getElementById('municipality').value
+      };
+      
+      // حفظ البيانات في localStorage
+      localStorage.setItem('customerName', customerData.name);
+      localStorage.setItem('customerPhone', customerData.phone);
+      localStorage.setItem('customerAddress', customerData.address);
+      localStorage.setItem('customerState', customerData.state);
+      localStorage.setItem('customerMunicipality', customerData.municipality);
+      
+      // الانتقال إلى صفحة التأكيد
+      window.location.href = 'confirm.html';
     });
 
     // إغلاق السلة وصفحة الدفع عند النقر خارجها
