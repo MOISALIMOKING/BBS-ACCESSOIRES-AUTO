@@ -8,10 +8,10 @@
   <style>
     :root {
       --primary-color: #0b2f3c;
-      --secondary-color: #55c6f0; /* اللون الرئيسي المعدل */
+      --secondary-color: #55c6f0;
       --accent-color: #af290b;
       --text-color: #333;
-      --light-bg: #e8f4fc; /* خلفية فاتحة قريبة من اللون الرئيسي */
+      --light-bg: #e8f4fc;
       --dark-bg: #080808;
     }
     
@@ -354,31 +354,6 @@
         width: 150px !important;
         height: 150px !important;
       }
-      
-      /* تحسين سلة المشتريات في الهاتف */
-      #cart-icon {
-        top: 15px;
-        right: 15px;
-        width: 50px;
-        height: 50px;
-      }
-      
-      #cart-icon i {
-        font-size: 20px;
-      }
-      
-      #cart-icon span {
-        font-size: 12px;
-        padding: 2px 6px;
-        min-width: 18px;
-      }
-      
-      #cart-box {
-        top: 70px;
-        right: 10px;
-        width: 300px;
-        max-width: 90vw;
-      }
     }
 
     @media (max-width: 480px) {
@@ -508,30 +483,31 @@
       to { text-shadow: 0 0 20px #fff, 0 0 30px #55c6f0; }
     }
 
-    /* 🛒 أيقونة السلة - معدلة للهاتف */
+    /* 🛒 سلة التسوق المحسنة */
     #cart-icon {
       position: fixed;
       top: 20px;
       right: 20px;
       background: var(--secondary-color);
       border-radius: 50%;
-      width: 60px;
-      height: 60px;
+      width: 70px;
+      height: 70px;
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
       cursor: pointer;
       z-index: 1000;
-      transition: background-color 0.3s;
+      transition: all 0.3s;
     }
     
     #cart-icon:hover {
       background: var(--primary-color);
+      transform: scale(1.1);
     }
     
     #cart-icon i {
-      font-size: 24px;
+      font-size: 28px;
       color: white;
     }
     
@@ -541,35 +517,60 @@
       left: -5px;
       background: var(--accent-color);
       color: white;
-      font-size: 14px;
-      padding: 3px 8px;
+      font-size: 16px;
+      padding: 5px 10px;
       border-radius: 50%;
-      min-width: 20px;
+      min-width: 25px;
       text-align: center;
+      font-weight: bold;
     }
 
-    /* 🛒 صندوق السلة */
+    /* 🛒 صندوق السلة المحسن */
     #cart-box {
       position: fixed;
-      top: 90px;
-      right: 20px;
-      width: 350px;
+      top: 100px;
+      right: 30px;
+      width: 400px;
+      max-width: 90vw;
+      max-height: 80vh;
       background: #fff;
-      border-radius: 12px;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
       padding: 20px;
       display: none;
       z-index: 1000;
-      max-height: 80vh;
       overflow-y: auto;
+      resize: both;
+      min-height: 300px;
+      min-width: 350px;
     }
     
-    #cart-box h3 {
-      margin: 0 0 15px;
-      font-size: 20px;
-      color: var(--primary-color);
+    .cart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
       padding-bottom: 10px;
-      border-bottom: 1px solid #eee;
+      border-bottom: 2px solid #eee;
+    }
+    
+    .cart-header h3 {
+      margin: 0;
+      font-size: 22px;
+      color: var(--primary-color);
+    }
+    
+    .close-cart {
+      background: none;
+      border: none;
+      font-size: 20px;
+      cursor: pointer;
+      color: #999;
+      transition: color 0.3s;
+    }
+    
+    .close-cart:hover {
+      color: var(--accent-color);
     }
     
     #cart-items {
@@ -584,7 +585,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 10px 0;
+      padding: 12px 0;
       border-bottom: 1px solid #eee;
     }
     
@@ -592,50 +593,76 @@
       border-bottom: none;
     }
     
-    #cart-items li .item-info {
+    .item-info {
       flex-grow: 1;
+      margin-left: 10px;
     }
     
-    #cart-items li .item-name {
+    .item-name {
       font-weight: 500;
+      margin-bottom: 5px;
     }
     
-    #cart-items li .item-price {
+    .item-price {
       color: var(--accent-color);
-      font-size: 14px;
+      font-weight: bold;
     }
     
-    #cart-items li button {
+    .item-quantity {
+      display: flex;
+      align-items: center;
+      margin-top: 5px;
+    }
+    
+    .quantity-btn {
+      background: #f0f0f0;
+      border: none;
+      width: 25px;
+      height: 25px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    
+    .quantity-value {
+      margin: 0 10px;
+      min-width: 20px;
+      text-align: center;
+    }
+    
+    .remove-item {
       background: none;
       border: none;
       cursor: pointer;
       font-size: 16px;
       color: #999;
       transition: color 0.3s;
+      padding: 5px;
     }
     
-    #cart-items li button:hover {
+    .remove-item:hover {
       color: var(--accent-color);
     }
     
     #cart-total {
       margin-top: 15px;
       font-weight: bold;
-      font-size: 18px;
+      font-size: 20px;
       padding-top: 15px;
       border-top: 2px solid #eee;
+      text-align: left;
     }
     
     #checkout-btn {
       margin-top: 15px;
       width: 100%;
-      padding: 12px;
+      padding: 15px;
       background: var(--accent-color);
       color: #fff;
       border: none;
       border-radius: 8px;
       cursor: pointer;
-      font-size: 16px;
+      font-size: 18px;
       font-weight: bold;
       transition: background-color 0.3s;
     }
@@ -646,14 +673,15 @@
     
     .empty-cart {
       text-align: center;
-      padding: 20px;
+      padding: 30px 20px;
       color: #777;
     }
     
     .empty-cart i {
-      font-size: 40px;
-      margin-bottom: 10px;
+      font-size: 50px;
+      margin-bottom: 15px;
       display: block;
+      color: #ddd;
     }
 
     footer {
@@ -809,6 +837,93 @@
       margin: 20px auto;
       padding: 0 20px;
     }
+
+    /* صفحة الدفع */
+    .checkout-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.7);
+      z-index: 2000;
+      overflow-y: auto;
+    }
+    
+    .checkout-content {
+      background: white;
+      margin: 50px auto;
+      padding: 30px;
+      border-radius: 15px;
+      max-width: 600px;
+      width: 90%;
+      position: relative;
+    }
+    
+    .close-checkout {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      background: none;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+      color: #999;
+    }
+    
+    .close-checkout:hover {
+      color: var(--accent-color);
+    }
+    
+    .checkout-form {
+      margin-top: 20px;
+    }
+    
+    .form-group {
+      margin-bottom: 20px;
+    }
+    
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+    
+    .form-group input,
+    .form-group select {
+      width: 100%;
+      padding: 12px 15px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+    
+    .form-row {
+      display: flex;
+      gap: 15px;
+    }
+    
+    .form-row .form-group {
+      flex: 1;
+    }
+    
+    .submit-order {
+      background: var(--accent-color);
+      color: white;
+      border: none;
+      padding: 15px;
+      border-radius: 8px;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+      width: 100%;
+      transition: background-color 0.3s;
+    }
+    
+    .submit-order:hover {
+      background: #8d2008;
+    }
   </style>
 </head>
 <body>
@@ -886,22 +1001,136 @@
     <div class="welcome-text">مرحبا بكم في عالم إكسسوارات السيارات BBS</div>
   </div>
 
-  <!-- 🛒 أيقونة السلة - تم تحسينها للهاتف -->
+  <!-- 🛒 أيقونة السلة المحسنة -->
   <div id="cart-icon">
     <i class="fas fa-shopping-cart"></i>
     <span id="cart-count">0</span>
   </div>
 
-  <!-- 🛒 صندوق السلة -->
+  <!-- 🛒 صندوق السلة المحسن -->
   <div id="cart-box">
-    <h3>سلة المشتريات</h3>
+    <div class="cart-header">
+      <h3>سلة المشتريات</h3>
+      <button class="close-cart"><i class="fas fa-times"></i></button>
+    </div>
     <ul id="cart-items"></ul>
     <div id="cart-total">المجموع: 0 دج</div>
-    <button id="checkout-btn">شراء الآن</button>
+    <button id="checkout-btn">إتمام الشراء</button>
   </div>
 
   <!-- 🛒 المنتجات -->
   <div class="products" id="products-container"></div>
+
+  <!-- صفحة الدفع -->
+  <div class="checkout-modal" id="checkout-modal">
+    <div class="checkout-content">
+      <button class="close-checkout"><i class="fas fa-times"></i></button>
+      <h2>إتمام الطلب</h2>
+      <form class="checkout-form" id="checkout-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="first-name">الاسم</label>
+            <input type="text" id="first-name" required>
+          </div>
+          <div class="form-group">
+            <label for="last-name">اللقب</label>
+            <input type="text" id="last-name" required>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="phone">رقم الهاتف</label>
+          <input type="tel" id="phone" required>
+        </div>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label for="state">الولاية</label>
+            <select id="state" required>
+              <option value="">اختر الولاية</option>
+              <option value="الجزائر">الجزائر</option>
+              <option value="وهران">وهران</option>
+              <option value="قسنطينة">قسنطينة</option>
+              <option value="عنابة">عنابة</option>
+              <option value="بليدة">بليدة</option>
+              <option value="باتنة">باتنة</option>
+              <option value="سطيف">سطيف</option>
+              <option value="تيارت">تيارت</option>
+              <option value="بجاية">بجاية</option>
+              <option value="بسكرة">بسكرة</option>
+              <option value="تيزي وزو">تيزي وزو</option>
+              <option value="الجلفة">الجلفة</option>
+              <option value="سطيف">سطيف</option>
+              <option value="سيدي بلعباس">سيدي بلعباس</option>
+              <option value="سكيكدة">سكيكدة</option>
+              <option value="تلمسان">تلمسان</option>
+              <option value="البليدة">البليدة</option>
+              <option value="البويرة">البويرة</option>
+              <option value="الشلف">الشلف</option>
+              <option value="الطارف">الطارف</option>
+              <option value="الأغواط">الأغواط</option>
+              <option value="أم البواقي">أم البواقي</option>
+              <option value="باتنة">باتنة</option>
+              <option value="بجاية">بجاية</option>
+              <option value="بسكرة">بسكرة</option>
+              <option value="بشار">بشار</option>
+              <option value="البليدة">البليدة</option>
+              <option value="البويرة">البويرة</option>
+              <option value="تامنراست">تامنراست</option>
+              <option value="تبسة">تبسة</option>
+              <option value="تلمسان">تلمسان</option>
+              <option value="تيارت">تيارت</option>
+              <option value="تيزي وزو">تيزي وزو</option>
+              <option value="الجزائر">الجزائر</option>
+              <option value="الجلفة">الجلفة</option>
+              <option value="جيجل">جيجل</option>
+              <option value="سطيف">سطيف</option>
+              <option value="سعيدة">سعيدة</option>
+              <option value="سكيكدة">سكيكدة</option>
+              <option value="سيدي بلعباس">سيدي بلعباس</option>
+              <option value="عنابة">عنابة</option>
+              <option value="قالمة">قالمة</option>
+              <option value="قسنطينة">قسنطينة</option>
+              <option value="المدية">المدية</option>
+              <option value="مستغانم">مستغانم</option>
+              <option value="المسيلة">المسيلة</option>
+              <option value="معسكر">معسكر</option>
+              <option value="ورقلة">ورقلة</option>
+              <option value="وهران">وهران</option>
+              <option value="البيض">البيض</option>
+              <option value="إليزي">إليزي</option>
+              <option value="برج بوعريريج">برج بوعريريج</option>
+              <option value="بومرداس">بومرداس</option>
+              <option value="الطارف">الطارف</option>
+              <option value="تندوف">تندوف</option>
+              <option value="تيسمسيلت">تيسمسيلت</option>
+              <option value="الوادي">الوادي</option>
+              <option value="خنشلة">خنشلة</option>
+              <option value="سوق أهراس">سوق أهراس</option>
+              <option value="تيبازة">تيبازة</option>
+              <option value="ميلة">ميلة</option>
+              <option value="عين الدفلى">عين الدفلى</option>
+              <option value="النعامة">النعامة</option>
+              <option value="عين تموشنت">عين تموشنت</option>
+              <option value="غرداية">غرداية</option>
+              <option value="غليزان">غليزان</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="municipality">البلدية</label>
+            <input type="text" id="municipality" required>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="address">العنوان الكامل</label>
+          <input type="text" id="address" required>
+        </div>
+        
+        <button type="submit" class="submit-order">تأكيد الطلب</button>
+      </form>
+    </div>
+  </div>
 
   <footer id="contact">
     <div class="footer-content">
@@ -1061,9 +1290,12 @@
 
     // 🛒 التحكم في السلة - استخدام نفس نظام التخزين من الصفحات الفرعية
     function loadCart() {
-      // استخدام نفس المفتاح الذي تستخدمه الصفحات الفرعية
       const cartData = localStorage.getItem('cart');
       return cartData ? JSON.parse(cartData) : [];
+    }
+
+    function saveCart(cart) {
+      localStorage.setItem('cart', JSON.stringify(cart));
     }
 
     function updateCartCount() {
@@ -1088,7 +1320,7 @@
       } else {
         cart.forEach((item, index) => {
           const price = item.price ? parseInt(item.price) : 0;
-          const quantity = item.quantity ? item.quantity : 1;
+          const quantity = item.quantity || 1;
           const itemTotal = price * quantity;
           total += itemTotal;
 
@@ -1096,9 +1328,16 @@
           li.innerHTML = `
             <div class="item-info">
               <div class="item-name">${item.name}</div>
-              <div class="item-price">${price} دج × ${quantity}</div>
+              <div class="item-price">${price} دج</div>
+              <div class="item-quantity">
+                <button class="quantity-btn" onclick="decreaseQuantity(${index})">-</button>
+                <span class="quantity-value">${quantity}</span>
+                <button class="quantity-btn" onclick="increaseQuantity(${index})">+</button>
+              </div>
             </div>
-            <button onclick="removeItemFromCart(${index})"><i class="fas fa-trash"></i></button>
+            <button class="remove-item" onclick="removeItemFromCart(${index})">
+              <i class="fas fa-trash"></i>
+            </button>
           `;
           cartItems.appendChild(li);
         });
@@ -1107,39 +1346,78 @@
       document.getElementById('cart-total').textContent = "المجموع: " + total.toLocaleString() + " دج";
     }
 
-    function removeItemFromCart(index) {
+    function increaseQuantity(index) {
       const cart = loadCart();
-      cart.splice(index, 1);
-      localStorage.setItem('cart', JSON.stringify(cart));
+      cart[index].quantity = (cart[index].quantity || 1) + 1;
+      saveCart(cart);
       renderCartItems();
       updateCartCount();
     }
 
-    document.getElementById('cart-icon').onclick = () => {
-      const box = document.getElementById('cart-box');
-      box.style.display = (box.style.display === 'block') ? 'none' : 'block';
-      renderCartItems();
-    };
+    function decreaseQuantity(index) {
+      const cart = loadCart();
+      if (cart[index].quantity > 1) {
+        cart[index].quantity -= 1;
+        saveCart(cart);
+        renderCartItems();
+        updateCartCount();
+      }
+    }
 
-    document.getElementById('checkout-btn').onclick = () => {
+    function removeItemFromCart(index) {
+      const cart = loadCart();
+      cart.splice(index, 1);
+      saveCart(cart);
+      renderCartItems();
+      updateCartCount();
+    }
+
+    // التحكم في عرض وإخفاء سلة التسوق
+    document.getElementById('cart-icon').addEventListener('click', () => {
+      const box = document.getElementById('cart-box');
+      box.style.display = 'block';
+      renderCartItems();
+    });
+
+    document.querySelector('.close-cart').addEventListener('click', () => {
+      document.getElementById('cart-box').style.display = 'none';
+    });
+
+    // التحكم في صفحة الدفع
+    document.getElementById('checkout-btn').addEventListener('click', () => {
       const cart = loadCart();
       if (cart.length === 0) {
         alert('سلة التسوق فارغة');
         return;
       }
-      
-      // هنا يمكنك توجيه المستخدم إلى صفحة الدفع
-      alert('سيتم نقل вас إلى صفحة الدفع قريباً');
-      // window.location.href = "checkout.html";
-    };
+      document.getElementById('checkout-modal').style.display = 'block';
+    });
 
-    // إغلاق السلة عند النقر خارجها
+    document.querySelector('.close-checkout').addEventListener('click', () => {
+      document.getElementById('checkout-modal').style.display = 'none';
+    });
+
+    document.getElementById('checkout-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      alert('شكراً لك على طلبك! سيتم الاتصال بك قريباً لتأكيد الطلب.');
+      localStorage.removeItem('cart');
+      document.getElementById('checkout-modal').style.display = 'none';
+      document.getElementById('cart-box').style.display = 'none';
+      updateCartCount();
+    });
+
+    // إغلاق السلة وصفحة الدفع عند النقر خارجها
     document.addEventListener('click', (e) => {
       const cartBox = document.getElementById('cart-box');
       const cartIcon = document.getElementById('cart-icon');
+      const checkoutModal = document.getElementById('checkout-modal');
       
       if (cartBox.style.display === 'block' && !cartBox.contains(e.target) && !cartIcon.contains(e.target)) {
         cartBox.style.display = 'none';
+      }
+      
+      if (checkoutModal.style.display === 'block' && !checkoutModal.contains(e.target)) {
+        checkoutModal.style.display = 'none';
       }
     });
 
@@ -1147,6 +1425,66 @@
     document.querySelector('.mobile-menu-btn').addEventListener('click', () => {
       document.querySelector('.nav-links').classList.toggle('active');
     });
+
+    // جعل سلة التسوق قابلة للسحب
+    let isDragging = false;
+    let currentX;
+    let currentY;
+    let initialX;
+    let initialY;
+    let xOffset = 0;
+    let yOffset = 0;
+    const cartBox = document.getElementById('cart-box');
+
+    cartBox.addEventListener('mousedown', dragStart);
+    cartBox.addEventListener('touchstart', dragStart);
+    cartBox.addEventListener('mouseup', dragEnd);
+    cartBox.addEventListener('touchend', dragEnd);
+    cartBox.addEventListener('mousemove', drag);
+    cartBox.addEventListener('touchmove', drag);
+
+    function dragStart(e) {
+      if (e.type === 'touchstart') {
+        initialX = e.touches[0].clientX - xOffset;
+        initialY = e.touches[0].clientY - yOffset;
+      } else {
+        initialX = e.clientX - xOffset;
+        initialY = e.clientY - yOffset;
+      }
+
+      if (e.target === cartBox || e.target.parentNode === cartBox) {
+        isDragging = true;
+      }
+    }
+
+    function dragEnd() {
+      initialX = currentX;
+      initialY = currentY;
+      isDragging = false;
+    }
+
+    function drag(e) {
+      if (isDragging) {
+        e.preventDefault();
+        
+        if (e.type === 'touchmove') {
+          currentX = e.touches[0].clientX - initialX;
+          currentY = e.touches[0].clientY - initialY;
+        } else {
+          currentX = e.clientX - initialX;
+          currentY = e.clientY - initialY;
+        }
+
+        xOffset = currentX;
+        yOffset = currentY;
+
+        setTranslate(currentX, currentY, cartBox);
+      }
+    }
+
+    function setTranslate(xPos, yPos, el) {
+      el.style.transform = `translate3d(${xPos}px, ${yPos}px, 0)`;
+    }
 
     // تحديث عدد العناصر في السلة عند تحميل الصفحة
     document.addEventListener('DOMContentLoaded', () => {
