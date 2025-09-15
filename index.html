@@ -52,19 +52,47 @@
     .logo {
       display: flex;
       align-items: center;
+      position: relative;
     }
     
     .logo img {
-      width: 60px;
-      height: 60px;
+      width: 120px; /* زيادة حجم الشعار */
+      height: 120px; /* زيادة حجم الشعار */
       border-radius: 50%;
       margin-left: 10px;
+      border: 3px solid var(--secondary-color);
+      box-shadow: 0 0 20px rgba(85, 198, 240, 0.5);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    
+    .logo img:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 25px rgba(85, 198, 240, 0.7);
+    }
+    
+    .logo::before, .logo::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      width: 40px;
+      height: 3px;
+      background: linear-gradient(to right, transparent, var(--secondary-color), transparent);
+      border-radius: 2px;
+    }
+    
+    .logo::before {
+      right: 140px;
+    }
+    
+    .logo::after {
+      left: 140px;
     }
     
     .logo-text {
       color: white;
-      font-size: 22px;
+      font-size: 28px; /* زيادة حجم النص */
       font-weight: bold;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
     }
     
     .nav-links {
@@ -81,10 +109,13 @@
       text-decoration: none;
       font-weight: 500;
       transition: color 0.3s;
+      padding: 8px 15px;
+      border-radius: 20px;
     }
     
     .nav-links a:hover {
       color: var(--secondary-color);
+      background-color: rgba(255, 255, 255, 0.1);
     }
     
     .mobile-menu-btn {
@@ -101,11 +132,37 @@
       color: white;
       padding: 40px 20px;
       text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    header::before, header::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 150px;
+      background: linear-gradient(to right, var(--primary-color), transparent);
+      z-index: 1;
+    }
+    
+    header::before {
+      left: 0;
+      transform: rotate(180deg);
+    }
+    
+    header::after {
+      right: 0;
+    }
+    
+    .header-content {
+      position: relative;
+      z-index: 2;
     }
 
     .site-title {
       font-family: "Cairo", sans-serif;
-      font-size: 36px;
+      font-size: 42px; /* زيادة حجم العنوان */
       font-weight: bold;
       color: white;
       text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
@@ -114,19 +171,36 @@
     }
     
     .header-subtitle {
-      font-size: 18px;
+      font-size: 20px; /* زيادة حجم النص الفرعي */
       margin-bottom: 20px;
     }
 
     /* 🔥 شريط الإعلانات */
     .ads-bar {
-      background-color: #2a6277;
+      background: linear-gradient(to right, #1a4d5c, #2a6277, #1a4d5c);
       color: white;
-      padding: 12px 0;
+      padding: 15px 0;
       font-weight: bold;
       font-size: 18px;
       overflow: hidden;
       text-align: center;
+      position: relative;
+    }
+    
+    .ads-bar::before, .ads-bar::after {
+      content: "🚗";
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 24px;
+    }
+    
+    .ads-bar::before {
+      left: 30px;
+    }
+    
+    .ads-bar::after {
+      right: 30px;
     }
 
     .products {
@@ -252,6 +326,19 @@
       
       .mobile-menu-btn {
         display: block;
+      }
+      
+      .logo img {
+        width: 80px;
+        height: 80px;
+      }
+      
+      .logo-text {
+        font-size: 18px;
+      }
+      
+      .logo::before, .logo::after {
+        display: none;
       }
     }
 
@@ -602,9 +689,33 @@
       border-radius: 0 30px 30px 0;
       cursor: pointer;
     }
+
+    /* تصميمات إضافية للجوانب */
+    .side-decoration {
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      width: 100px;
+      z-index: -1;
+      opacity: 0.1;
+    }
+    
+    .side-decoration.left {
+      left: 0;
+      background: radial-gradient(circle, var(--secondary-color) 0%, transparent 70%);
+    }
+    
+    .side-decoration.right {
+      right: 0;
+      background: radial-gradient(circle, var(--accent-color) 0%, transparent 70%);
+    }
   </style>
 </head>
 <body>
+  <!-- زخارف الجوانب -->
+  <div class="side-decoration left"></div>
+  <div class="side-decoration right"></div>
+
   <!-- شريط التنقل -->
   <nav class="navbar">
     <div class="nav-container">
@@ -634,9 +745,11 @@
   </div>
 
   <header>
-    <h1 class="site-title">ACCESSOIRE AUTO BBS</h1>
-    <p class="header-subtitle">كل ما تحتاجه لسيارتك في مكان واحد</p>
-    <img src="images/logo.png" alt="Logo" style="width:200px;height:200px;border-radius:50%;margin-top:10px;">
+    <div class="header-content">
+      <h1 class="site-title">ACCESSOIRE AUTO BBS</h1>
+      <p class="header-subtitle">كل ما تحتاجه لسيارتك في مكان واحد</p>
+      <img src="images/logo.png" alt="Logo" style="width:200px;height:200px;border-radius:50%;margin-top:10px;border:3px solid white;box-shadow:0 0 20px rgba(255,255,255,0.5);">
+    </div>
   </header>
 
   <div class="ads-bar">
