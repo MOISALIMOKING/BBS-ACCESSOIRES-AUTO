@@ -158,13 +158,17 @@
       border-radius: 2px;
     }
 
+    /* تحسين شبكة المنتجات */
+    .products-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    
     .products-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 30px;
-      padding: 20px;
-      max-width: 1200px;
-      margin: 0 auto;
+      gap: 20px;
     }
     
     .product-card {
@@ -177,6 +181,7 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      height: 100%;
     }
     
     .product-card:hover {
@@ -186,7 +191,7 @@
 
     .product-image {
       width: 100%;
-      height: 200px;
+      height: 250px;
       object-fit: cover;
       border-radius: 10px;
       margin-bottom: 15px;
@@ -225,7 +230,7 @@
       align-items: center;
       justify-content: center;
       gap: 10px;
-      margin-top: 10px;
+      margin-top: auto;
     }
     
     .add-to-cart-btn:hover {
@@ -500,8 +505,7 @@
     @media (max-width: 768px) {
       .products-grid {
         grid-template-columns: repeat(2, 1fr);
-        gap: 20px;
-        padding: 15px;
+        gap: 15px;
       }
       
       .nav-links {
@@ -584,6 +588,10 @@
       .products-grid {
         grid-template-columns: 1fr;
       }
+      
+      .products-container {
+        padding: 10px;
+      }
     }
 
     /* إشعار الإضافة */
@@ -665,77 +673,241 @@
   </div>
 
   <!-- المنتجات -->
-  <div class="products-grid">
-    <div class="product-card">
-      <img src="../images/tapis1.jpg" alt="TAPIS-7D KANGOO COMMERCIAL" class="product-image">
-      <h3 class="product-name">TAPIS-7D KANGOO COMMERCIAL</h3>
-      <div class="product-price">7500 دج</div>
-      <button class="add-to-cart-btn" onclick="addToCart('TAPIS-7D KANGOO COMMERCIAL', 7500, '../images/tapis1.jpg')">
-        <i class="fas fa-cart-plus"></i> أضف إلى السلة
-      </button>
-    </div>
+  <div class="products-container">
+    <div class="products-grid">
+      <div class="product-card">
+        <img src="../images/enjoiver-caddy-clio3.jpeg" alt="ENJOLIVER-CADDY-CLIO3" class="product-image">
+        <h3 class="product-name">ENJOLIVER-CADDY-CLIO3</h3>
+        <div class="product-price">2200 دج</div>
+        <button class="add-to-cart-btn" onclick="addToCart('ENJOLIVER-CADDY-CLIO3', 2200, '../images/tapis1.jpg')">
+          <i class="fas fa-cart-plus"></i> أضف إلى السلة
+        </button>
+      </div>
 
-    <div class="product-card">
-      <img src="../images/tapis2.jpg" alt="TAPIS-7D KANGOO VITREE" class="product-image">
-      <h3 class="product-name">TAPIS-7D KANGOO VITREE</h3>
-      <div class="product-price">8500 دج</div>
-      <button class="add-to-cart-btn" onclick="addToCart('TAPIS-7D KANGOO VITREE', 8500, '../images/tapis2.jpg')">
-        <i class="fas fa-cart-plus"></i> أضف إلى السلة
-      </button>
-    </div>
+      <div class="product-card">
+        <img src="../images/enjoliver-12-2.jpeg" alt="ENJOLIVER12-2" class="product-image">
+        <h3 class="product-name">ENJOLIVER12-2</h3>
+        <div class="product-price">2000 دج</div>
+        <button class="add-to-cart-btn" onclick="addToCart('ENJOLIVER12-2', 2000, '../images/tapis2.jpg')">
+          <i class="fas fa-cart-plus"></i> أضف إلى السلة
+        </button>
+      </div>
 
-    <div class="product-card">
-      <img src="../images/tapis3.jpg" alt="TAPIS-7D DOBLO COMMERCIAL" class="product-image">
-      <h3 class="product-name">TAPIS-7D DOBLO COMMERCIAL</h3>
-      <div class="product-price">7500 دج</div>
-      <button class="add-to-cart-btn" onclick="addToCart('TAPIS-7D DOBLO COMMERCIAL', 7500, '../images/tapis3.jpg')">
-        <i class="fas fa-cart-plus"></i> أضف إلى السلة
-      </button>
-    </div>
+      <div class="product-card">
+        <img src="../images/enjoliver-12.jpeg" alt="ENJOLIVER12" class="product-image">
+        <h3 class="product-name">ENJOLIVER12</h3>
+        <div class="product-price">2000 دج</div>
+        <button class="add-to-cart-btn" onclick="addToCart('ENJOLIVER12', 2000, '../images/tapis3.jpg')">
+          <i class="fas fa-cart-plus"></i> أضف إلى السلة
+        </button>
+      </div>
 
-    <div class="product-card">
-      <img src="../images/tapis3.jpg" alt="TAPIS-7D DOBLO COMMERCIAL" class="product-image">
-      <h3 class="product-name">TAPIS-7D DOBLO COMMERCIAL</h3>
-      <div class="product-price">7500 دج</div>
-      <button class="add-to-cart-btn" onclick="addToCart('TAPIS-7D DOBLO COMMERCIAL', 7500, '../images/tapis3.jpg')">
-        <i class="fas fa-cart-plus"></i> أضف إلى السلة
-      </button>
-    </div>
+      <div class="product-card">
+        <img src="../images/enjoliver-206-partner-2.jpeg" alt="ENJOLIVER-206-PARTNER-2" class="product-image">
+        <h3 class="product-name">ENJOLIVER-206-PARTNER-2</h3>
+        <div class="product-price">2200 دج</div>
+        <button class="add-to-cart-btn" onclick="addToCart('ENJOLIVER-206-PARTNER-2', 2200, '../images/tapis3.jpg')">
+          <i class="fas fa-cart-plus"></i> أضف إلى السلة
+        </button>
+      </div>
 
-    <div class="product-card">
-      <img src="../images/tapis3.jpg" alt="TAPIS-7D DOBLO COMMERCIAL" class="product-image">
-      <h3 class="product-name">TAPIS-7D DOBLO COMMERCIAL</h3>
-      <div class="product-price">7500 دج</div>
-      <button class="add-to-cart-btn" onclick="addToCart('TAPIS-7D DOBLO COMMERCIAL', 7500, '../images/tapis3.jpg')">
-        <i class="fas fa-cart-plus"></i> أضف إلى السلة
-      </button>
-    </div>
+      <div class="product-card">
+        <img src="../images/enjoliver-206-partner.jpeg" alt="ENJOLIVER-206-PARTNER" class="product-image">
+        <h3 class="product-name">ENJOLIVER-206-PARTNER</h3>
+        <div class="product-price">2200 دج</div>
+         <button class="add-to-cart-btn" onclick="addToCart('ENJOLIVER-206-PARTNER-2', 2200, '../images/tapis3.jpg')">
+          <i class="fas fa-cart-plus"></i> أضف إلى السلة
+        </button>
+      </div>
 
-    <div class="product-card">
-      <img src="../images/tapis3.jpg" alt="TAPIS-7D DOBLO COMMERCIAL" class="product-image">
-      <h3 class="product-name">TAPIS-7D DOBLO COMMERCIAL</h3>
-      <div class="product-price">7500 دج</div>
-      <button class="add-to-cart-btn" onclick="addToCart('TAPIS-7D DOBLO COMMERCIAL', 7500, '../images/tapis3.jpg')">
-        <i class="fas fa-cart-plus"></i> أضف إلى السلة
-      </button>
-    </div>
+      <div class="product-card">
+        <img src="../images/enjoliver-505.jpeg" alt="ENJOLIVER 505" class="product-image">
+        <h3 class="product-name">enjoliver-505</h3>
+        <div class="product-price">2200 دج</div>
+        <button class="add-to-cart-btn" onclick="addToCart('enjoliver-505', 2200, '../images/tapis3.jpg')">
+          <i class="fas fa-cart-plus"></i> أضف إلى السلة
+        </button>
+      </div>
 
-    <div class="product-card">
-      <img src="../images/tapis3.jpg" alt="TAPIS-7D DOBLO COMMERCIAL" class="product-image">
-      <h3 class="product-name">TAPIS-7D DOBLO COMMERCIAL</h3>
-      <div class="product-price">7500 دج</div>
-      <button class="add-to-cart-btn" onclick="addToCart('TAPIS-7D DOBLO COMMERCIAL', 7500, '../images/tapis3.jpg')">
-        <i class="fas fa-cart-plus"></i> أضف إلى السلة
-      </button>
-    </div>
+      <div class="product-card">
+        <img src="../images/enjoliver-accent-13.jpeg" alt="ENJOLIVER ACCENT 13" class="product-image">
+        <h3 class="product-name">ENJOLIVER ACCENT 13</h3>
+        <div class="product-price">2000 دج</div>
+        <button class="add-to-cart-btn" onclick="addToCart('ENJOLIVER ACCENT13', 2000, '../images/tapis3.jpg')">
+          <i class="fas fa-cart-plus"></i> أضف إلى السلة
+        </button>
+      </div>
 
-    <div class="product-card">
-      <img src="../images/tapis3.jpg" alt="TAPIS-7D DOBLO COMMERCIAL" class="product-image">
-      <h3 class="product-name">TAPIS-7D DOBLO COMMERCIAL</h3>
-      <div class="product-price">7500 دج</div>
-      <button class="add-to-cart-btn" onclick="addToCart('TAPIS-7D DOBLO COMMERCIAL', 7500, '../images/tapis3.jpg')">
-        <i class="fas fa-cart-plus"></i> أضف إلى السلة
-      </button>
+      <div class="product-card">
+        <img src="../images/enjoliver-atos.jpeg" alt="ENJOLIVER-ATOS-13" class="product-image">
+        <h3 class="product-name">ENJOLIVER-ATOS-13</h3>
+        <div class="product-price">2600 دج</div>
+        <button class="add-to-cart-btn" onclick="addToCart('ENJOLIVER ATOS 13', 2600, '../images/tapis3.jpg')">
+          <i class="fas fa-cart-plus"></i> أضف إلى السلة
+        </button>
+      </div>
+      
+      <div class="product-card">
+        <img src="../images/enjoliver-aveo.jpeg" alt="TAPIS-7D ENJOLIVER AVEO" class="product-image">
+        <h3 class="product-name">ENJOLIVER AVEO</h3>
+        <div class="product-price">2600 دج</div>
+        <button class="add-to-cart-btn" onclick="addToCart('ENJOLIVER AVEO', 2600, '../images/tapis1.jpg')">
+          <i class="fas fa-cart-plus"></i> أضف إلى السلة
+        </button>
+      </div>
+
+      <div class="product-card">
+        <img src="../images/enjoliver-chana-14.jpeg" alt="ENJOLIVER CHANA" class="product-image">
+        <h3 class="product-name">ENJOLIVER CHANA</h3>
+        <div class="product-price">2200 دج</div>
+        <button class="add-to-cart-btn" onclick="addToCart('TAPIS-7D KANGOO VITREE', 2200, '../images/tapis2.jpg')">
+          <i class="fas fa-cart-plus"></i> أضف إلى السلة
+        </button>
+      </div>
+
+      <div class="product-card">
+        <img src="../images/enjoliver-citroen-15.jpeg" alt="ENJOLIVER CITROEN 15" class="product-image">
+        <h3 class="product-name">ENJOLIVER CITROEN 15</h3>
+        <div class="product-price">3500 دج</div>
+        <button class="add-to-cart-btn" onclick="addToCart('ENJOLIVER CITROEN 15', 3500, '../images/tapis3.jpg')">
+          <i class="fas fa-cart-plus"></i> أضف إلى السلة
+        </button>
+      </div>
+
+      <div class="product-card">
+        <img src="../images/enjoliver-classic-13.jpeg" alt="ENJOLIVER CLASSIC 13" class="product-image">
+        <h3 class="product-name">ENJOLIVER CLASSIC 13</h3>
+        <div class="product-price">2200 دج</div>
+        <button class="add-to-cart-btn" onclick="addToCart('ENJOLIVER CLASSIC 13', 2200, '../images/tapis3.jpg')">
+          <i class="fas fa-cart-plus"></i> أضف إلى السلة
+        </button>
+      </div>
+
+      <div class="product-card">
+        <img src="../images/enjoliver-classic-14.jpeg" alt="ENJOLIVER CLASSIC 14" class="product-image">
+        <h3 class="product-name">ENJOLIVER CLASSIC 14</h3>
+        <div class="product-price">2200 دج</div>
+        <button class="add-to-cart-btn" onclick="addToCart('ENJOLIVER CLASSIC 14', 2200, '../images/tapis3.jpg')">
+          <i class="fas fa-cart-plus"></i> أضف إلى السلة
+        </button>
+      </div>
+
+      <div class="product-card">
+        <img src="../images/enjoliver-dacia-15.jpeg" alt="ENJOLIVER DACIA 15" class="product-image">
+        <h3 class="product-name">ENJOLIVER DACIA 15</h3>
+        <div class="product-price">3200 دج</div>
+        <button class="add-to-cart-btn" onclick="addToCart('ENJOLIVER DACIA 15', 3200, '../images/tapis3.jpg')">
+          <i class="fas fa-cart-plus"></i> أضف إلى السلة
+        </button>
+      </div>
+
+      <div class="product-card">
+        <img src="../images/enjoliver-express-13.jpeg" alt="" class="product-image">
+        <h3 class="product-name">ENJOLIVER EXPRESS 13</h3>
+        <div class="product-price">2200 دج</div>
+        <button class="add-to-cart-btn" onclick="addToCart('ENJOLIVER EXPRESS 13', 2200, '../images/tapis3.jpg')">
+          <i class="fas fa-cart-plus"></i> أضف إلى السلة
+        </button>
+      </div>
+
+      <div class="product-card">
+        <img src="../images/enjoliver-hilux-14.jpeg" alt="ENJOLIVER HILUX 14" class="product-image">
+        <h3 class="product-name">ENJOLIVER HILUX 14</h3>
+        <div class="product-price">2500 دج</div>
+        <button class="add-to-cart-btn" onclick="addToCart('ENJOLIVER HILUX 14', 2500, '../images/tapis3.jpg')">
+          <i class="fas fa-cart-plus"></i> أضف إلى السلة
+        </button>
+      </div>
+      
+      <div class="product-card">
+        <img src="../images/enjoliver-hilux-15.jpeg" alt="ENJOLIVER HILUX 15" class="product-image">
+        <h3 class="product-name">ENJOLIVER HILUX 15</h3>
+        <div class="product-price">2800 دج</div>
+        <button class="add-to-cart-btn" onclick="addToCart('ENJOLIVER HILUX 15', 2800, '../images/tapis1.jpg')">
+          <i class="fas fa-cart-plus"></i> أضف إلى السلة
+        </button>
+      </div>
+
+      <div class="product-card">
+        <img src="../images/enjoliver-kangoo-15.jpeg" alt="ENJOLIVER KANGOO 15" class="product-image">
+        <h3 class="product-name">ENJOLIVER KANGOO</h3>
+        <div class="product-price">2500 دج</div>
+        <button class="add-to-cart-btn" onclick="addToCart('ENJOLIVER KANGOO', 2500, '../images/tapis2.jpg')">
+          <i class="fas fa-cart-plus"></i> أضف إلى السلة
+        </button>
+      </div>
+
+      <div class="product-card">
+        <img src="../images/enjoliver-logan-14.jpeg" alt="ENJOLIVER LOGAN 14" class="product-image">
+        <h3 class="product-name">ENJOLIVER LOGAN 14</h3>
+        <div class="product-price">3200 دج</div>
+        <button class="add-to-cart-btn" onclick="addToCart('ENJOLIVER LOGAN 14', 3200, '../images/tapis3.jpg')">
+          <i class="fas fa-cart-plus"></i> أضف إلى السلة
+        </button>
+      </div>
+
+      <div class="product-card">
+        <img src="../images/enjoliver-partner-15.jpeg" alt="ENJOLIVERT PARTNER 15" class="product-image">
+        <h3 class="product-name">ENJOLIVER PARTNER 15</h3>
+        <div class="product-price">2800 دج</div>
+        <button class="add-to-cart-btn" onclick="addToCart('ENJOLIVER PARTNER 15', 2800, '../images/tapis3.jpg')">
+          <i class="fas fa-cart-plus"></i> أضف إلى السلة
+        </button>
+      </div>
+
+      <div class="product-card">
+        <img src="../images/enjoliver-picanto-13.jpeg" alt="ENJOLIVER PICANTO 13" class="product-image">
+        <h3 class="product-name">ENJOLIVER PICANTO 13</h3>
+        <div class="product-price">3200 دج</div>
+        <button class="add-to-cart-btn" onclick="addToCart('ENJOLIVER PICANTO 13', 3200, '../images/tapis3.jpg')">
+          <i class="fas fa-cart-plus"></i> أضف إلى السلة
+        </button>
+      </div>
+
+      <div class="product-card">
+        <img src="../images/enjoliver-r21-13.jpeg" alt="ENJOLIVER R21 13" class="product-image">
+        <h3 class="product-name">ENJOLIVER R21 13</h3>
+        <div class="product-price">2200 دج</div>
+        <button class="add-to-cart-btn" onclick="addToCart('ENJOLIVER R21 13', 2200, '../images/tapis3.jpg')">
+          <i class="fas fa-cart-plus"></i> أضف إلى السلة
+        </button>
+      </div>
+
+      <div class="product-card">
+        <img src="../images/enjoliver-renault-14.jpeg" alt="ENJOLIVER RENAULT 14" class="product-image">
+        <h3 class="product-name">ENJOLIVER RENAULT 14</h3>
+        <div class="product-price">2200 دج</div>
+        <button class="add-to-cart-btn" onclick="addToCart('ENJOLIVER RENAULT 14', 2200, '../images/tapis3.jpg')">
+          <i class="fas fa-cart-plus"></i> أضف إلى السلة
+        </button>
+      </div>
+
+      <div class="product-card">
+        <img src="../images/enjoliver-sail.jpeg" alt="ENJOLIVER SAIL" class="product-image">
+        <h3 class="product-name">ENJOLIVER SAIL</h3>
+        <div class="product-price">2200 دج</div>
+        <button class="add-to-cart-btn" onclick="addToCart('ENJOLIVER SAIL', 2200, '../images/tapis3.jpg')">
+          <i class="fas fa-cart-plus"></i> أضف إلى السلة
+        </button>
+      </div>
+      
+      <div class="product-card">
+        <img src="../images/enjoliver-symbol-clio-kangoo-14.jpeg" alt="ENJOLIVER CLIO-KANGOO-SYMBOL14" class="product-image">
+        <h3 class="product-name">TAPIS-7D KANGOO COMMERCIAL</h3>
+        <div class="product-price">2200 دج</div>
+        <button class="add-to-cart-btn" onclick="addToCart('ENJOLIVER CLIO-KANGOO-SYMBOL', 2200, '../images/tapis1.jpg')">
+          <i class="fas fa-cart-plus"></i> أضف إلى السلة
+        </button>
+      </div>
+
+      <div class="product-card">
+        <img src="../images/enjoliver-standard-15.jpeg" alt="ENJOLIVER STANDARD 15" class="product-image">
+        <h3 class="product-name">ENJOLIVER STANDARD 15</h3>
+        <div class="product-price">2500 دج</div>
+        <button class="add-to-cart-btn" onclick="addToCart('ENJOLIVER STANDARD 15', 2500, '../images/tapis2.jpg')">
+          <i class="fas fa-cart-plus"></i> أضف إلى السلة
+        </button>
+      </div>
     </div>
   </div>
 
