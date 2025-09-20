@@ -13,6 +13,7 @@
       --text-color: #333;
       --light-bg: #e8f4fc;
       --dark-bg: #080808;
+      --success-color: #28a745;
     }
     
     * {
@@ -289,20 +290,27 @@
 
     @media (max-width: 768px) {
       .products {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 20px;
-        padding: 20px;
+        grid-template-columns: repeat(3, 1fr); /* تغيير من 2 إلى 3 أعمدة */
+        gap: 15px; /* تقليل المسافة بين العناصر */
+        padding: 15px;
       }
       
       .product {
-        width: 150px;
-        height: 150px;
-        padding: 10px;
+        width: 100px; /* تصغير حجم الدائرة */
+        height: 100px;
+        padding: 8px;
       }
       
       .product-name {
-        font-size: 14px;
-        padding: 6px 10px;
+        font-size: 12px; /* تصغير حجم الخط */
+        padding: 4px 8px;
+        margin-top: 8px;
+      }
+      
+      .view-products-btn {
+        font-size: 10px;
+        padding: 5px 10px;
+        margin-top: 5px;
       }
       
       .nav-links {
@@ -354,16 +362,58 @@
         width: 150px !important;
         height: 150px !important;
       }
+      
+      /* تعديلات قسم المنتجات الأخرى للهاتف */
+      .other-products-section {
+        padding: 20px 10px;
+      }
+      
+      .other-products-title {
+        font-size: 22px;
+        margin-bottom: 15px;
+      }
+      
+      .other-products-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+      }
+      
+      .other-product {
+        padding: 10px;
+      }
+      
+      .other-product-name {
+        font-size: 14px;
+      }
+      
+      .other-product-price {
+        font-size: 14px;
+      }
+      
+      .add-to-cart-btn {
+        padding: 6px 10px;
+        font-size: 12px;
+      }
     }
 
     @media (max-width: 480px) {
       .products {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(3, 1fr); /* الحفاظ على 3 أعمدة حتى في الشاشات الصغيرة */
+        gap: 10px;
       }
       
       .product {
-        width: 200px;
-        height: 200px;
+        width: 90px; /* تصغير أكثر للشاشات الصغيرة */
+        height: 90px;
+      }
+      
+      .product-name {
+        font-size: 10px;
+      }
+      
+      /* تعديلات قسم المنتجات الأخرى للشاشات الصغيرة */
+      .other-products-grid {
+        grid-template-columns: repeat(2, 1fr);
       }
     }
 
@@ -973,6 +1023,173 @@
         font-size: 18px;
       }
     }
+    
+    /* قسم المنتجات الأخرى */
+    .other-products-section {
+      background: linear-gradient(to bottom, #f8f8f8, #e8f4fc);
+      padding: 40px 20px;
+      margin: 40px 0;
+    }
+    
+    .other-products-container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .other-products-title {
+      text-align: center;
+      font-size: 32px;
+      color: var(--primary-color);
+      margin-bottom: 30px;
+      position: relative;
+      padding-bottom: 15px;
+    }
+    
+    .other-products-title::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 3px;
+      background: var(--secondary-color);
+    }
+    
+    .other-products-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+    
+    .other-product {
+      background: white;
+      border-radius: 10px;
+      padding: 15px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      transition: transform 0.3s, box-shadow 0.3s;
+      text-align: center;
+    }
+    
+    .other-product:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    }
+    
+    .other-product-image {
+      width: 100%;
+      height: 150px;
+      object-fit: contain;
+      margin-bottom: 15px;
+      border-radius: 8px;
+    }
+    
+    .other-product-name {
+      font-weight: bold;
+      margin-bottom: 8px;
+      color: var(--primary-color);
+      font-size: 16px;
+    }
+    
+    .other-product-price {
+      color: var(--accent-color);
+      font-weight: bold;
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+    
+    .add-to-cart-btn {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      background: var(--secondary-color);
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s;
+      font-weight: bold;
+    }
+    
+    .add-to-cart-btn:hover {
+      background: var(--primary-color);
+    }
+    
+    @media (max-width: 1024px) {
+      .other-products-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .other-products-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .other-products-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    
+    /* فلاتر المنتجات */
+    .product-filters {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 20px 0;
+      padding: 0 20px;
+    }
+    
+    .filter-btn {
+      padding: 8px 15px;
+      background: white;
+      border: 1px solid #ddd;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    
+    .filter-btn:hover, .filter-btn.active {
+      background: var(--secondary-color);
+      color: white;
+      border-color: var(--secondary-color);
+    }
+    
+    /* تأثيرات إضافية */
+    .notification {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: var(--success-color);
+      color: white;
+      padding: 15px 20px;
+      border-radius: 5px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      z-index: 1000;
+      display: none;
+    }
+    
+    .section-title {
+      text-align: center;
+      font-size: 32px;
+      color: var(--primary-color);
+      margin: 40px 0 30px;
+      position: relative;
+    }
+    
+    .section-title::after {
+      content: "";
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 3px;
+      background: var(--secondary-color);
+    }
   </style>
 </head>
 <body>
@@ -1067,8 +1284,27 @@
     <button id="checkout-btn">إتمام الشراء</button>
   </div>
 
-  <!-- 🛒 المنتجات -->
+  <!-- فلاتر المنتجات -->
+  <div class="product-filters">
+    <button class="filter-btn active" data-filter="all">جميع المنتجات</button>
+    <button class="filter-btn" data-filter="interior">إكسسوارات داخلية</button>
+    <button class="filter-btn" data-filter="exterior">إكسسوارات خارجية</button>
+    <button class="filter-btn" data-filter="electronics">إلكترونيات السيارات</button>
+    <button class="filter-btn" data-filter="maintenance">العناية بالسيارة</button>
+  </div>
+
+  <!-- 🛒 المنتجات الأصلية -->
   <div class="products" id="products-container"></div>
+
+  <!-- قسم المنتجات الأخرى -->
+  <div class="other-products-section">
+    <div class="other-products-container">
+      <h2 class="other-products-title">منتجات أخرى</h2>
+      <div class="other-products-grid" id="other-products-container">
+        <!-- سيتم إضافة المنتجات الأخرى هنا عبر JavaScript -->
+      </div>
+    </div>
+  </div>
 
   <!-- صفحة الدفع -->
   <div class="checkout-modal" id="checkout-modal">
@@ -1178,6 +1414,23 @@
       { name: 'CAMERA AUTO', image: 'images/camauto.jpg', link: 'camera-auto/index.html' },
     ];
 
+    // بيانات المنتجات الأخرى (150 منتج)
+    const otherProducts = [
+      { name: "غطاء عجلة قيادة جلد طبيعي", price: "4500", originalPrice: "5500", image: "images/steering-cover.jpg", description: "غطاء عجلة قيادة من الجلد الطبيعي مع خياطة فاخرة", category: "interior" },
+      { name: "سجادات سيارة مقاس عالمي", price: "3200", originalPrice: "4000", image: "images/car-mats.jpg", description: "سجادات سيارة من المطاط المقوى مع تصميم عصري", category: "interior" },
+      { name: "مسند رقبة memory foam", price: "1800", originalPrice: "2200", image: "images/neck-pillow.jpg", description: "مسند رقبة طبي مريح مع ذاكرة الشكل", category: "interior" },
+      { name: "غطاء مرآة جانبية كروم", price: "4200", originalPrice: "5200", image: "images/mirror-cover.jpg", description: "غطاء مرآة جانبية من الكروم اللامع", category: "exterior" },
+      { name: "شعار سيارة مضيء", price: "5800", originalPrice: "7200", image: "images/emblem-light.jpg", description: "شعار سيارة مضيء بتقنية LED", category: "exterior" },
+      { name: "حامي صدام أمامي", price: "8900", originalPrice: "10500", image: "images/bumper-protector.jpg", description: "حامي صدام من مادة البولي يوريثين", category: "exterior" },
+      { name: "كاميرا خلفية لاسلكية", price: "8900", originalPrice: "10500", image: "images/back-camera.jpg", description: "كاميرا خلفية لاسلكية بدقة عالية", category: "electronics" },
+      { name: "شاشة ملاحة 10 بوصة", price: "14500", originalPrice: "17500", image: "images/navigation-screen.jpg", description: "شاشة ملاحة تعمل باللمس مع Android", category: "electronics" },
+      { name: "نظام إنذار للسيارة", price: "11200", originalPrice: "13500", image: "images/car-alarm.jpg", description: "نظام إنذار مع جهاز تحكم عن بعد", category: "electronics" },
+      { name: "مجموعة تنظيف سيارة كاملة", price: "8500", originalPrice: "10500", image: "images/car-cleaning-kit.jpg", description: "مجموعة متكاملة لتنظيف وتلميع السيارة", category: "maintenance" },
+      { name: "ملمع إطارات سريع", price: "1800", originalPrice: "2500", image: "images/tire-shine.jpg", description: "ملمع إطارات يعطي لمعان طويل الأمد", category: "maintenance" },
+      { name: "منظف فرامل متخصص", price: "3200", originalPrice: "4200", image: "images/brake-cleaner.jpg", description: "منظف فرامل بقوة تنظيف عالية", category: "maintenance" },
+      // يمكن إضافة المزيد من المنتجات هنا
+    ];
+
     function renderProducts() {
       const container = document.getElementById('products-container');
       container.innerHTML = '';
@@ -1196,7 +1449,32 @@
         container.appendChild(div);
       });
     }
+    
+    function renderOtherProducts() {
+      const container = document.getElementById('other-products-container');
+      container.innerHTML = '';
+      otherProducts.forEach(product => {
+        const div = document.createElement('div');
+        div.className = 'other-product';
+        div.dataset.category = product.category;
+        div.innerHTML = `
+          <img src="${product.image}" alt="${product.name}" class="other-product-image">
+          <div class="other-product-name">${product.name}</div>
+          <div class="other-product-description">${product.description}</div>
+          <div class="other-product-price">
+            ${product.originalPrice ? `<span class="original-price">${product.originalPrice} دج</span>` : ''}
+            ${product.price} دج
+          </div>
+          <button class="add-to-cart-btn" data-name="${product.name}" data-price="${product.price}">
+            أضف إلى السلة
+          </button>
+        `;
+        container.appendChild(div);
+      });
+    }
+    
     renderProducts();
+    renderOtherProducts();
 
     // 🎞️ السلايدر
     const sliderImages = ["images/shop1.jpg","images/shop2.jpg","images/shop3.jpg","images/shop4.jpg"];
@@ -1488,6 +1766,57 @@
     function setTranslate(xPos, yPos, el) {
       el.style.transform = `translate3d(${xPos}px, ${yPos}px, 0)`;
     }
+
+    // إضافة منتج إلى السلة من المنتجات الجديدة
+    document.addEventListener('click', function(e) {
+      if (e.target.classList.contains('add-to-cart-btn')) {
+        const productName = e.target.getAttribute('data-name');
+        const productPrice = e.target.getAttribute('data-price');
+        
+        addToCart(productName, productPrice);
+      }
+    });
+
+    function addToCart(name, price) {
+      const cart = loadCart();
+      const existingItem = cart.find(item => item.name === name);
+      
+      if (existingItem) {
+        existingItem.quantity += 1;
+      } else {
+        cart.push({
+          name: name,
+          price: price,
+          quantity: 1
+        });
+      }
+      
+      saveCart(cart);
+      updateCartCount();
+      
+      // عرض إشعار
+      alert(`تم إضافة ${name} إلى السلة`);
+    }
+
+    // فلترة المنتجات
+    document.querySelectorAll('.filter-btn').forEach(button => {
+      button.addEventListener('click', function() {
+        const filter = this.getAttribute('data-filter');
+        
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+          btn.classList.remove('active');
+        });
+        this.classList.add('active');
+        
+        document.querySelectorAll('.other-product').forEach(product => {
+          if (filter === 'all' || product.dataset.category === filter) {
+            product.style.display = 'block';
+          } else {
+            product.style.display = 'none';
+          }
+        });
+      });
+    });
 
     // تحديث عدد العناصر في السلة عند تحميل الصفحة
     document.addEventListener('DOMContentLoaded', () => {
