@@ -31,6 +31,134 @@
       line-height: 1.6;
     }
 
+    /* أنماط الإشعارات الجديدة */
+    .notification-toast {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+      padding: 15px 20px;
+      display: flex;
+      align-items: center;
+      z-index: 2000;
+      transform: translateY(100px);
+      opacity: 0;
+      transition: transform 0.4s ease-out, opacity 0.4s ease-out;
+      max-width: 350px;
+      border-right: 4px solid var(--success-color);
+    }
+    
+    .notification-toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    
+    .notification-toast i {
+      font-size: 24px;
+      color: var(--success-color);
+      margin-left: 10px;
+    }
+    
+    .notification-content {
+      flex-grow: 1;
+    }
+    
+    .notification-title {
+      font-weight: bold;
+      margin-bottom: 5px;
+      color: var(--primary-color);
+    }
+    
+    .notification-message {
+      color: #555;
+      font-size: 14px;
+    }
+    
+    .close-notification {
+      background: none;
+      border: none;
+      font-size: 18px;
+      cursor: pointer;
+      color: #999;
+      margin-right: 5px;
+    }
+    
+    /* تحسينات طفيفة على التصميم الحالي */
+    .product {
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+    
+    .product:hover {
+      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+      transform: translateY(-8px) scale(1.03);
+    }
+    
+    .view-products-btn {
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .view-products-btn:hover {
+      padding-right: 25px;
+      padding-left: 25px;
+    }
+    
+    .view-products-btn::after {
+      content: "→";
+      position: absolute;
+      right: -20px;
+      top: 50%;
+      transform: translateY(-50%);
+      transition: right 0.3s;
+    }
+    
+    .view-products-btn:hover::after {
+      right: 10px;
+    }
+    
+    /* تحسينات على المنتجات الأخرى */
+    .other-product {
+      transition: all 0.3s;
+    }
+    
+    .other-product:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+    }
+    
+    .add-to-cart-btn {
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .add-to-cart-btn:hover {
+      padding-right: 25px;
+    }
+    
+    .add-to-cart-btn::before {
+      content: "+";
+      position: absolute;
+      right: -20px;
+      transition: right 0.3s;
+    }
+    
+    .add-to-cart-btn:hover::before {
+      right: 10px;
+    }
+    
+    /* تحسينات على السلة */
+    #cart-items li {
+      transition: background-color 0.2s;
+    }
+    
+    #cart-items li:hover {
+      background-color: #f9f9f9;
+    }
+
     /* شريط التنقل */
     .navbar {
       background-color: var(--primary-color);
@@ -1197,6 +1325,18 @@
   <div class="side-decoration left"></div>
   <div class="side-decoration right"></div>
 
+  <!-- عنصر الإشعارات -->
+  <div class="notification-toast" id="notification-toast">
+    <button class="close-notification" id="close-notification">
+      <i class="fas fa-times"></i>
+    </button>
+    <i class="fas fa-check-circle"></i>
+    <div class="notification-content">
+      <div class="notification-title" id="notif-title">تمت الإضافة إلى السلة</div>
+      <div class="notification-message" id="notif-message">تم إضافة المنتج إلى سلة التسوق بنجاح</div>
+    </div>
+  </div>
+
   <!-- شريط التنقل -->
   <nav class="navbar">
     <div class="nav-container">
@@ -1248,7 +1388,7 @@
     <div class="search-results" id="search-results"></div>
   </div>
 
-  <!-- 🎞️ السلايدر -->
+  <!-- 🎞️ السلاイドر -->
   <div class="slider">
     <img id="slider-img" src="images/shop1.jpg" alt="slider">
     <div class="slider-dots">
@@ -1414,7 +1554,7 @@
       { name: 'CAMERA AUTO', image: 'images/camauto.jpg', link: 'camera-auto/index.html' },
     ];
 
-    // بيانات المنتجات الأخرى (150 منتج)
+    // بيانات المنتجات الأخرى (100 منتج)
     const otherProducts = [
       { name: "غطاء عجلة قيادة جلد طبيعي", price: "4500", originalPrice: "5500", image: "images/steering-cover.jpg", description: "غطاء عجلة قيادة من الجلد الطبيعي مع خياطة فاخرة", category: "interior" },
       { name: "سجادات سيارة مقاس عالمي", price: "3200", originalPrice: "4000", image: "images/car-mats.jpg", description: "سجادات سيارة من المطاط المقوى مع تصميم عصري", category: "interior" },
@@ -1428,7 +1568,102 @@
       { name: "مجموعة تنظيف سيارة كاملة", price: "8500", originalPrice: "10500", image: "images/car-cleaning-kit.jpg", description: "مجموعة متكاملة لتنظيف وتلميع السيارة", category: "maintenance" },
       { name: "ملمع إطارات سريع", price: "1800", originalPrice: "2500", image: "images/tire-shine.jpg", description: "ملمع إطارات يعطي لمعان طويل الأمد", category: "maintenance" },
       { name: "منظف فرامل متخصص", price: "3200", originalPrice: "4200", image: "images/brake-cleaner.jpg", description: "منظف فرامل بقوة تنظيف عالية", category: "maintenance" },
-      // يمكن إضافة المزيد من المنتجات هنا
+      { name: "غطاء مقعد اطفال", price: "6500", originalPrice: "8000", image: "images/child-seat-cover.jpg", description: "غطاء مقعد اطفال مضاد للماء وسهل التنظيف", category: "interior" },
+      { name: "منظم صندوق السيارة", price: "5500", originalPrice: "7000", image: "images/trunk-organizer.jpg", description: "منظم متعدد الجيوب لصندوق السيارة", category: "interior" },
+      { name: "شاحن لاسلكي للسيارة", price: "7500", originalPrice: "9500", image: "images/wireless-charger.jpg", description: "شاحن لاسلكي سريع مع مثبت للهاتف", category: "electronics" },
+      { name: "جهاز تشخيص أعطال السيارة", price: "18500", originalPrice: "22500", image: "images/obd-scanner.jpg", description: "جهاز تشخيص أعطال متوافق مع جميع السيارات", category: "electronics" },
+      { name: "مكيف هواء صغير للسيارة", price: "12500", originalPrice: "15500", image: "images/mini-ac.jpg", description: "مكيف هواء محمول للسيارة يعمل بالكهرباء", category: "electronics" },
+      { name: "غطاء محرك مزين", price: "13500", originalPrice: "16500", image: "images/engine-cover.jpg", description: "غطاء محرك بمظهر رياضي أنيق", category: "exterior" },
+      { name: "نظام صوتي مدمج", price: "22000", originalPrice: "28000", image: "images/car-audio.jpg", description: "نظام صوتي عالي الجودة مع مضخم صوت", category: "electronics" },
+      { name: "مقبض ناقل حركة", price: "4500", originalPrice: "6000", image: "images/gear-knob.jpg", description: "مقبض ناقل حركة رياضي من الألومنيوم", category: "interior" },
+      { name: "حامل كوبات متعدد", price: "3500", originalPrice: "4500", image: "images/cup-holder.jpg", description: "حامل كوبات متعدد الوظائف مع إضاءة LED", category: "interior" },
+      { name: "غطاء دينمو", price: "5200", originalPrice: "6500", image: "images/dynamo-cover.jpg", description: "غطاء دينمو أنيق بمظهر كروم", category: "exterior" },
+      { name: "ماسحة زجاج خلفي", price: "6800", originalPrice: "8500", image: "images/rear-wiper.jpg", description: "ماسحة زجاج خلفي عالية الجودة", category: "exterior" },
+      { name: "عداد سرعة رقمي", price: "9500", originalPrice: "12000", image: "images/digital-speedometer.jpg", description: "عداد سرعة رقمي بدقة عالية", category: "electronics" },
+      { name: "نظام استشعار ضغط الإطارات", price: "14500", originalPrice: "18000", image: "images/tire-pressure.jpg", description: "نظام مراقبة ضغط الإطارات لاسلكي", category: "electronics" },
+      { name: "مجموعة إصلاح الإطارات", price: "7800", originalPrice: "9500", image: "images/tire-repair-kit.jpg", description: "مجموعة متكاملة لإصلاح الثقوب في الإطارات", category: "maintenance" },
+      { name: "منظف محركات", price: "4200", originalPrice: "5500", image: "images/engine-cleaner.jpg", description: "منظف متخصص لمحركات السيارات", category: "maintenance" },
+      { name: "سائل تبريد محرك", price: "3800", originalPrice: "4800", image: "images/coolant.jpg", description: "سائل تبريد عالي الجودة للمحرك", category: "maintenance" },
+      { name: "زيت محرك سينثيتيك", price: "8500", originalPrice: "10500", image: "images/engine-oil.jpg", description: "زيت محرك سينثيتيك عالي الأداء", category: "maintenance" },
+      { name: "فلتر هواء", price: "3200", originalPrice: "4200", image: "images/air-filter.jpg", description: "فلتر هواء عالي الكفاءة", category: "maintenance" },
+      { name: "وسادة ظهر مساج", price: "6800", originalPrice: "8500", image: "images/massage-cushion.jpg", description: "وسادة ظهر بتقنية المساج والتدفئة", category: "interior" },
+      { name: "مشغل دي في دي للسيارة", price: "12500", originalPrice: "15500", image: "images/dvd-player.jpg", description: "مشغل دي في دي مع شاشات للكراسي الخلفية", category: "electronics" },
+      { name: "كاميرا أمامية للسيارة", price: "9800", originalPrice: "12500", image: "images/front-camera.jpg", description: "كاميرا أمامية عالية الدقة لتسجيل الطريق", category: "electronics" },
+      { name: "جهاز إنذار ضد السرقة", price: "11200", originalPrice: "14500", image: "images/anti-theft.jpg", description: "جهاز إنذار متطور ضد السرقة", category: "electronics" },
+      { name: "مقبض باب كروم", price: "4800", originalPrice: "6200", image: "images/door-handle.jpg", description: "مقبض باب من الكروم اللامع", category: "exterior" },
+      { name: "حامي الأبواب من الصدمات", price: "5200", originalPrice: "6800", image: "images/door-protector.jpg", description: "حامي الأبواب من الصدمات والخدوش", category: "exterior" },
+      { name: "غطاء عادم", price: "7500", originalPrice: "9500", image: "images/exhaust-cover.jpg", description: "غطاء عادم رياضي بمظهر أنيق", category: "exterior" },
+      { name: "مصباح ضباب", price: "8500", originalPrice: "11000", image: "images/fog-light.jpg", description: "مصباح ضباب LED عالي الكفاءة", category: "exterior" },
+      { name: "غطاء رف سقف", price: "6200", originalPrice: "7800", image: "images/roof-rack-cover.jpg", description: "غطاء واقي لرف السقف", category: "exterior" },
+      { name: "سائل غسيل الزجاج الأمامي", price: "2500", originalPrice: "3500", image: "images/windshield-fluid.jpg", description: "سائل غسيل زجاج أمامي مركز", category: "maintenance" },
+      { name: "منظف فرش السيارة", price: "3800", originalPrice: "4800", image: "images/upholstery-cleaner.jpg", description: "منظف متخصص لفرش السيارة", category: "maintenance" },
+      { name: "ملمع زجاج", price: "2800", originalPrice: "3800", image: "images/glass-polish.jpg", description: "ملمع زجاج لتحسين الرؤية الليلية", category: "maintenance" },
+      { name: "سائل ناقل الحركة", price: "9200", originalPrice: "11500", image: "images/transmission-fluid.jpg", description: "سائل ناقل حركة أوتوماتيكي", category: "maintenance" },
+      { name: "جهاز شحن بطارية", price: "11500", originalPrice: "14500", image: "images/battery-charger.jpg", description: "جهاز شحن بطارية ذكي", category: "electronics" },
+      { name: "محول USB متعدد المنافذ", price: "4500", originalPrice: "6000", image: "images/usb-adapter.jpg", description: "محول USB مع منافذ متعددة وشحن سريع", category: "electronics" },
+      { name: "حامل لوحة أرقام", price: "3800", originalPrice: "5000", image: "images/license-plate-holder.jpg", description: "حامل لوحة أرقام بإضاءة LED", category: "exterior" },
+      { name: "غطاء خزان الوقود", price: "4200", originalPrice: "5500", image: "images/fuel-cap.jpg", description: "غطاء خزان وقود بمظهر كروم", category: "exterior" },
+      { name: "سلة تخزين للسيارة", price: "5800", originalPrice: "7200", image: "images/car-organizer.jpg", description: "سلة تخزين متعددة الجيوب للسيارة", category: "interior" },
+      { name: "مرآة الرؤية الخلفية", price: "6500", originalPrice: "8200", image: "images/rearview-mirror.jpg", description: "مرآة الرؤية الخلفية مع إضاءة LED", category: "interior" },
+      { name: "غطاء دواسة", price: "4800", originalPrice: "6200", image: "images/pedal-cover.jpg", description: "غطاء دواسة من الألومنيوم المقاوم للانزلاق", category: "interior" },
+      { name: "منظف نظام التبريد", price: "5200", originalPrice: "6800", image: "images/cooling-system-cleaner.jpg", description: "منظف متخصص لنظام التبريد", category: "maintenance" },
+      { name: "شمع تلميع السيارات", price: "7500", originalPrice: "9500", image: "images/car-wax.jpg", description: "شمع تلميع عالي الجودة يحمي الطلاء", category: "maintenance" },
+      { name: "جهاز تنظيف فلتر الهواء", price: "4200", originalPrice: "5500", image: "images/air-filter-cleaner.jpg", description: "جهاز تنظيف فلتر الهواء بالهواء المضغوط", category: "maintenance" },
+      { name: "عداد وقود ديجيتال", price: "6800", originalPrice: "8500", image: "images/fuel-gauge.jpg", description: "عداد وقود ديجيتال دقيق", category: "electronics" },
+      { name: "كاميرا 360 درجة", price: "18500", originalPrice: "22500", image: "images/360-camera.jpg", description: "نظام كاميرا 360 درجة للسيارة", category: "electronics" },
+      { name: "نظام ملاحة GPS", price: "12500", originalPrice: "15500", image: "images/gps-navigator.jpg", description: "نظام ملاحة GPS مع تحديثات مجانية", category: "electronics" },
+      { name: "مكبر صوت للسيارة", price: "9500", originalPrice: "12000", image: "images/car-amplifier.jpg", description: "مكبر صوت لتعزيز جودة الصوت", category: "electronics" },
+      { name: "لوحة تحكم رقمية", price: "14500", originalPrice: "18000", image: "images/digital-dashboard.jpg", description: "لوحة تحكم رقمية بديلة للوحة الأصلية", category: "electronics" },
+      { name: "غطاء كابح اليد", price: "3800", originalPrice: "5000", image: "images/handbrake-cover.jpg", description: "غطاء كابح اليد من الجلد الفاخر", category: "interior" },
+      { name: "مسند ذراع مركزي", price: "6500", originalPrice: "8200", image: "images/armrest.jpg", description: "مسند ذراع مركزي مع تخزين", category: "interior" },
+      { name: "غطاء حزام الأمان", price: "2800", originalPrice: "3800", image: "images/seatbelt-cover.jpg", description: "غطاء حزام أمان مريح ومزين", category: "interior" },
+      { name: "ساعة سيارة ذكية", price: "8500", originalPrice: "11000", image: "images/car-smartwatch.jpg", description: "ساعة ذكية متصلة بنظام السيارة", category: "electronics" },
+      { name: "شاحن لاسلكي مدمج", price: "7200", originalPrice: "9000", image: "images/built-in-charger.jpg", description: "شاحن لاسلكي مدمج في console السيارة", category: "electronics" },
+      { name: "غطاء عجلات", price: "12500", originalPrice: "15500", image: "images/wheel-cover.jpg", description: "غطاء عجلات رياضي بمظهر أنيق", category: "exterior" },
+      { name: "مصباح داخلي LED", price: "4500", originalPrice: "6000", image: "images/interior-led.jpg", description: "مصباح داخلي LED متعدد الألوان", category: "interior" },
+      { name: "غطاء ماسورة العادم", price: "5800", originalPrice: "7500", image: "images/exhaust-tip.jpg", description: "غطاء ماسورة عادم من الكروم", category: "exterior" },
+      { name: "حامل هواتف مغناطيسي", price: "3500", originalPrice: "4500", image: "images/magnetic-holder.jpg", description: "حامل هواتف مغناطيسي قوي", category: "interior" },
+      { name: "منظف فرامل", price: "3200", originalPrice: "4200", image: "images/brake-cleaner.jpg", description: "منظف فرامل سريع المفعول", category: "maintenance" },
+      { name: "سائل ناقل حركة يدوي", price: "6800", originalPrice: "8500", image: "images/manual-transmission-fluid.jpg", description: "سائل ناقل حركة يدوي عالي الجودة", category: "maintenance" },
+      { name: "غطاء مرآة الرؤية الخلفية", price: "2800", originalPrice: "3800", image: "images/rearview-cover.jpg", description: "غطاء مرآة الرؤية الخلفية من الكروم", category: "interior" },
+      { name: "ممسحة زجاج أمامي", price: "5200", originalPrice: "6800", image: "images/windshield-wiper.jpg", description: "ممسحة زجاج أمامي عالية الجودة", category: "exterior" },
+      { name: "غطاء صندوق السيارة", price: "8500", originalPrice: "11000", image: "images/trunk-cover.jpg", description: "غطاء صندوق السيارة المضاد للماء", category: "exterior" },
+      { name: "سائل غسيل المكيف", price: "4200", originalPrice: "5500", image: "images/ac-cleaner.jpg", description: "سائل غسيل وتطهير مكيف السيارة", category: "maintenance" },
+      { name: "عداد سرعة عجلات", price: "7500", originalPrice: "9500", image: "images/wheel-speed-sensor.jpg", description: "عداد سرعة عجلات لسيارات الABS", category: "electronics" },
+      { name: "غطاء كوع الباب", price: "3800", originalPrice: "5000", image: "images/door-elbow-cover.jpg", description: "غطاء كوع الباب من الجلد الفاخر", category: "interior" },
+      { name: "حامل أكواب خلفي", price: "4500", originalPrice: "6000", image: "images/rear-cup-holder.jpg", description: "حامل أكواب للكراسي الخلفية", category: "interior" },
+      { name: "غطاء صندوق العجلة", price: "5800", originalPrice: "7500", image: "images/wheel-box-cover.jpg", description: "غطاء صندوق العجلة الاحتياطية", category: "exterior" },
+      { name: "سائل تبريد ناقل الحركة", price: "7200", originalPrice: "9000", image: "images/transmission-cooler.jpg", description: "سائل تبريد ناقل الحركة الأوتوماتيكي", category: "maintenance" },
+      { name: "غطاء رادياتير", price: "4800", originalPrice: "6200", image: "images/radiator-cover.jpg", description: "غطاء رادياتير بمظهر رياضي", category: "exterior" },
+      { name: "مصباح ضوء داخلي", price: "3200", originalPrice: "4200", image: "images/dome-light.jpg", description: "مصباح ضوء داخلي LED ساطع", category: "interior" },
+      { name: "غطاء ماسك النظارات", price: "2500", originalPrice: "3500", image: "images/glasses-holder.jpg", description: "غطاء ماسك النظارات الشمسية", category: "interior" },
+      { name: "سائل تنظيف البخاخات", price: "4500", originalPrice: "6000", image: "images/injector-cleaner.jpg", description: "سائل تنظيف بخاخات الوقود", category: "maintenance" },
+      { name: "غطاء لوحة التحكم", price: "5200", originalPrice: "6800", image: "images/dashboard-cover.jpg", description: "غطاء لوحة التحكم المضاد للانعكاسات", category: "interior" },
+      { name: "حامل هواتف للتهوية", price: "2800", originalPrice: "3800", image: "images/vent-phone-holder.jpg", description: "حامل هواتف يتثبت على فتحات التهوية", category: "interior" },
+      { name: "غطاء عتبة الباب", price: "6500", originalPrice: "8200", image: "images/door-sill-cover.jpg", description: "غطاء عتبة الباب بمضاء LED", category: "exterior" },
+      { name: "سائل تنظيف الفرامل", price: "3800", originalPrice: "5000", image: "images/brake-fluid.jpg", description: "سائل تنظيف وتحسين أداء الفرامل", category: "maintenance" },
+      { name: "غطاء محول التيار", price: "4200", originalPrice: "5500", image: "images/power-inverter-cover.jpg", description: "غطاء واقي لمحول التيار", category: "electronics" },
+      { name: "ممسحة خلفية", price: "4500", originalPrice: "6000", image: "images/rear-wiper.jpg", description: "ممسحة زجاج خلفي عالية الجودة", category: "exterior" },
+      { name: "غطاء فلتر الهواء", price: "3200", originalPrice: "4200", image: "images/air-filter-cover.jpg", description: "غطاء فلتر الهواء بمظهر رياضي", category: "exterior" },
+      { name: "سائل تنظيف المحرك", price: "5200", originalPrice: "6800", image: "images/engine-degreaser.jpg", description: "سائل إزالة الشحوم والزيوت من المحرك", category: "maintenance" },
+      { name: "غطاء صندوق الأدوات", price: "4800", originalPrice: "6200", image: "images/toolbox-cover.jpg", description: "غطاء صندوق الأدوات المضاد للماء", category: "exterior" },
+      { name: "مصباح إنذار", price: "5800", originalPrice: "7500", image: "images/warning-light.jpg", description: "مصباح إنذار مغناطيسي للطوارئ", category: "electronics" },
+      { name: "غطاء مثبت السرعة", price: "4200", originalPrice: "5500", image: "images/cruise-control-cover.jpg", description: "غطاء مثبت السرعة من الكروم", category: "interior" },
+      { name: "سائل تنظيف نظام الوقود", price: "4500", originalPrice: "6000", image: "images/fuel-system-cleaner.jpg", description: "سائل تنظيف نظام الوقود بالكامل", category: "maintenance" },
+      { name: "غطاء طفاية الحريق", price: "3800", originalPrice: "5000", image: "images/fire-extinguisher-cover.jpg", description: "غطاء طفاية حريق أنيق", category: "interior" },
+      { name: "مصباح ضباب خلفي", price: "6500", originalPrice: "8200", image: "images/rear-fog-light.jpg", description: "مصباح ضباب خلفي LED", category: "exterior" },
+      { name: "غطاء خزان ماء المساحات", price: "2800", originalPrice: "3800", image: "images/washer-fluid-cap.jpg", description: "غطاء خزان ماء المساحات من الكروم", category: "exterior" },
+      { name: "سائل تبريد دفع رباعي", price: "7500", originalPrice: "9500", image: "images/4x4-coolant.jpg", description: "سائل تبريد مخصص للدفع الرباعي", category: "maintenance" },
+      { name: "غطاء كشافات الضباب", price: "5200", originalPrice: "6800", image: "images/fog-light-cover.jpg", description: "غطاء كشافات الضباب الشفاف", category: "exterior" },
+      { name: "مصباح إنارة باب", price: "3200", originalPrice: "4200", image: "images/door-light.jpg", description: "مصباح إنارة أرضية عند فتح الباب", category: "interior" },
+      { name: "غطاء مفتاح السيارة", price: "2500", originalPrice: "3500", image: "images/key-cover.jpg", description: "غطاء مفتاح السيارة الجلدية", category: "interior" },
+      { name: "سائل تنظيف الشاسيه", price: "4800", originalPrice: "6200", image: "images/chassis-cleaner.jpg", description: "سائل تنظيف وحماية الشاسيه من الصدأ", category: "maintenance" },
+      { name: "غطاء مساعدات الركن", price: "5800", originalPrice: "7500", image: "images/parking-aid-cover.jpg", description: "غطاء مستشعرات مساعدات الركن", category: "exterior" },
+      { name: "مصباح إنذار للصندوق", price: "4200", originalPrice: "5500", image: "images/trunk-light.jpg", description: "مصباح إنارة صندوق السيارة LED", category: "interior" },
+      { name: "غطاء مثبت الهاتف", price: "2800", originalPrice: "3800", image: "images/phone-mount-cover.jpg", description: "غطاء مثبت الهاتف من السيليكون", category: "interior" },
+      { name: "سائل تنظيف البطارية", price: "3200", originalPrice: "4200", image: "images/battery-cleaner.jpg", description: "سائل تنظيف أقطاب البطارية من التآكل", category: "maintenance" },
+      { name: "غطاء عاكس الضوء", price: "4500", originalPrice: "6000", image: "images/reflector-cover.jpg", description: "غطاء عاكس الضوء الخلفي", category: "exterior" },
+      { name: "مصباح إنارة للصندوق", price: "3800", originalPrice: "5000", image: "images/trunk-led-light.jpg", description: "مصباح إنارة LED لصندوق السيارة", category: "interior" }
     ];
 
     function renderProducts() {
@@ -1462,8 +1697,8 @@
           <div class="other-product-name">${product.name}</div>
           <div class="other-product-description">${product.description}</div>
           <div class="other-product-price">
-            ${product.originalPrice ? `<span class="original-price">${product.originalPrice} دج</span>` : ''}
-            ${product.price} دج
+            ${product.originalPrice ? `<span style="text-decoration: line-through; color: #777; margin-left: 10px;">${product.originalPrice} دج</span>` : ''}
+            <span>${product.price} دج</span>
           </div>
           <button class="add-to-cart-btn" data-name="${product.name}" data-price="${product.price}">
             أضف إلى السلة
@@ -1476,6 +1711,28 @@
     renderProducts();
     renderOtherProducts();
 
+    // دالة لعرض الإشعارات
+    function showNotification(title, message) {
+      const notif = document.getElementById('notification-toast');
+      document.getElementById('notif-title').textContent = title;
+      document.getElementById('notif-message').textContent = message;
+      
+      notif.classList.add('show');
+      
+      // إخفاء الإشعار تلقائيًا بعد 3 ثوان
+      setTimeout(() => {
+        hideNotification();
+      }, 3000);
+    }
+    
+    function hideNotification() {
+      const notif = document.getElementById('notification-toast');
+      notif.classList.remove('show');
+    }
+    
+    // إغلاق الإشعار عند النقر على الزر
+    document.getElementById('close-notification').addEventListener('click', hideNotification);
+    
     // 🎞️ السلايدر
     const sliderImages = ["images/shop1.jpg","images/shop2.jpg","images/shop3.jpg","images/shop4.jpg"];
     let currentIndex = 0;
@@ -1652,7 +1909,7 @@
     document.getElementById('checkout-btn').addEventListener('click', () => {
       const cart = loadCart();
       if (cart.length === 0) {
-        alert('سلة التسوق فارغة');
+        showNotification("سلة التسوق فارغة", "أضف بعض المنتجات إلى السلة أولاً");
         return;
       }
       // الانتقال مباشرة إلى صفحة التأكيد
@@ -1783,19 +2040,18 @@
       
       if (existingItem) {
         existingItem.quantity += 1;
+        showNotification("تم تحديث الكمية", `تم زيادة كمية ${name} في السلة`);
       } else {
         cart.push({
           name: name,
           price: price,
           quantity: 1
         });
+        showNotification("تمت الإضافة إلى السلة", `تم إضافة ${name} إلى السلة بنجاح`);
       }
       
       saveCart(cart);
       updateCartCount();
-      
-      // عرض إشعار
-      alert(`تم إضافة ${name} إلى السلة`);
     }
 
     // فلترة المنتجات
