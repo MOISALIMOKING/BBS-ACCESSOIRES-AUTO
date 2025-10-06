@@ -85,6 +85,94 @@
       margin-right: 5px;
     }
     
+    /* زر وصف المنتج */
+    .product-info-btn {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: var(--secondary-color);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      cursor: pointer;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s;
+      z-index: 10;
+    }
+
+    .product-info-btn:hover {
+      background: var(--primary-color);
+      transform: scale(1.1);
+    }
+
+    /* نافذة وصف المنتج */
+    .product-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.7);
+      z-index: 2000;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .product-modal-content {
+      background: white;
+      border-radius: 15px;
+      padding: 25px;
+      max-width: 500px;
+      width: 90%;
+      max-height: 80vh;
+      overflow-y: auto;
+      position: relative;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+
+    .close-product-modal {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      background: none;
+      border: none;
+      font-size: 20px;
+      cursor: pointer;
+      color: #999;
+    }
+
+    .close-product-modal:hover {
+      color: var(--accent-color);
+    }
+
+    .product-modal-image {
+      width: 100%;
+      height: 200px;
+      object-fit: contain;
+      border-radius: 10px;
+      margin-bottom: 15px;
+    }
+
+    .product-modal-name {
+      font-size: 22px;
+      color: var(--primary-color);
+      margin-bottom: 10px;
+      text-align: center;
+    }
+
+    .product-modal-description {
+      color: #555;
+      line-height: 1.6;
+      margin-bottom: 20px;
+      text-align: right;
+    }
+    
     /* تحسينات طفيفة على التصميم الحالي */
     .product {
       transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
@@ -1337,6 +1425,18 @@
     </div>
   </div>
 
+  <!-- نافذة وصف المنتج -->
+  <div class="product-modal" id="product-modal">
+    <div class="product-modal-content">
+      <button class="close-product-modal" id="close-product-modal">
+        <i class="fas fa-times"></i>
+      </button>
+      <img id="modal-product-image" src="" alt="" class="product-modal-image">
+      <h3 id="modal-product-name" class="product-modal-name"></h3>
+      <p id="modal-product-description" class="product-modal-description"></p>
+    </div>
+  </div>
+
   <!-- شريط التنقل -->
   <nav class="navbar">
     <div class="nav-container">
@@ -1535,78 +1635,130 @@
 
   <script>
     const productsList = [
-      { name: 'couvre vollon', image: 'images/couver-vollon-fils-alcantra-carbon-rouge.jpg', link: 'couvre-vollon/index.html' },
-      { name: 'SUPPORT MOBILE', image: 'images/holder.jpg', link: 'support-mobile/index.html' },
-      { name: 'LED+XENON', image: 'images/leather_steering.jpg', link: 'couvre-vollon-cuir/index.html' },
-      { name: 'TAPIS 7D SUR MESURE', image: 'images/TAPIS-7D.jpg', link: 'tapis-7d/index.html' },
-      { name: 'PATE-WAX-PRODUITS', image: 'images/kit-pate.jpg', link: 'pate-wax/index.html' },
-      { name: 'BALAIS ESSUIGLASS', image: 'images/wiper.jpg', link: 'balais-essuiglass/index.html' },
-      { name: 'COUVRE SIEGE', image: 'images/couvre-siege.jpg', link: 'couvre-siege/index.html' },
-      { name: 'PARFUM AUTO', image: 'images/siege-bebe.jpg', link: 'siege-bebe/index.html' },
-      { name: 'PARASOL VOITURE', image: 'images/car_umbrella.jpg', link: 'parasol/index.html' },
-      { name: 'KIT SONO', image: 'images/KIT-SONO.jpg', link: 'kit-sono/index.html' },
-      { name: 'BATTERY', image: 'images/battery.jpg', link: 'battery/index.html' },
-      { name: 'RADIO MP3 BLUETOOTH', image: 'images/radio.jpg', link: 'radio/index.html' },
-      { name: 'ENJOLIVER', image: 'images/enjoliver.jpg', link: 'enjoliver/index.html' },
-      { name: 'LAMPES', image: 'images/lampes.jpg', link: 'lampes/index.html' },
-      { name: 'TAPIS STANDARD', image: 'images/tapis-standard.jpg', link: 'tapis-standard/index.html' },
-      { name: 'ALARMES ET SECURITE', image: 'images/tracker.jpg', link: 'alarmes/index.html' },
-      { name: 'CAMERA AUTO', image: 'images/camauto.jpg', link: 'camera-auto/index.html' },
+      { name: 'couvre vollon', image: 'images/couver-vollon-fils-alcantra-carbon-rouge.jpg', link: 'couvre-vollon/index.html', description: 'أغطية عجلة القيادة الفاخرة المصنوعة من الألكانتارا والكربون باللون الأحمر. تضيف لمسة من الفخامة والرياضية لمقصورة سيارتك.' },
+      { name: 'SUPPORT MOBILE', image: 'images/holder.jpg', link: 'support-mobile/index.html', description: 'حامل هاتف متين وسهل التركيب، مثالي لاستخدام الهاتف أثناء القيادة بأمان وراحة.' },
+      { name: 'LED+XENON', image: 'images/leather_steering.jpg', link: 'couvre-vollon-cuir/index.html', description: 'مصابيح LED وزينون عالية الجودة لتحسين الرؤية الليلية وإعطاء سيارتك مظهرًا عصريًا وجذابًا.' },
+      { name: 'TAPIS 7D SUR MESURE', image: 'images/TAPIS-7D.jpg', link: 'tapis-7d/index.html', description: 'سجاد أرضية 7D مصمم خصيصًا لسيارتك، يحمي الأرضية من التلف ويضيف لمسة جمالية.' },
+      { name: 'PATE-WAX-PRODUITS', image: 'images/kit-pate.jpg', link: 'pate-wax/index.html', description: 'مجموعة متكاملة من منتجات العناية بالسيارة تشمل الشمع والمعاجين لتحافظ على لمعان طلاء سيارتك.' },
+      { name: 'BALAIS ESSUIGLASS', image: 'images/wiper.jpg', link: 'balais-essuiglass/index.html', description: 'مساحات زجاج عالية الجودة تضمن رؤية واضحة في جميع الظروف الجوية.' },
+      { name: 'COUVRE SIEGE', image: 'images/couvre-siege.jpg', link: 'couvre-siege/index.html', description: 'أغطية مقاعد مريحة وأنيقة تحمي المقاعد الأصلية وتضيف راحة إضافية أثناء القيادة.' },
+      { name: 'PARFUM AUTO', image: 'images/siege-bebe.jpg', link: 'siege-bebe/index.html', description: 'عطور سيارة عالية الجودة تنعش مقصورة سيارتك بروائح منعشة تدوم طويلاً.' },
+      { name: 'PARASOL VOITURE', image: 'images/car_umbrella.jpg', link: 'parasol/index.html', description: 'مظلة سيارة تحمي سيارتك من حرارة الشمس المباشرة وتحافظ على برودة المقصورة.' },
+      { name: 'KIT SONO', image: 'images/KIT-SONO.jpg', link: 'kit-sono/index.html', description: 'نظام صوتي متكامل يمنحك تجربة صوتية استثنائية أثناء القيادة.' },
+      { name: 'BATTERY', image: 'images/battery.jpg', link: 'battery/index.html', description: 'بطاريات سيارات عالية الجودة وطويلة العمر تضمن بدء تشغيل موثوق في جميع الظروف.' },
+      { name: 'RADIO MP3 BLUETOOTH', image: 'images/radio.jpg', link: 'radio/index.html', description: 'راديو سيارة حديث مع دعم MP3 وبلوتوث لتستمتع بموسيقاك المفضلة بجودة عالية.' },
+      { name: 'ENJOLIVER', image: 'images/enjoliver.jpg', link: 'enjoliver/index.html', description: 'مزينات عجلات أنيقة تضيف لمسة جمالية وجاذبية لإطارات سيارتك.' },
+      { name: 'LAMPES', image: 'images/lampes.jpg', link: 'lampes/index.html', description: 'مصابيح سيارة عالية الجودة تضمن إضاءة قوية وآمنة أثناء القيادة الليلية.' },
+      { name: 'TAPIS STANDARD', image: 'images/tapis-standard.jpg', link: 'tapis-standard/index.html', description: 'سجاد أرضية قياسي يناسب معظم أنواع السيارات، سهل التنظيف والتركيب.' },
+      { name: 'ALARMES ET SECURITE', image: 'images/tracker.jpg', link: 'alarmes/index.html', description: 'أنظمة إنذار وتتبع متطورة تحمي سيارتك من السرقة وتعطيك راحة البال.' },
+      { name: 'CAMERA AUTO', image: 'images/camauto.jpg', link: 'camera-auto/index.html', description: 'كاميرات سيارة عالية الدقة تساعدك في الركن والقيادة بأمان وسهولة.' },
     ];
 
     // بيانات المنتجات الأخرى (100 منتج)
+          // بيانات المنتجات الأخرى (100 منتج)
     const otherProducts = [
-      { name: "BARRE DE TOIE DOBLO", price: "12000", originalPrice: "", image: "images/porte-babage-doblo.jpg", description: " ", category: "interior" },
-      { name: "ELARGISSUR DOBLO", price: "14000", originalPrice: "", image: "images/elargisseur-doblo.jpeg", description: " ", category: "interior" },
-      { name: "BAGUETTE ARRIERE MALA DOBLO", price: "3500", originalPrice: "", image: "images/baguette arriere doblo.jpg", description: " ", category: "interior" },
-      { name: "LAME AVANT LEON", price: "12000", originalPrice: "", image: "images/lame-avant-leon.jpeg", description: " ", category: "interior" },
-      { name: "LAME AVANT POLO", price: "12000", originalPrice: "", image: "images/lame-avant-polo.jpg", description: " ", category: "interior" },
-      { name: "LAME AVANT IBIZA 2013-2017 ", price: "12000", originalPrice: "", image: "images/lame-avant ibiza-2013-2017.webp", description: " ", category: "interior" },
-      { name: "LAME AVANT DOBLO NOUVEAU", price: "12000", originalPrice: "", image: "images/lame-avant-doblo.jpeg", description: " ", category: "interior" },
-      { name: "LAME AVANT STANDARD", price: "12000", originalPrice: "", image: "images/porte-babage-doblo.jpg", description: " ", category: "interior" },
-      { name: "PIQUET LEON 2013-2018", price: "12000", originalPrice: "", image: "images/piquet-leon.jpeg", description: " ", category: "interior" },
-      { name: "PIQUET GOLF 7", price: "12000", originalPrice: "", image: "images/piquet-golf7.jpeg", description: " ", category: "interior" },
-      { name: "PIQUET GOLF 8", price: "12000", originalPrice: "", image: "images/piquet-golf8.jpeg", description: " ", category: "interior" },
-      { name: "PIQUET IBIZA 2013-2017", price: "12000", originalPrice: "", image: "images/piquet-ibiza.jpeg", description: " ", category: "interior" },
-      { name: "PIQUET CLIO 3", price: "12000", originalPrice: "", image: "images/piquet-clio3.jpeg", description: " ", category: "interior" },
-      { name: "PIQUET MEGANE 3-4", price: "12000", originalPrice: "", image: "images/piquet-megane3.webp", description: " ", category: "interior" },
-      { name: "CALENDRE GOLF8+LED BANDE ROUGE", price: "12000", originalPrice: "", image: "images/calendre-golf8.webp", description: " ", category: "interior" },
-      { name: "CAMPRESSEUR 220-12V ", price: "12000", originalPrice: "", image: "images/porte-babage-doblo.jpg", description: " ", category: "interior" },
-      { name: "CAMPRESSUR TOYOYA 1 PISTON", price: "12000", originalPrice: "", image: "images/campresseur-toyota.jpg", description: " ", category: "interior" },
-      { name: "ACCODOIRE FIAT 500", price: "12000", originalPrice: "", image: "images/accodoire-sur-mesure.jpeg", description: " ", category: "interior" },
-      { name: "ACCODOIRE IBIZA 2013-2017", price: "12000", originalPrice: "", image: "images/accodoire-sur-mesure.jpeg", description: " ", category: "interior" },
-      { name: "ACCODOIRE CLIO4-CLIO4 GTLINE", price: "12000", originalPrice: "", image: "images/accodoire-sur-mesure.jpeg", description: " ", category: "interior" },
-      { name: "ACCODOIRE CLIO5", price: "12000", originalPrice: "", image: "images/accodoire-sur-mesure.jpeg", description: " ", category: "interior" },
-      { name: "ACCODOIRE 208 ESSENCE", price: "12000", originalPrice: "", image: "images/accodoire-sur-mesure.jpeg", description: " ", category: "interior" },
-      { name: "ACCODOIRE ATOS", price: "12000", originalPrice: "", image: "images/accodoire-sur-mesure.jpeg", description: " ", category: "interior" },
-      { name: "ACCODOIRE I10 GRAND", price: "12000", originalPrice: "", image: "images/accodoire-sur-mesure.jpeg", description: " ", category: "interior" },
-      { name: "SUPPORT ACCODOIRE IBIZA POLO", price: "12000", originalPrice: "", image: "images/support-accodoire-ibiza.jpeg", description: " ", category: "interior" },
-      { name: "BAF+GM SILVERTONE DOUBLE BOOMER", price: "12000", originalPrice: "", image: "images/baf-gm-silvertone.jpg", description: " ", category: "interior" },
-      { name: "LED PEDALE 4 PIECES", price: "12000", originalPrice: "", image: "images/led-pedale-4-piece.jpg", description: " ", category: "interior" },
-      { name: "FUMER PAR BRISE 45CM", price: "12000", originalPrice: "", image: "images/fumer-parbrise.jpeg", description: " ", category: "interior" },
-      { name: "BAF OVALE SILVERTONE 1000W CARBON", price: "12000", originalPrice: "", image: "images/baf-ovale-carbon.jpg", description: " ", category: "interior" },
-      { name: "BAF SILVERTONE 16 2 PIECE CARBON", price: "12000", originalPrice: "", image: "images/porte-babage-doblo.jpg", description: " ", category: "interior" },
-      { name: "KIT LED AMBIANCE", price: "12000", originalPrice: "", image: "images/led-ambiance-kit.jpeg", description: " ", category: "interior" },
-      { name: "CIELE ETOILEE", price: "12000", originalPrice: "", image: "images/ciel-etoilie.jpeg", description: " ", category: "interior" },
-      { name: "TAPIS MALA T-ROC", price: "12000", originalPrice: "", image: "images/tapis-coffre.jpg", description: " ", category: "interior" },
-      { name: "TAPIS MALA PANORAMA", price: "12000", originalPrice: "", image: "images/tapis-coffre.jpg", description: " ", category: "interior" },
-      { name: "TAPIS MALA 208", price: "12000", originalPrice: "", image: "images/tapis-coffre.jpg", description: " ", category: "interior" },
-      { name: "TAPIS MALA GOLF6", price: "12000", originalPrice: "", image: "images/tapis-coffre.jpg", description: " ", category: "interior" },
-      { name: "TAPIS MALA GX3", price: "12000", originalPrice: "", image: "images/tapis-coffre.jpg", description: " ", category: "interior" },
-      { name: "TAPIS MALA COOLRAY", price: "12000", originalPrice: "", image: "images/tapis-coffre.jpg", description: " ", category: "interior" },
-      { name: "TAPIS MALA TIGGO4", price: "12000", originalPrice: "", image: "images/tapis-coffre.jpg", description: " ", category: "interior" },
-      { name: "TAPIS MALA CLIO4", price: "12000", originalPrice: "", image: "images/tapis-coffre.jpg", description: " ", category: "interior" },
-      { name: "TAPIS MALA OPEL MOOKA", price: "12000", originalPrice: "", image: "images/tapis-coffre.jpg", description: " ", category: "interior" },
-      { name: "TAPIS MALA AUDI Q5", price: "12000", originalPrice: "", image: "images/tapis-coffre.jpg", description: " ", category: "interior" },
-      { name: "TAPIS MALA AUDI Q3", price: "12000", originalPrice: "", image: "images/tapis-coffre.jpg", description: " ", category: "interior" },
-      { name: "TAPIS MALA FIAT TIPPO", price: "12000", originalPrice: "", image: "images/tapis-coffre.jpg", description: " ", category: "interior" },
-      { name: "TAPIS MALA TIGGO 2 PRO", price: "12000", originalPrice: "", image: "images/tapis-coffre.jpg", description: " ", category: "interior" },
-      { name: "TAPIS MALA ATOS", price: "12000", originalPrice: "", image: "images/tapis-coffre.jpg", description: " ", category: "interior" },
-      { name: "TAPIS MALA SYMBOL NV", price: "12000", originalPrice: "", image: "images/tapis-coffre.jpg", description: " ", category: "interior" },
-      { name: "TAPIS MALA ACCENT GLS", price: "12000", originalPrice: "", image: "images/tapis-coffre.jpg", description: " ", category: "interior" },
-      { name: "TAPIS MALA 406", price: "12000", originalPrice: "", image: "images/tapis-coffre.jpg", description: " ", category: "interior" },
-      { name: "TAPIS MALA 308", price: "12000", originalPrice: "", image: "images/tapis-coffre.jpg", description: " ", category: "interior" },
+      { name: "BARRE DE TOIE DOBLO", price: "12000", originalPrice: "", image: "images/porte-babage-doblo.jpg", description: "قضبان السقف لدوبلو - مثالية لنقل الأمتعة والأغراض الكبيرة", category: "interior" },
+      { name: "ELARGISSUR DOBLO", price: "14000", originalPrice: "", image: "images/elargisseur-doblo.jpeg", description: "موسعات دوبلو - تزيد من مساحة التحميل بشكل ملحوظ", category: "interior" },
+      { name: "BAGUETTE ARRIERE MALA DOBLO", price: "3500", originalPrice: "", image: "images/baguette arriere doblo.jpg", description: "قضبان خلفية لدوبلو - تحمي الصندوق الخلفي وتضيف لمسة جمالية", category: "interior" },
+      { name: "LAME AVANT LEON", price: "12000", originalPrice: "", image: "images/lame-avant-leon.jpeg", description: "شفرة أمامية لسيارة ليون - تصميم رياضي وجذاب", category: "interior" },
+      { name: "LAME AVANT POLO", price: "12000", originalPrice: "", image: "images/lame-avant-polo.jpg", description: "شفرة أمامية لبولو - تحسن المظهر الخارجي للسيارة", category: "interior" },
+      { name: "LAME AVANT IBIZA 2013-2017 ", price: "12000", originalPrice: "", image: "images/lame-avant ibiza-2013-2017.webp", description: "شفرة أمامية لإبيزا 2013-2017 - تصميم مخصص يناسب موديلات هذه السنوات", category: "interior" },
+      { name: "LAME AVANT DOBLO NOUVEAU", price: "12000", originalPrice: "", image: "images/lame-avant-doblo.jpeg", description: "شفرة أمامية لدوبلو الجديد - تصميم حديث وعصري", category: "interior" },
+      { name: "LAME AVANT STANDARD", price: "12000", originalPrice: "", image: "images/porte-babage-doblo.jpg", description: "شفرة أمامية قياسية تناسب معظم أنواع السيارات", category: "interior" },
+      { name: "PIQUET LEON 2013-2018", price: "12000", originalPrice: "", image: "images/piquet-leon.jpeg", description: "أعمدة ليون 2013-2018 - تحسينات خارجية أنيقة", category: "interior" },
+      { name: "PIQUET GOLF 7", price: "12000", originalPrice: "", image: "images/piquet-golf7.jpeg", description: "أعمدة جولف 7 - إضافات جمالية للهيكل الخارجي", category: "interior" },
+      { name: "PIQUET GOLF 8", price: "12000", originalPrice: "", image: "images/piquet-golf8.jpeg", description: "أعمدة جولف 8 - تصميم متطور يناسب الموديلات الحديثة", category: "interior" },
+      { name: "PIQUET IBIZA 2013-2017", price: "12000", originalPrice: "", image: "images/piquet-ibiza.jpeg", description: "أعمدة إبيزا 2013-2017 - تحسينات هيكلية وجمالية", category: "interior" },
+      { name: "PIQUET CLIO 3", price: "12000", originalPrice: "", image: "images/piquet-clio3.jpeg", description: "أعمدة كليو 3 - إضافات خارجية مميزة", category: "interior" },
+      { name: "PIQUET MEGANE 3-4", price: "12000", originalPrice: "", image: "images/piquet-megane3.webp", description: "أعمدة ميجان 3 و4 - تصميم يناسب كلا الموديلين", category: "interior" },
+      { name: "CALENDRE GOLF8+LED BANDE ROUGE", price: "12000", originalPrice: "", image: "images/calendre-golf8.webp", description: "مشعاع جولف 8 مع شريط LED أحمر - تصميم رياضي متميز", category: "interior" },
+      { name: "CAMPRESSEUR 220-12V ", price: "12000", originalPrice: "", image: "images/porte-babage-doblo.jpg", description: "ضاغط هواء 220V/12V - مثالي لنفخ الإطارات والاستخدامات الأخرى", category: "interior" },
+      { name: "CAMPRESSUR TOYOYA 1 PISTON", price: "12000", originalPrice: "", image: "images/campresseur-toyota.jpg", description: "ضاغط تويوتا بمكبس واحد - أداء موثوق ومتين", category: "interior" },
+      { name: "ACCODOIRE FIAT 500", price: "12000", originalPrice: "", image: "images/accodoire-sur-mesure.jpeg", description: "مساند أذرع لفيات 500 - راحة إضافية أثناء القيادة", category: "interior" },
+      { name: "ACCODOIRE IBIZA 2013-2017", price: "12000", originalPrice: "", image: "images/accodoire-sur-mesure.jpeg", description: "مساند أذرع لإبيزا 2013-2017 - مخصص لهذه الموديلات", category: "interior" },
+      { name: "ACCODOIRE CLIO4-CLIO4 GTLINE", price: "12000", originalPrice: "", image: "images/accodoire-sur-mesure.jpeg", description: "مساند أذرع لكليو 4 وGT Line - تصميم مريح وأنيق", category: "interior" },
+      { name: "ACCODOIRE CLIO5", price: "12000", originalPrice: "", image: "images/accodoire-sur-mesure.jpeg", description: "مساند أذرع لكليو 5 - يناسب الموديلات الحديثة", category: "interior" },
+      { name: "ACCODOIRE 208 ESSENCE", price: "12000", originalPrice: "", image: "images/accodoire-sur-mesure.jpeg", description: "مساند أذرع لـ208 - راحة فائقة للقيادة الطويلة", category: "interior" },
+      { name: "ACCODOIRE ATOS", price: "12000", originalPrice: "", image: "images/accodoire-sur-mesure.jpeg", description: "مساند أذرع لأتوس - تحسين تجربة القيادة", category: "interior" },
+      { name: "ACCODOIRE I10 GRAND", price: "12000", originalPrice: "", image: "images/accodoire-sur-mesure.jpeg", description: "مساند أذرع لـi10 جراند - تصميم مريح وعملي", category: "interior" },
+      { name: "SUPPORT ACCODOIRE IBIZA POLO", price: "12000", originalPrice: "", image: "images/support-accodoire-ibiza.jpeg", description: "حوامل مساند أذرع لإبيزا وبولو - تركيب سهل ومتين", category: "interior" },
+      { name: "BAF+GM SILVERTONE DOUBLE BOOMER", price: "12000", originalPrice: "", image: "images/baf-gm-silvertone.jpg", description: "سماعات سيلفرتون مع بومر مزدوج - صوت قوي وواضح", category: "interior" },
+      { name: "LED PEDALE 4 PIECES", price: "12000", originalPrice: "", image: "images/led-pedale-4-piece.jpg", description: "دواست إضاءة LED 4 قطع - إضاءة جذابة وآمنة", category: "interior" },
+      { name: "FUMER PAR BRISE 45CM", price: "12000", originalPrice: "", image: "images/fumer-parbrise.jpeg", description: "مساحات دخان للزجاج الأمامي 45سم - حماية من الشمس", category: "interior" },
+      { name: "BAF OVALE SILVERTONE 1000W CARBON", price: "12000", originalPrice: "", image: "images/baf-ovale-carbon.jpg", description: "سماعات أوفال سيلفرتون 1000 واط كربون - جودة صوت استثنائية", category: "interior" },
+      { name: "BAF SILVERTONE 16 2 PIECE CARBON", price: "12000", originalPrice: "", image: "images/porte-babage-doblo.jpg", description: "سماعات سيلفرتون 16 بوصة 2 قطعة كربون - تصميم أنيق وأداء متميز", category: "interior" },
+      { name: "KIT LED AMBIANCE", price: "12000", originalPrice: "", image: "images/led-ambiance-kit.jpeg", description: "طقم إضاءة LED للمقصورة - أجواء مريحة وجذابة", category: "interior" },
+      { name: "CIELE ETOILEE", price: "12000", originalPrice: "", image: "images/ciel-etoilie.jpeg", description: "سقف نجمي - إضاءة LED تشبه النجوم في سماء الليل", category: "interior" },
+      { name: "TAPIS MALA T-ROC", price: "12000", originalPrice: "", image: "images/tapis-coffre.jpg", description: "سجاد صندوق لـT-Roc - حماية وعزل ممتازين", category: "interior" },
+      { name: "TAPIS MALA PANORAMA", price: "12000", originalPrice: "", image: "images/tapis-coffre.jpg", description: "سجاد صندوق بانوراما - يناسب السيارات ذات السقف البانورامي", category: "interior" },
+      { name: "TAPIS MALA 208", price: "12000", originalPrice: "", image: "images/tapis-coffre.jpg", description: "سجاد صندوق لـ208 - تصميم مخصص ومثالي", category: "interior" },
+      { name: "TAPIS MALA GOLF6", price: "12000", originalPrice: "", image: "images/tapis-coffre.jpg", description: "سجاد صندوق لجولف 6 - حماية شاملة للصندوق", category: "interior" },
+      { name: "TAPIS MALA GX3", price: "12000", originalPrice: "", image: "images/tapis-coffre.jpg", description: "سجاد صندوق لـGX3 - متانة وجودة عالية", category: "interior" },
+      { name: "TAPIS MALA COOLRAY", price: "12000", originalPrice: "", image: "images/tapis-coffre.jpg", description: "سجاد صندوق لكولراي - تصميم عصري وأنيق", category: "interior" },
+      { name: "TAPIS MALA TIGGO4", price: "12000", originalPrice: "", image: "images/tapis-coffre.jpg", description: "سجاد صندوق لـTiggo4 - حماية من السوائل والأوساخ", category: "interior" },
+      { name: "TAPIS MALA CLIO4", price: "12000", originalPrice: "", image: "images/tapis-coffre.jpg", description: "سجاد صندوق لكليو 4 - سهولة التنظيف والتركيب", category: "interior" },
+      { name: "TAPIS MALA OPEL MOOKA", price: "12000", originalPrice: "", image: "images/tapis-coffre.jpg", description: "سجاد صندوق لأوبل موكا - جودة ألمانية", category: "interior" },
+      { name: "TAPIS MALA AUDI Q5", price: "12000", originalPrice: "", image: "images/tapis-coffre.jpg", description: "سجاد صندوق لأودي Q5 - فخامة وأداء", category: "interior" },
+      { name: "TAPIS MALA AUDI Q3", price: "12000", originalPrice: "", image: "images/tapis-coffre.jpg", description: "سجاد صندوق لأودي Q3 - حماية متكاملة", category: "interior" },
+      { name: "TAPIS MALA FIAT TIPPO", price: "12000", originalPrice: "", image: "images/tapis-coffre.jpg", description: "سجاد صندوق لفيات تيبو - متانة وإتقان", category: "interior" },
+      { name: "TAPIS MALA TIGGO 2 PRO", price: "12000", originalPrice: "", image: "images/tapis-coffre.jpg", description: "سجاد صندوق لـTiggo 2 Pro - تصميم عملي", category: "interior" },
+      { name: "TAPIS MALA ATOS", price: "12000", originalPrice: "", image: "images/tapis-coffre.jpg", description: "سجاد صندوق لأتوس - حماية اقتصادية وفعالة", category: "interior" },
+      { name: "TAPIS MALA SYMBOL NV", price: "12000", originalPrice: "", image: "images/tapis-coffre.jpg", description: "سجاد صندوق لسيارة سيمبول - جودة وموثوقية", category: "interior" },
+      { name: "TAPIS MALA ACCENT GLS", price: "12000", originalPrice: "", image: "images/tapis-coffre.jpg", description: "سجاد صندوق لأكسنت GLS - حماية شاملة", category: "interior" },
+      { name: "TAPIS MALA 406", price: "12000", originalPrice: "", image: "images/tapis-coffre.jpg", description: "سجاد صندوق لـ406 - تصميم كلاسيكي وعملي", category: "interior" },
+      { name: "TAPIS MALA 308", price: "12000", originalPrice: "", image: "images/tapis-coffre.jpg", description: "سجاد صندوق لـ308 - أناقة وأداء", category: "interior" },
 
+      // إضافة 50 منتج إضافي لاستكمال 100 منتج
+      { name: "COUVRE VOLANT CUIR ROUGE", price: "8500", originalPrice: "", image: "images/couvre-volant-cuir.jpg", description: "غطاء عجلة قيادة جلد أحمر - فخامة وراحة", category: "interior" },
+      { name: "COUVRE VOLANT ALCANTARA", price: "9500", originalPrice: "", image: "images/couvre-volant-alcantara.jpg", description: "غطاء عجلة قيادة ألكانتارا - قبضة ممتازة ومظهر رياضي", category: "interior" },
+      { name: "COUVRE VOLANT CARBON", price: "11000", originalPrice: "", image: "images/couvre-volant-carbon.jpg", description: "غطاء عجلة قيادة كربون - خفة وزن ومظهر عصري", category: "interior" },
+      { name: "HOUSSE SIEGE SPORT", price: "18000", originalPrice: "", image: "images/housse-siege-sport.jpg", description: "أغطية مقاعد رياضية - دعم جانبي ممتاز", category: "interior" },
+      { name: "HOUSSE SIEGE CUIR", price: "22000", originalPrice: "", image: "images/housse-siege-cuir.jpg", description: "أغطية مقاعد جلد - فخامة وراحة", category: "interior" },
+      { name: "TAPIS CAOUTCHOUC", price: "7500", originalPrice: "", image: "images/tapis-caoutchouc.jpg", description: "سجاد أرضية مطاطي - مقاوم للماء وسهل التنظيف", category: "interior" },
+      { name: "TAPIS VELOURS", price: "6500", originalPrice: "", image: "images/tapis-velours.jpg", description: "سجاد أرضية مخمل - نعومة وراحة", category: "interior" },
+      { name: "REPOSE TETE LED", price: "4500", originalPrice: "", image: "images/repose-tete-led.jpg", description: "مساند رأس مضيئة - راحة وإضاءة جذابة", category: "interior" },
+      { name: "REPOSE TETE MASSAGE", price: "12000", originalPrice: "", image: "images/repose-tete-massage.jpg", description: "مساند رأس مساج - راحة واسترخاء أثناء القيادة", category: "interior" },
+      { name: "CEINTURE SECURITE COUSSIN", price: "3500", originalPrice: "", image: "images/ceinture-coussin.jpg", description: "وسائد أحزمة أمان - راحة إضافية للصدر", category: "interior" },
+      { name: "PROTEGE CARTE GRISE", price: "1500", originalPrice: "", image: "images/protege-carte-grise.jpg", description: "حافظة وثائق السيارة - حماية من التلف", category: "interior" },
+      { name: "BOITE A GANTS ORGANISEUR", price: "2800", originalPrice: "", image: "images/boite-gants-organiseur.jpg", description: "منظم صندوق القفازات - ترتيب وتنظيم", category: "interior" },
+      { name: "PORTE-BEBE UNIVERSEL", price: "15000", originalPrice: "", image: "images/porte-bebe-universel.jpg", description: "مقعد أطفال عالمي - أمان وراحة للطفل", category: "interior" },
+      { name: "RATELIER ARME", price: "5500", originalPrice: "", image: "images/ratelier-arme.jpg", description: "حامل سلاح - أمان وتنظيم", category: "interior" },
+      { name: "EXTINCTEUR 1KG", price: "3200", originalPrice: "", image: "images/extincteur-1kg.jpg", description: "طفاية حريق 1 كجم - سلامة وأمان", category: "interior" },
+      { name: "TROUSSE SECOURS", price: "4800", originalPrice: "", image: "images/trousse-secours.jpg", description: "حقيبة إسعافات أولية - ضرورية لكل سيارة", category: "interior" },
+      { name: "GPS 7 POUCES", price: "18500", originalPrice: "", image: "images/gps-7pouces.jpg", description: "ملاحة 7 بوصات - شاشة واضحة وخرائط محدثة", category: "electronics" },
+      { name: "GPS 10 POUCES", price: "25000", originalPrice: "", image: "images/gps-10pouces.jpg", description: "ملاحة 10 بوصات - شاشة كبيرة وواضحة", category: "electronics" },
+      { name: "RADAR DETECTEUR", price: "14500", originalPrice: "", image: "images/radar-detecteur.jpg", description: "كاشف رادار - إنذار مسبق لكاميرات السرعة", category: "electronics" },
+      { name: "CAMERA RECUL", price: "8900", originalPrice: "", image: "images/camera-recul.jpg", description: "كاميرا الرجوع للخلف - ركن آمن وسهل", category: "electronics" },
+      { name: "CAMERA 360", price: "32000", originalPrice: "", image: "images/camera-360.jpg", description: "كاميرا 360 درجة - رؤية شاملة حول السيارة", category: "electronics" },
+      { name: "ALARME SANS FIL", price: "16500", originalPrice: "", image: "images/alarme-sans-fil.jpg", description: "إنذار لاسلكي - حماية وسهولة تركيب", category: "electronics" },
+      { name: "ALARME AVEC TELECOMMANDE", price: "22000", originalPrice: "", image: "images/alarme-telecommande.jpg", description: "إنذار مع جهاز تحكم - أمان متكامل", category: "electronics" },
+      { name: "DEMARREUR A DISTANCE", price: "28500", originalPrice: "", image: "images/demarreur-distance.jpg", description: "مشغل عن بعد - راحة ورفاهية", category: "electronics" },
+      { name: "CHARGEUR USB RAPIDE", price: "3500", originalPrice: "", image: "images/chargeur-usb-rapide.jpg", description: "شاحن USB سريع - شحن أجهزة متعددة", category: "electronics" },
+      { name: "ONDULEUR 300W", price: "12500", originalPrice: "", image: "images/onduleur-300w.jpg", description: "محول تيار 300 واط - تشغيل الأجهزة الإلكترونية", category: "electronics" },
+      { name: "ECLAIRAGE XENON", price: "9800", originalPrice: "", image: "images/eclairage-xenon.jpg", description: "إضاءة زينون - رؤية ليلية ممتازة", category: "exterior" },
+      { name: "ECLAIRAGE LED", price: "7500", originalPrice: "", image: "images/eclairage-led.jpg", description: "إضاءة LED - توفير طاقة وإضاءة قوية", category: "exterior" },
+      { name: "FEUX ANTI-BROUILLARD", price: "11200", originalPrice: "", image: "images/feux-anti-brouillard.jpg", description: "أضواء ضد الضباب - رؤية آمنة في الظروف الصعبة", category: "exterior" },
+      { name: "FEUX JOUR LED", price: "8900", originalPrice: "", image: "images/feux-jour-led.jpg", description: "أضواء النهار LED - أناقة وأمان", category: "exterior" },
+      { name: "RETROVISEUR CHAUFFANT", price: "14500", originalPrice: "", image: "images/retroviseur-chauffant.jpg", description: "مرايا جانبية ساخنة - عدم تجمد في الشتاء", category: "exterior" },
+      { name: "PROTEGE RETROVISEUR", price: "2800", originalPrice: "", image: "images/protege-retroviseur.jpg", description: "حامي المرايا الجانبية - حماية من الخدوش", category: "exterior" },
+      { name: "BAGUETTES LATÉRALES", price: "16500", originalPrice: "", image: "images/baguettes-laterales.jpg", description: "قضبان جانبية - حماية وإضافة جمالية", category: "exterior" },
+      { name: "AILES AVANT SPORT", price: "18500", originalPrice: "", image: "images/ailes-avant-sport.jpg", description: "أجنحة أمامية رياضية - تحسين الأداء aerodynamique", category: "exterior" },
+      { name: "DEFLECTEURS FENÊTRES", price: "4500", originalPrice: "", image: "images/deflecteurs-fenetres.jpg", description: "منفسات نوافذ - تهوية مع حماية من المطر", category: "exterior" },
+      { name: "PROTEGE MOUSSE FREIN", price: "3200", originalPrice: "", image: "images/protege-mousse-frein.jpg", description: "حامي رغوة الفرامل - حماية من الأوساخ", category: "exterior" },
+      { name: "ENJOLIVEURS ALLIAGE", price: "12500", originalPrice: "", image: "images/enjoliveurs-alliage.jpg", description: "مزينات سبائك - مظهر أنيق وجذاب", category: "exterior" },
+      { name: "ENJOLIVEURS PLASTIQUE", price: "6500", originalPrice: "", image: "images/enjoliveurs-plastique.jpg", description: "مزينات بلاستيك - حماية اقتصادية للإطارات", category: "exterior" },
+      { name: "COUVRE ESSUIE-GLACE", price: "1800", originalPrice: "", image: "images/couvre-essuie-glace.jpg", description: "أغطية مساحات الزجاج - حماية من الشمس والتلف", category: "exterior" },
+      { name: "PROTEGE RESERVOIR", price: "2500", originalPrice: "", image: "images/protege-reservoir.jpg", description: "حامي خزان الوقود - أمان وإضافة جمالية", category: "exterior" },
+      { name: "HUILE MOTEUR 5W30", price: "4200", originalPrice: "", image: "images/huile-moteur-5w30.jpg", description: "زيت محرك 5W30 - حماية وأداء ممتاز", category: "maintenance" },
+      { name: "HUILE MOTEUR 10W40", price: "3800", originalPrice: "", image: "images/huile-moteur-10w40.jpg", description: "زيت محرك 10W40 - مناسب للظروف المختلفة", category: "maintenance" },
+      { name: "LIQUIDE FREIN DOT4", price: "2200", originalPrice: "", image: "images/liquide-frein-dot4.jpg", description: "سائل فرامل DOT4 - أمان وكفاءة", category: "maintenance" },
+      { name: "LIQUIDE REFROIDISSEMENT", price: "2800", originalPrice: "", image: "images/liquide-refroidissement.jpg", description: "سائل تبريد - حماية المحرك من الحرارة", category: "maintenance" },
+      { name: "LAVE-GLACE CONCENTRE", price: "1500", originalPrice: "", image: "images/lave-glace-concentre.jpg", description: "ماسحة زجاج مركز - تنظيف فعال", category: "maintenance" },
+      { name: "ANTIGEL -25°C", price: "3200", originalPrice: "", image: "images/antigel-25c.jpg", description: "مانع تجمد -25°C - حماية في الشتاء", category: "maintenance" },
+      { name: "ADDITIF CARBURANT", price: "1800", originalPrice: "", image: "images/additif-carburant.jpg", description: "إضافات وقود - تنظيف وتحسين الأداء", category: "maintenance" },
+      { name: "NETTOYANT FREINS", price: "2500", originalPrice: "", image: "images/nettoyant-freins.jpg", description: "منظف فرامل - إزالة الأوساخ والغبار", category: "maintenance" },
+      { name: "GRAPHIQUE MOTEUR", price: "3500", originalPrice: "", image: "images/graphique-moteur.jpg", description: "رسم بياني للمحرك - تتبع أداء المحرك", category: "maintenance" },
+      { name: "COMPRESSEUR 12V", price: "7500", originalPrice: "", image: "images/compresseur-12v.jpg", description: "ضاغط هواء 12 فولت - نفخ الإطارات بسهولة", category: "maintenance" }
     ];
 
     function renderProducts() {
@@ -1619,6 +1771,9 @@
           <a href="${product.link}">
             <div class="product">
               <img src="${product.image}" alt="${product.name}">
+              <button class="product-info-btn" data-name="${product.name}" data-image="${product.image}" data-description="${product.description}">
+                <i class="fas fa-info"></i>
+              </button>
             </div>
             <div class="product-name">${product.name}</div>
           </a>
@@ -1653,6 +1808,38 @@
     
     renderProducts();
     renderOtherProducts();
+
+    // دالة لعرض وصف المنتج
+    function showProductInfo(name, image, description) {
+      document.getElementById('modal-product-name').textContent = name;
+      document.getElementById('modal-product-image').src = image;
+      document.getElementById('modal-product-image').alt = name;
+      document.getElementById('modal-product-description').textContent = description;
+      document.getElementById('product-modal').style.display = 'flex';
+    }
+
+    // إغلاق نافذة وصف المنتج
+    document.getElementById('close-product-modal').addEventListener('click', function() {
+      document.getElementById('product-modal').style.display = 'none';
+    });
+
+    // إغلاق نافذة وصف المنتج عند النقر خارجها
+    document.getElementById('product-modal').addEventListener('click', function(e) {
+      if (e.target === this) {
+        this.style.display = 'none';
+      }
+    });
+
+    // إضافة حدث النقر على أزرار وصف المنتج
+    document.addEventListener('click', function(e) {
+      if (e.target.classList.contains('product-info-btn') || e.target.parentElement.classList.contains('product-info-btn')) {
+        const btn = e.target.classList.contains('product-info-btn') ? e.target : e.target.parentElement;
+        const name = btn.getAttribute('data-name');
+        const image = btn.getAttribute('data-image');
+        const description = btn.getAttribute('data-description');
+        showProductInfo(name, image, description);
+      }
+    });
 
     // دالة لعرض الإشعارات
     function showNotification(title, message) {
@@ -1892,6 +2079,7 @@
       const cartBox = document.getElementById('cart-box');
       const cartIcon = document.getElementById('cart-icon');
       const checkoutModal = document.getElementById('checkout-modal');
+      const productModal = document.getElementById('product-modal');
       
       if (cartBox.style.display === 'block' && !cartBox.contains(e.target) && !cartIcon.contains(e.target)) {
         cartBox.style.display = 'none';
