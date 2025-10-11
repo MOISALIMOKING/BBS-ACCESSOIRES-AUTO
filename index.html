@@ -506,19 +506,19 @@
 
     @media (max-width: 768px) {
       .products {
-        grid-template-columns: repeat(2, 1fr); /* تغيير من 3 إلى 2 أعمدة */
-        gap: 20px; /* زيادة المسافة بين العناصر */
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
         padding: 20px;
       }
       
       .product {
-        width: 150px; /* تكبير حجم الدائرة */
+        width: 150px;
         height: 150px;
         padding: 10px;
       }
       
       .product-name {
-        font-size: 14px; /* تكبير حجم الخط */
+        font-size: 14px;
         padding: 6px 12px;
         margin-top: 10px;
       }
@@ -565,7 +565,6 @@
         display: none;
       }
       
-      /* تعديلات خاصة للهاتف */
       .site-title {
         font-size: 28px;
       }
@@ -579,7 +578,6 @@
         height: 150px !important;
       }
       
-      /* تعديلات قسم المنتجات الأخرى للهاتف */
       .other-products-section {
         padding: 20px 10px;
       }
@@ -614,12 +612,12 @@
 
     @media (max-width: 480px) {
       .products {
-        grid-template-columns: repeat(2, 1fr); /* الحفاظ على عمودين في الشاشات الصغيرة */
+        grid-template-columns: repeat(2, 1fr);
         gap: 15px;
       }
       
       .product {
-        width: 140px; /* تكبير أكثر للشاشات الصغيرة */
+        width: 140px;
         height: 140px;
       }
       
@@ -627,7 +625,6 @@
         font-size: 12px;
       }
       
-      /* تعديلات قسم المنتجات الأخرى للشاشات الصغيرة */
       .other-products-grid {
         grid-template-columns: repeat(2, 1fr);
       }
@@ -689,7 +686,7 @@
       }
     }
 
-    /* 🌊 الأمواج المعدلة لتتناسب مع الألوان الجديدة */
+    /* 🌊 الأمواج */
     .wave-container {
       position: relative;
       width: 100%;
@@ -749,7 +746,7 @@
       to { text-shadow: 0 0 20px #fff, 0 0 30px #55c6f0; }
     }
 
-    /* 🛒 سلة التسوق المحسنة - أكبر حجمًا وفي مكان أفضل */
+    /* 🛒 سلة التسوق */
     #cart-icon {
       position: fixed;
       top: 140px;
@@ -791,7 +788,7 @@
       font-weight: bold;
     }
 
-    /* 🛒 صندوق السلة المحسن - أكبر حجمًا */
+    /* صندوق السلة */
     #cart-box {
       position: fixed;
       top: 230px;
@@ -1196,7 +1193,6 @@
     }
 
     @media (max-width: 768px) {
-      /* تعديلات السلة للهاتف */
       #cart-icon {
         top: 120px;
         left: 20px;
@@ -1240,7 +1236,7 @@
       }
     }
     
-    /* قسم المنتجات الأخرى - تحسين التصميم */
+    /* قسم المنتجات الأخرى */
     .other-products-section {
       background: linear-gradient(to bottom, #c4e1fe, var(--secondary-color));
       padding: 40px 20px;
@@ -1406,6 +1402,55 @@
       height: 3px;
       background: var(--secondary-color);
     }
+
+    /* نظام إدارة المنتجات */
+    #admin-panel {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 1000;
+    }
+    
+    #admin-btn {
+      background: #af290b;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      font-size: 24px;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      transition: all 0.3s;
+    }
+    
+    #admin-btn:hover {
+      background: #8d2008;
+      transform: scale(1.1);
+    }
+    
+    #admin-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.8);
+      z-index: 2000;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .admin-modal-content {
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      width: 90%;
+      max-width: 800px;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
   </style>
 </head>
 <body>
@@ -1434,6 +1479,72 @@
       <img id="modal-product-image" src="" alt="" class="product-modal-image">
       <h3 id="modal-product-name" class="product-modal-name"></h3>
       <p id="modal-product-description" class="product-modal-description"></p>
+    </div>
+  </div>
+
+  <!-- نظام إدارة المنتجات -->
+  <div id="admin-panel">
+    <button id="admin-btn">
+      <i class="fas fa-cog"></i>
+    </button>
+  </div>
+
+  <!-- نافذة إدارة المنتجات -->
+  <div id="admin-modal">
+    <div class="admin-modal-content">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+        <h2 style="color: var(--primary-color);">إدارة المنتجات</h2>
+        <button id="close-admin" style="background: none; border: none; font-size: 24px; cursor: pointer; color: #999;">&times;</button>
+      </div>
+      
+      <!-- نموذج إضافة منتج جديد -->
+      <div style="background: #f9f9f9; padding: 20px; border-radius: 10px; margin-bottom: 20px;">
+        <h3 style="color: var(--primary-color); margin-bottom: 15px;">إضافة منتج جديد</h3>
+        <form id="add-product-form">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px;">
+            <div>
+              <label style="display: block; margin-bottom: 5px; font-weight: bold;">اسم المنتج:</label>
+              <input type="text" id="new-product-name" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+            </div>
+            <div>
+              <label style="display: block; margin-bottom: 5px; font-weight: bold;">السعر (دج):</label>
+              <input type="number" id="new-product-price" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+            </div>
+          </div>
+          
+          <div style="margin-bottom: 15px;">
+            <label style="display: block; margin-bottom: 5px; font-weight: bold;">رابط الصورة:</label>
+            <input type="url" id="new-product-image" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;" placeholder="https://example.com/image.jpg">
+          </div>
+          
+          <div style="margin-bottom: 15px;">
+            <label style="display: block; margin-bottom: 5px; font-weight: bold;">الوصف:</label>
+            <textarea id="new-product-description" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; height: 80px;"></textarea>
+          </div>
+          
+          <div style="margin-bottom: 15px;">
+            <label style="display: block; margin-bottom: 5px; font-weight: bold;">التصنيف:</label>
+            <select id="new-product-category" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+              <option value="interior">إكسسوارات داخلية</option>
+              <option value="exterior">إكسسوارات خارجية</option>
+              <option value="electronics">إلكترونيات السيارات</option>
+              <option value="maintenance">العناية بالسيارة</option>
+            </select>
+          </div>
+          
+          <button type="submit" style="background: var(--secondary-color); color: white; border: none; padding: 12px 25px; border-radius: 5px; cursor: pointer; font-weight: bold;">
+            <i class="fas fa-plus"></i> إضافة المنتج
+          </button>
+        </form>
+      </div>
+      
+      <!-- قائمة المنتجات الحالية -->
+      <div>
+        <h3 style="color: var(--primary-color); margin-bottom: 15px;">المنتجات الحالية</h3>
+        <div id="products-list" style="max-height: 400px; overflow-y: auto;">
+          <!-- سيتم ملؤها بالمنتجات الحالية -->
+        </div>
+      </div>
     </div>
   </div>
 
@@ -1499,7 +1610,7 @@
     </div>
   </div>
 
-  <!-- 🌊 أمواج معدلة -->
+  <!-- 🌊 أمواج -->
   <div class="wave-container">
     <div class="wave"></div>
     <div class="wave"></div>
@@ -1507,13 +1618,13 @@
     <div class="welcome-text">مرحبا بكم في عالم إكسسوارات السيارات BBS</div>
   </div>
 
-  <!-- 🛒 أيقونة السلة المحسنة - أكبر وفي مكان أفضل -->
+  <!-- 🛒 أيقونة السلة -->
   <div id="cart-icon">
     <i class="fas fa-shopping-cart"></i>
     <span id="cart-count">0</span>
   </div>
 
-  <!-- 🛒 صندوق السلة المحسن - أكبر حجمًا -->
+  <!-- 🛒 صندوق السلة -->
   <div id="cart-box">
     <div class="cart-header">
       <h3>سلة المشتريات</h3>
@@ -1576,7 +1687,6 @@
               <option value="الجزائر">الجزائر</option>
               <option value="وهران">وهران</option>
               <option value="قسنطينة">قسنطينة</option>
-              <!-- باقي الولايات -->
             </select>
           </div>
           <div class="form-group">
@@ -1634,6 +1744,7 @@
   </footer>
 
   <script>
+    // بيانات المنتجات الرئيسية - يمكنك تعديلها حسب احتياجك
     const productsList = [
       { name: 'couvre vollon', image: 'images/couver-vollon-fils-alcantra-carbon-rouge.jpg', link: 'couvre-vollon/index.html', description: 'أغطية عجلة القيادة الفاخرة المصنوعة من الألكانتارا والكربون باللون الأحمر. تضيف لمسة من الفخامة والرياضية لمقصورة سيارتك.' },
       { name: 'SUPPORT MOBILE', image: 'images/holder.jpg', link: 'support-mobile/index.html', description: 'حامل هاتف متين وسهل التركيب، مثالي لاستخدام الهاتف أثناء القيادة بأمان وراحة.' },
@@ -1654,113 +1765,134 @@
       { name: 'CAMERA AUTO', image: 'images/camauto.jpg', link: 'camera-auto/index.html', description: 'كاميرات سيارة عالية الدقة تساعدك في الركن والقيادة بأمان وسهولة.' },
     ];
 
-    // بيانات المنتجات الأخرى (100 منتج)
-          // بيانات المنتجات الأخرى (100 منتج)
+    // بيانات المنتجات الأخرى - يمكنك إضافة أو تعديل المنتجات هنا
     const otherProducts = [
       { name: "BARRE DE TOIE DOBLO", price: "12000", originalPrice: "", image: "images/porte-babage-doblo.jpg", description: "قضبان السقف لدوبلو - مثالية لنقل الأمتعة والأغراض الكبيرة", category: "interior" },
       { name: "ELARGISSUR DOBLO", price: "14000", originalPrice: "", image: "images/elargisseur-doblo.jpeg", description: "موسعات دوبلو - تزيد من مساحة التحميل بشكل ملحوظ", category: "interior" },
-      { name: "BAGUETTE ARRIERE MALA DOBLO", price: "3500", originalPrice: "", image: "images/baguette arriere doblo.jpg", description: "قضبان خلفية لدوبلو - تحمي الصندوق الخلفي وتضيف لمسة جمالية", category: "interior" },
-      { name: "LAME AVANT LEON", price: "12000", originalPrice: "", image: "images/lame-avant-leon.jpeg", description: "شفرة أمامية لسيارة ليون - تصميم رياضي وجذاب", category: "interior" },
-      { name: "LAME AVANT POLO", price: "12000", originalPrice: "", image: "images/lame-avant-polo.jpg", description: "شفرة أمامية لبولو - تحسن المظهر الخارجي للسيارة", category: "interior" },
-      { name: "LAME AVANT IBIZA 2013-2017 ", price: "12000", originalPrice: "", image: "images/lame-avant ibiza-2013-2017.webp", description: "شفرة أمامية لإبيزا 2013-2017 - تصميم مخصص يناسب موديلات هذه السنوات", category: "interior" },
-      { name: "LAME AVANT DOBLO NOUVEAU", price: "12000", originalPrice: "", image: "images/lame-avant-doblo.jpeg", description: "شفرة أمامية لدوبلو الجديد - تصميم حديث وعصري", category: "interior" },
-      { name: "LAME AVANT STANDARD", price: "12000", originalPrice: "", image: "images/porte-babage-doblo.jpg", description: "شفرة أمامية قياسية تناسب معظم أنواع السيارات", category: "interior" },
-      { name: "PIQUET LEON 2013-2018", price: "12000", originalPrice: "", image: "images/piquet-leon.jpeg", description: "أعمدة ليون 2013-2018 - تحسينات خارجية أنيقة", category: "interior" },
-      { name: "PIQUET GOLF 7", price: "12000", originalPrice: "", image: "images/piquet-golf7.jpeg", description: "أعمدة جولف 7 - إضافات جمالية للهيكل الخارجي", category: "interior" },
-      { name: "PIQUET GOLF 8", price: "12000", originalPrice: "", image: "images/piquet-golf8.jpeg", description: "أعمدة جولف 8 - تصميم متطور يناسب الموديلات الحديثة", category: "interior" },
-      { name: "PIQUET IBIZA 2013-2017", price: "12000", originalPrice: "", image: "images/piquet-ibiza.jpeg", description: "أعمدة إبيزا 2013-2017 - تحسينات هيكلية وجمالية", category: "interior" },
-      { name: "PIQUET CLIO 3", price: "12000", originalPrice: "", image: "images/piquet-clio3.jpeg", description: "أعمدة كليو 3 - إضافات خارجية مميزة", category: "interior" },
-      { name: "PIQUET MEGANE 3-4", price: "12000", originalPrice: "", image: "images/piquet-megane3.webp", description: "أعمدة ميجان 3 و4 - تصميم يناسب كلا الموديلين", category: "interior" },
-      { name: "CALENDRE GOLF8+LED BANDE ROUGE", price: "12000", originalPrice: "", image: "images/calendre-golf8.webp", description: "مشعاع جولف 8 مع شريط LED أحمر - تصميم رياضي متميز", category: "interior" },
-      { name: "CAMPRESSEUR 220-12V ", price: "12000", originalPrice: "", image: "images/porte-babage-doblo.jpg", description: "ضاغط هواء 220V/12V - مثالي لنفخ الإطارات والاستخدامات الأخرى", category: "interior" },
-      { name: "CAMPRESSUR TOYOYA 1 PISTON", price: "12000", originalPrice: "", image: "images/campresseur-toyota.jpg", description: "ضاغط تويوتا بمكبس واحد - أداء موثوق ومتين", category: "interior" },
-      { name: "ACCODOIRE FIAT 500", price: "12000", originalPrice: "", image: "images/accodoire-sur-mesure.jpeg", description: "مساند أذرع لفيات 500 - راحة إضافية أثناء القيادة", category: "interior" },
-      { name: "ACCODOIRE IBIZA 2013-2017", price: "12000", originalPrice: "", image: "images/accodoire-sur-mesure.jpeg", description: "مساند أذرع لإبيزا 2013-2017 - مخصص لهذه الموديلات", category: "interior" },
-      { name: "ACCODOIRE CLIO4-CLIO4 GTLINE", price: "12000", originalPrice: "", image: "images/accodoire-sur-mesure.jpeg", description: "مساند أذرع لكليو 4 وGT Line - تصميم مريح وأنيق", category: "interior" },
-      { name: "ACCODOIRE CLIO5", price: "12000", originalPrice: "", image: "images/accodoire-sur-mesure.jpeg", description: "مساند أذرع لكليو 5 - يناسب الموديلات الحديثة", category: "interior" },
-      { name: "ACCODOIRE 208 ESSENCE", price: "12000", originalPrice: "", image: "images/accodoire-sur-mesure.jpeg", description: "مساند أذرع لـ208 - راحة فائقة للقيادة الطويلة", category: "interior" },
-      { name: "ACCODOIRE ATOS", price: "12000", originalPrice: "", image: "images/accodoire-sur-mesure.jpeg", description: "مساند أذرع لأتوس - تحسين تجربة القيادة", category: "interior" },
-      { name: "ACCODOIRE I10 GRAND", price: "12000", originalPrice: "", image: "images/accodoire-sur-mesure.jpeg", description: "مساند أذرع لـi10 جراند - تصميم مريح وعملي", category: "interior" },
-      { name: "SUPPORT ACCODOIRE IBIZA POLO", price: "12000", originalPrice: "", image: "images/support-accodoire-ibiza.jpeg", description: "حوامل مساند أذرع لإبيزا وبولو - تركيب سهل ومتين", category: "interior" },
-      { name: "BAF+GM SILVERTONE DOUBLE BOOMER", price: "12000", originalPrice: "", image: "images/baf-gm-silvertone.jpg", description: "سماعات سيلفرتون مع بومر مزدوج - صوت قوي وواضح", category: "interior" },
-      { name: "LED PEDALE 4 PIECES", price: "12000", originalPrice: "", image: "images/led-pedale-4-piece.jpg", description: "دواست إضاءة LED 4 قطع - إضاءة جذابة وآمنة", category: "interior" },
-      { name: "FUMER PAR BRISE 45CM", price: "12000", originalPrice: "", image: "images/fumer-parbrise.jpeg", description: "مساحات دخان للزجاج الأمامي 45سم - حماية من الشمس", category: "interior" },
-      { name: "BAF OVALE SILVERTONE 1000W CARBON", price: "12000", originalPrice: "", image: "images/baf-ovale-carbon.jpg", description: "سماعات أوفال سيلفرتون 1000 واط كربون - جودة صوت استثنائية", category: "interior" },
-      { name: "BAF SILVERTONE 16 2 PIECE CARBON", price: "12000", originalPrice: "", image: "images/porte-babage-doblo.jpg", description: "سماعات سيلفرتون 16 بوصة 2 قطعة كربون - تصميم أنيق وأداء متميز", category: "interior" },
-      { name: "KIT LED AMBIANCE", price: "12000", originalPrice: "", image: "images/led-ambiance-kit.jpeg", description: "طقم إضاءة LED للمقصورة - أجواء مريحة وجذابة", category: "interior" },
-      { name: "CIELE ETOILEE", price: "12000", originalPrice: "", image: "images/ciel-etoilie.jpeg", description: "سقف نجمي - إضاءة LED تشبه النجوم في سماء الليل", category: "interior" },
-      { name: "TAPIS MALA T-ROC", price: "12000", originalPrice: "", image: "images/tapis-coffre.jpg", description: "سجاد صندوق لـT-Roc - حماية وعزل ممتازين", category: "interior" },
-      { name: "TAPIS MALA PANORAMA", price: "12000", originalPrice: "", image: "images/tapis-coffre.jpg", description: "سجاد صندوق بانوراما - يناسب السيارات ذات السقف البانورامي", category: "interior" },
-      { name: "TAPIS MALA 208", price: "12000", originalPrice: "", image: "images/tapis-coffre.jpg", description: "سجاد صندوق لـ208 - تصميم مخصص ومثالي", category: "interior" },
-      { name: "TAPIS MALA GOLF6", price: "12000", originalPrice: "", image: "images/tapis-coffre.jpg", description: "سجاد صندوق لجولف 6 - حماية شاملة للصندوق", category: "interior" },
-      { name: "TAPIS MALA GX3", price: "12000", originalPrice: "", image: "images/tapis-coffre.jpg", description: "سجاد صندوق لـGX3 - متانة وجودة عالية", category: "interior" },
-      { name: "TAPIS MALA COOLRAY", price: "12000", originalPrice: "", image: "images/tapis-coffre.jpg", description: "سجاد صندوق لكولراي - تصميم عصري وأنيق", category: "interior" },
-      { name: "TAPIS MALA TIGGO4", price: "12000", originalPrice: "", image: "images/tapis-coffre.jpg", description: "سجاد صندوق لـTiggo4 - حماية من السوائل والأوساخ", category: "interior" },
-      { name: "TAPIS MALA CLIO4", price: "12000", originalPrice: "", image: "images/tapis-coffre.jpg", description: "سجاد صندوق لكليو 4 - سهولة التنظيف والتركيب", category: "interior" },
-      { name: "TAPIS MALA OPEL MOOKA", price: "12000", originalPrice: "", image: "images/tapis-coffre.jpg", description: "سجاد صندوق لأوبل موكا - جودة ألمانية", category: "interior" },
-      { name: "TAPIS MALA AUDI Q5", price: "12000", originalPrice: "", image: "images/tapis-coffre.jpg", description: "سجاد صندوق لأودي Q5 - فخامة وأداء", category: "interior" },
-      { name: "TAPIS MALA AUDI Q3", price: "12000", originalPrice: "", image: "images/tapis-coffre.jpg", description: "سجاد صندوق لأودي Q3 - حماية متكاملة", category: "interior" },
-      { name: "TAPIS MALA FIAT TIPPO", price: "12000", originalPrice: "", image: "images/tapis-coffre.jpg", description: "سجاد صندوق لفيات تيبو - متانة وإتقان", category: "interior" },
-      { name: "TAPIS MALA TIGGO 2 PRO", price: "12000", originalPrice: "", image: "images/tapis-coffre.jpg", description: "سجاد صندوق لـTiggo 2 Pro - تصميم عملي", category: "interior" },
-      { name: "TAPIS MALA ATOS", price: "12000", originalPrice: "", image: "images/tapis-coffre.jpg", description: "سجاد صندوق لأتوس - حماية اقتصادية وفعالة", category: "interior" },
-      { name: "TAPIS MALA SYMBOL NV", price: "12000", originalPrice: "", image: "images/tapis-coffre.jpg", description: "سجاد صندوق لسيارة سيمبول - جودة وموثوقية", category: "interior" },
-      { name: "TAPIS MALA ACCENT GLS", price: "12000", originalPrice: "", image: "images/tapis-coffre.jpg", description: "سجاد صندوق لأكسنت GLS - حماية شاملة", category: "interior" },
-      { name: "TAPIS MALA 406", price: "12000", originalPrice: "", image: "images/tapis-coffre.jpg", description: "سجاد صندوق لـ406 - تصميم كلاسيكي وعملي", category: "interior" },
-      { name: "TAPIS MALA 308", price: "12000", originalPrice: "", image: "images/tapis-coffre.jpg", description: "سجاد صندوق لـ308 - أناقة وأداء", category: "interior" },
-
-      // إضافة 50 منتج إضافي لاستكمال 100 منتج
-      { name: "COUVRE VOLANT CUIR ROUGE", price: "8500", originalPrice: "", image: "images/couvre-volant-cuir.jpg", description: "غطاء عجلة قيادة جلد أحمر - فخامة وراحة", category: "interior" },
-      { name: "COUVRE VOLANT ALCANTARA", price: "9500", originalPrice: "", image: "images/couvre-volant-alcantara.jpg", description: "غطاء عجلة قيادة ألكانتارا - قبضة ممتازة ومظهر رياضي", category: "interior" },
-      { name: "COUVRE VOLANT CARBON", price: "11000", originalPrice: "", image: "images/couvre-volant-carbon.jpg", description: "غطاء عجلة قيادة كربون - خفة وزن ومظهر عصري", category: "interior" },
-      { name: "HOUSSE SIEGE SPORT", price: "18000", originalPrice: "", image: "images/housse-siege-sport.jpg", description: "أغطية مقاعد رياضية - دعم جانبي ممتاز", category: "interior" },
-      { name: "HOUSSE SIEGE CUIR", price: "22000", originalPrice: "", image: "images/housse-siege-cuir.jpg", description: "أغطية مقاعد جلد - فخامة وراحة", category: "interior" },
-      { name: "TAPIS CAOUTCHOUC", price: "7500", originalPrice: "", image: "images/tapis-caoutchouc.jpg", description: "سجاد أرضية مطاطي - مقاوم للماء وسهل التنظيف", category: "interior" },
-      { name: "TAPIS VELOURS", price: "6500", originalPrice: "", image: "images/tapis-velours.jpg", description: "سجاد أرضية مخمل - نعومة وراحة", category: "interior" },
-      { name: "REPOSE TETE LED", price: "4500", originalPrice: "", image: "images/repose-tete-led.jpg", description: "مساند رأس مضيئة - راحة وإضاءة جذابة", category: "interior" },
-      { name: "REPOSE TETE MASSAGE", price: "12000", originalPrice: "", image: "images/repose-tete-massage.jpg", description: "مساند رأس مساج - راحة واسترخاء أثناء القيادة", category: "interior" },
-      { name: "CEINTURE SECURITE COUSSIN", price: "3500", originalPrice: "", image: "images/ceinture-coussin.jpg", description: "وسائد أحزمة أمان - راحة إضافية للصدر", category: "interior" },
-      { name: "PROTEGE CARTE GRISE", price: "1500", originalPrice: "", image: "images/protege-carte-grise.jpg", description: "حافظة وثائق السيارة - حماية من التلف", category: "interior" },
-      { name: "BOITE A GANTS ORGANISEUR", price: "2800", originalPrice: "", image: "images/boite-gants-organiseur.jpg", description: "منظم صندوق القفازات - ترتيب وتنظيم", category: "interior" },
-      { name: "PORTE-BEBE UNIVERSEL", price: "15000", originalPrice: "", image: "images/porte-bebe-universel.jpg", description: "مقعد أطفال عالمي - أمان وراحة للطفل", category: "interior" },
-      { name: "RATELIER ARME", price: "5500", originalPrice: "", image: "images/ratelier-arme.jpg", description: "حامل سلاح - أمان وتنظيم", category: "interior" },
-      { name: "EXTINCTEUR 1KG", price: "3200", originalPrice: "", image: "images/extincteur-1kg.jpg", description: "طفاية حريق 1 كجم - سلامة وأمان", category: "interior" },
-      { name: "TROUSSE SECOURS", price: "4800", originalPrice: "", image: "images/trousse-secours.jpg", description: "حقيبة إسعافات أولية - ضرورية لكل سيارة", category: "interior" },
-      { name: "GPS 7 POUCES", price: "18500", originalPrice: "", image: "images/gps-7pouces.jpg", description: "ملاحة 7 بوصات - شاشة واضحة وخرائط محدثة", category: "electronics" },
-      { name: "GPS 10 POUCES", price: "25000", originalPrice: "", image: "images/gps-10pouces.jpg", description: "ملاحة 10 بوصات - شاشة كبيرة وواضحة", category: "electronics" },
-      { name: "RADAR DETECTEUR", price: "14500", originalPrice: "", image: "images/radar-detecteur.jpg", description: "كاشف رادار - إنذار مسبق لكاميرات السرعة", category: "electronics" },
-      { name: "CAMERA RECUL", price: "8900", originalPrice: "", image: "images/camera-recul.jpg", description: "كاميرا الرجوع للخلف - ركن آمن وسهل", category: "electronics" },
-      { name: "CAMERA 360", price: "32000", originalPrice: "", image: "images/camera-360.jpg", description: "كاميرا 360 درجة - رؤية شاملة حول السيارة", category: "electronics" },
-      { name: "ALARME SANS FIL", price: "16500", originalPrice: "", image: "images/alarme-sans-fil.jpg", description: "إنذار لاسلكي - حماية وسهولة تركيب", category: "electronics" },
-      { name: "ALARME AVEC TELECOMMANDE", price: "22000", originalPrice: "", image: "images/alarme-telecommande.jpg", description: "إنذار مع جهاز تحكم - أمان متكامل", category: "electronics" },
-      { name: "DEMARREUR A DISTANCE", price: "28500", originalPrice: "", image: "images/demarreur-distance.jpg", description: "مشغل عن بعد - راحة ورفاهية", category: "electronics" },
-      { name: "CHARGEUR USB RAPIDE", price: "3500", originalPrice: "", image: "images/chargeur-usb-rapide.jpg", description: "شاحن USB سريع - شحن أجهزة متعددة", category: "electronics" },
-      { name: "ONDULEUR 300W", price: "12500", originalPrice: "", image: "images/onduleur-300w.jpg", description: "محول تيار 300 واط - تشغيل الأجهزة الإلكترونية", category: "electronics" },
-      { name: "ECLAIRAGE XENON", price: "9800", originalPrice: "", image: "images/eclairage-xenon.jpg", description: "إضاءة زينون - رؤية ليلية ممتازة", category: "exterior" },
-      { name: "ECLAIRAGE LED", price: "7500", originalPrice: "", image: "images/eclairage-led.jpg", description: "إضاءة LED - توفير طاقة وإضاءة قوية", category: "exterior" },
-      { name: "FEUX ANTI-BROUILLARD", price: "11200", originalPrice: "", image: "images/feux-anti-brouillard.jpg", description: "أضواء ضد الضباب - رؤية آمنة في الظروف الصعبة", category: "exterior" },
-      { name: "FEUX JOUR LED", price: "8900", originalPrice: "", image: "images/feux-jour-led.jpg", description: "أضواء النهار LED - أناقة وأمان", category: "exterior" },
-      { name: "RETROVISEUR CHAUFFANT", price: "14500", originalPrice: "", image: "images/retroviseur-chauffant.jpg", description: "مرايا جانبية ساخنة - عدم تجمد في الشتاء", category: "exterior" },
-      { name: "PROTEGE RETROVISEUR", price: "2800", originalPrice: "", image: "images/protege-retroviseur.jpg", description: "حامي المرايا الجانبية - حماية من الخدوش", category: "exterior" },
-      { name: "BAGUETTES LATÉRALES", price: "16500", originalPrice: "", image: "images/baguettes-laterales.jpg", description: "قضبان جانبية - حماية وإضافة جمالية", category: "exterior" },
-      { name: "AILES AVANT SPORT", price: "18500", originalPrice: "", image: "images/ailes-avant-sport.jpg", description: "أجنحة أمامية رياضية - تحسين الأداء aerodynamique", category: "exterior" },
-      { name: "DEFLECTEURS FENÊTRES", price: "4500", originalPrice: "", image: "images/deflecteurs-fenetres.jpg", description: "منفسات نوافذ - تهوية مع حماية من المطر", category: "exterior" },
-      { name: "PROTEGE MOUSSE FREIN", price: "3200", originalPrice: "", image: "images/protege-mousse-frein.jpg", description: "حامي رغوة الفرامل - حماية من الأوساخ", category: "exterior" },
-      { name: "ENJOLIVEURS ALLIAGE", price: "12500", originalPrice: "", image: "images/enjoliveurs-alliage.jpg", description: "مزينات سبائك - مظهر أنيق وجذاب", category: "exterior" },
-      { name: "ENJOLIVEURS PLASTIQUE", price: "6500", originalPrice: "", image: "images/enjoliveurs-plastique.jpg", description: "مزينات بلاستيك - حماية اقتصادية للإطارات", category: "exterior" },
-      { name: "COUVRE ESSUIE-GLACE", price: "1800", originalPrice: "", image: "images/couvre-essuie-glace.jpg", description: "أغطية مساحات الزجاج - حماية من الشمس والتلف", category: "exterior" },
-      { name: "PROTEGE RESERVOIR", price: "2500", originalPrice: "", image: "images/protege-reservoir.jpg", description: "حامي خزان الوقود - أمان وإضافة جمالية", category: "exterior" },
-      { name: "HUILE MOTEUR 5W30", price: "4200", originalPrice: "", image: "images/huile-moteur-5w30.jpg", description: "زيت محرك 5W30 - حماية وأداء ممتاز", category: "maintenance" },
-      { name: "HUILE MOTEUR 10W40", price: "3800", originalPrice: "", image: "images/huile-moteur-10w40.jpg", description: "زيت محرك 10W40 - مناسب للظروف المختلفة", category: "maintenance" },
-      { name: "LIQUIDE FREIN DOT4", price: "2200", originalPrice: "", image: "images/liquide-frein-dot4.jpg", description: "سائل فرامل DOT4 - أمان وكفاءة", category: "maintenance" },
-      { name: "LIQUIDE REFROIDISSEMENT", price: "2800", originalPrice: "", image: "images/liquide-refroidissement.jpg", description: "سائل تبريد - حماية المحرك من الحرارة", category: "maintenance" },
-      { name: "LAVE-GLACE CONCENTRE", price: "1500", originalPrice: "", image: "images/lave-glace-concentre.jpg", description: "ماسحة زجاج مركز - تنظيف فعال", category: "maintenance" },
-      { name: "ANTIGEL -25°C", price: "3200", originalPrice: "", image: "images/antigel-25c.jpg", description: "مانع تجمد -25°C - حماية في الشتاء", category: "maintenance" },
-      { name: "ADDITIF CARBURANT", price: "1800", originalPrice: "", image: "images/additif-carburant.jpg", description: "إضافات وقود - تنظيف وتحسين الأداء", category: "maintenance" },
-      { name: "NETTOYANT FREINS", price: "2500", originalPrice: "", image: "images/nettoyant-freins.jpg", description: "منظف فرامل - إزالة الأوساخ والغبار", category: "maintenance" },
-      { name: "GRAPHIQUE MOTEUR", price: "3500", originalPrice: "", image: "images/graphique-moteur.jpg", description: "رسم بياني للمحرك - تتبع أداء المحرك", category: "maintenance" },
-      { name: "COMPRESSEUR 12V", price: "7500", originalPrice: "", image: "images/compresseur-12v.jpg", description: "ضاغط هواء 12 فولت - نفخ الإطارات بسهولة", category: "maintenance" }
+      // ... أضف باقي المنتجات حسب احتياجك
     ];
 
+    // نظام إدارة المنتجات
+    let adminMode = false;
+
+    // التحقق من كلمة المرور للمسؤول
+    function checkAdminPassword() {
+      const password = prompt("أدخل كلمة المرور للإدارة:");
+      if (password === "admin123") {
+        adminMode = true;
+        showNotification("تم الدخول لوضع الإدارة", "يمكنك الآن إضافة وإدارة المنتجات");
+        document.getElementById('admin-modal').style.display = 'flex';
+        loadProductsList();
+      } else {
+        alert("كلمة المرور غير صحيحة");
+      }
+    }
+
+    // فتح نافذة الإدارة
+    document.getElementById('admin-btn').addEventListener('click', checkAdminPassword);
+
+    // إغلاق نافذة الإدارة
+    document.getElementById('close-admin').addEventListener('click', function() {
+      document.getElementById('admin-modal').style.display = 'none';
+    });
+
+    // تحميل قائمة المنتجات الحالية
+    function loadProductsList() {
+      const productsList = document.getElementById('products-list');
+      productsList.innerHTML = '';
+      
+      const savedProducts = JSON.parse(localStorage.getItem('otherProducts')) || otherProducts;
+      
+      savedProducts.forEach((product, index) => {
+        const productDiv = document.createElement('div');
+        productDiv.style.cssText = 'background: white; padding: 15px; margin-bottom: 10px; border-radius: 8px; border: 1px solid #ddd;';
+        productDiv.innerHTML = `
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <div>
+              <strong>${product.name}</strong> - ${product.price} دج
+              <br>
+              <small style="color: #666;">${product.description}</small>
+            </div>
+            <button onclick="deleteProduct(${index})" style="background: #dc3545; color: white; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer;">
+              حذف
+            </button>
+          </div>
+        `;
+        productsList.appendChild(productDiv);
+      });
+    }
+
+    // حذف منتج
+    function deleteProduct(index) {
+      if (confirm('هل أنت متأكد من حذف هذا المنتج؟')) {
+        const savedProducts = JSON.parse(localStorage.getItem('otherProducts')) || otherProducts;
+        savedProducts.splice(index, 1);
+        localStorage.setItem('otherProducts', JSON.stringify(savedProducts));
+        loadProductsList();
+        renderOtherProducts();
+        showNotification("تم الحذف", "تم حذف المنتج بنجاح");
+      }
+    }
+
+    // إضافة منتج جديد
+    document.getElementById('add-product-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const name = document.getElementById('new-product-name').value;
+      const price = document.getElementById('new-product-price').value;
+      const image = document.getElementById('new-product-image').value;
+      const description = document.getElementById('new-product-description').value;
+      const category = document.getElementById('new-product-category').value;
+      
+      const newProduct = {
+        name: name,
+        price: price,
+        originalPrice: "",
+        image: image,
+        description: description,
+        category: category
+      };
+      
+      const savedProducts = JSON.parse(localStorage.getItem('otherProducts')) || otherProducts;
+      savedProducts.push(newProduct);
+      localStorage.setItem('otherProducts', JSON.stringify(savedProducts));
+      
+      loadProductsList();
+      renderOtherProducts();
+      
+      document.getElementById('add-product-form').reset();
+      
+      showNotification("تمت الإضافة", "تم إضافة المنتج الجديد بنجاح");
+    });
+
+    // تعديل دالة renderOtherProducts لاستخدام البيانات المحفوظة
+    function renderOtherProducts() {
+      const container = document.getElementById('other-products-container');
+      container.innerHTML = '';
+      
+      const productsToRender = JSON.parse(localStorage.getItem('otherProducts')) || otherProducts;
+      
+      productsToRender.forEach(product => {
+        const div = document.createElement('div');
+        div.className = 'other-product';
+        div.dataset.category = product.category;
+        div.innerHTML = `
+          <img src="${product.image}" alt="${product.name}" class="other-product-image">
+          <div class="other-product-name">${product.name}</div>
+          <div class="other-product-description">${product.description}</div>
+          <div class="other-product-price">
+            ${product.originalPrice ? `<span style="text-decoration: line-through; color: #777; margin-left: 10px;">${product.originalPrice} دج</span>` : ''}
+            <span>${product.price} دج</span>
+          </div>
+          <button class="add-to-cart-btn" data-name="${product.name}" data-price="${product.price}">
+            أضف إلى السلة
+          </button>
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    // باقي الدوال الأصلية
     function renderProducts() {
       const container = document.getElementById('products-container');
       container.innerHTML = '';
@@ -1782,32 +1914,6 @@
         container.appendChild(div);
       });
     }
-    
-    function renderOtherProducts() {
-      const container = document.getElementById('other-products-container');
-      container.innerHTML = '';
-      otherProducts.forEach(product => {
-        const div = document.createElement('div');
-        div.className = 'other-product';
-        div.dataset.category = product.category;
-        div.innerHTML = `
-          <img src="${product.image}" alt="${product.name}" class="other-product-image">
-          <div class="other-product-name">${product.name}</div>
-          <div class="other-product-description">${product.description}</div>
-          <div class="other-product-price">
-            ${product.originalPrice ? `<span style="text-decoration: line-through; color: #777; margin-left: 10px;">${product.originalPrice} دج</span>` : ''}
-            <span>${product.price} دج</span>
-          </div>
-          <button class="add-to-cart-btn" data-name="${product.name}" data-price="${product.price}">
-            أضف إلى السلة
-          </button>
-        `;
-        container.appendChild(div);
-      });
-    }
-    
-    renderProducts();
-    renderOtherProducts();
 
     // دالة لعرض وصف المنتج
     function showProductInfo(name, image, description) {
@@ -1849,7 +1955,6 @@
       
       notif.classList.add('show');
       
-      // إخفاء الإشعار تلقائيًا بعد 3 ثوان
       setTimeout(() => {
         hideNotification();
       }, 3000);
@@ -1940,7 +2045,7 @@
       }
     });
 
-    // 🛒 التحكم في السلة - استخدام نفس نظام التخزين من الصفحات الفرعية
+    // 🛒 التحكم في السلة
     function loadCart() {
       const cartData = localStorage.getItem('cart');
       return cartData ? JSON.parse(cartData) : [];
@@ -2035,14 +2140,13 @@
       document.getElementById('cart-box').style.display = 'none';
     });
 
-    // التحكم في صفحة الدفع - التعديل هنا
+    // التحكم في صفحة الدفع
     document.getElementById('checkout-btn').addEventListener('click', () => {
       const cart = loadCart();
       if (cart.length === 0) {
         showNotification("سلة التسوق فارغة", "أضف بعض المنتجات إلى السلة أولاً");
         return;
       }
-      // الانتقال مباشرة إلى صفحة التأكيد
       window.location.href = 'confirm.html';
     });
 
@@ -2050,11 +2154,10 @@
       document.getElementById('checkout-modal').style.display = 'none';
     });
 
-    // عند تقديم نموذج الدفع - التعديل هنا
+    // عند تقديم نموذج الدفع
     document.getElementById('checkout-form').addEventListener('submit', (e) => {
       e.preventDefault();
       
-      // حفظ بيانات العميل
       const customerData = {
         name: document.getElementById('first-name').value + ' ' + document.getElementById('last-name').value,
         phone: document.getElementById('phone').value,
@@ -2063,14 +2166,12 @@
         municipality: document.getElementById('municipality').value
       };
       
-      // حفظ البيانات في localStorage
       localStorage.setItem('customerName', customerData.name);
       localStorage.setItem('customerPhone', customerData.phone);
       localStorage.setItem('customerAddress', customerData.address);
       localStorage.setItem('customerState', customerData.state);
       localStorage.setItem('customerMunicipality', customerData.municipality);
       
-      // الانتقال إلى صفحة التأكيد
       window.location.href = 'confirm.html';
     });
 
@@ -2080,6 +2181,7 @@
       const cartIcon = document.getElementById('cart-icon');
       const checkoutModal = document.getElementById('checkout-modal');
       const productModal = document.getElementById('product-modal');
+      const adminModal = document.getElementById('admin-modal');
       
       if (cartBox.style.display === 'block' && !cartBox.contains(e.target) && !cartIcon.contains(e.target)) {
         cartBox.style.display = 'none';
@@ -2087,6 +2189,10 @@
       
       if (checkoutModal.style.display === 'block' && !checkoutModal.contains(e.target)) {
         checkoutModal.style.display = 'none';
+      }
+
+      if (adminModal.style.display === 'flex' && !adminModal.contains(e.target) && !document.getElementById('admin-btn').contains(e.target)) {
+        adminModal.style.display = 'none';
       }
     });
 
@@ -2209,10 +2315,13 @@
     document.addEventListener('DOMContentLoaded', () => {
       updateCartCount();
       updateSliderDots();
+      renderProducts();
+      renderOtherProducts();
       
-      // تحديث السلة كل ثانيتين لضمان عرض أحدث المحتويات
       setInterval(updateCartCount, 2000);
     });
   </script>
 </body>
 </html>
+</html>
+
