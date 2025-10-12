@@ -22,6 +22,30 @@
       padding: 0;
     }
     
+    body {<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ACCESSOIRE AUTO BBS</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary-color: #0b2f3c;
+      --secondary-color: #55c6f0;
+      --accent-color: #af290b;
+      --text-color: #333;
+      --light-bg: #e8f4fc;
+      --dark-bg: #080808;
+      --success-color: #28a745;
+    }
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background-color: var(--light-bg);
@@ -1092,6 +1116,9 @@
       border-bottom: 1px solid #eee;
       cursor: pointer;
       transition: background-color 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
     
     .search-result-item:hover {
@@ -2210,21 +2237,42 @@
       });
     });
 
-    // 🔍 وظيفة البحث
+    // 🔍 وظيفة البحث المتطورة
     const searchInput = document.getElementById('search-input');
     const searchResults = document.getElementById('search-results');
     const searchBtn = document.getElementById('search-btn');
-    
+
+    // دالة لتظليل النص المطابق
+    function highlightText(text, query) {
+      if (!query) return text;
+      const regex = new RegExp(`(${query})`, 'gi');
+      return text.replace(regex, '<mark style="background: yellow; color: black;">$1</mark>');
+    }
+
     function performSearch() {
       const query = searchInput.value.trim().toLowerCase();
       searchResults.innerHTML = '';
       
-      if (query.length < 2) {
+      if (query.length < 1) {
         searchResults.style.display = 'none';
         return;
       }
       
-      const filteredProducts = productsList.filter(product => 
+      // جمع جميع المنتجات من المصادر المختلفة
+      const allProducts = [
+        ...productsList,
+        ...(JSON.parse(localStorage.getItem('otherProducts')) || otherProducts).map(p => ({
+          name: p.name,
+          image: p.image,
+          link: '#',
+          description: p.description,
+          price: p.price,
+          type: 'other'
+        }))
+      ];
+      
+      // فلترة المنتجات التي تحتوي على الكلمة في أي مكان من الاسم
+      const filteredProducts = allProducts.filter(product => 
         product.name.toLowerCase().includes(query)
       );
       
@@ -2233,25 +2281,60 @@
         filteredProducts.forEach(product => {
           const resultItem = document.createElement('div');
           resultItem.className = 'search-result-item';
-          resultItem.textContent = product.name;
+          resultItem.innerHTML = `
+            <div style="display: flex; align-items: center; gap: 10px; width: 100%;">
+              <img src="${product.image}" alt="${product.name}" style="width: 40px; height: 40px; object-fit: cover; border-radius: 5px;">
+              <div style="flex: 1;">
+                <div style="font-weight: bold;">${highlightText(product.name, query)}</div>
+                ${product.price ? `<div style="color: var(--accent-color); font-size: 14px;">${product.price} دج</div>` : ''}
+                <div style="font-size: 12px; color: #666; margin-top: 2px;">${product.description.substring(0, 50)}...</div>
+              </div>
+            </div>
+          `;
           resultItem.addEventListener('click', () => {
-            window.location.href = product.link;
+            if (product.link && product.link !== '#') {
+              window.location.href = product.link;
+            } else {
+              // إذا كان المنتج من قسم "منتجات أخرى"
+              showProductInfo(product.name, product.image, product.description);
+            }
+            searchResults.style.display = 'none';
+            searchInput.value = '';
           });
           searchResults.appendChild(resultItem);
         });
       } else {
         searchResults.style.display = 'block';
-        searchResults.innerHTML = '<div class="search-result-item">لا توجد نتائج</div>';
+        searchResults.innerHTML = `
+          <div class="search-result-item" style="text-align: center; color: #666;">
+            <i class="fas fa-search" style="font-size: 24px; margin-bottom: 10px; display: block;"></i>
+            لا توجد نتائج لـ "${query}"
+          </div>
+        `;
       }
     }
-    
-    searchInput.addEventListener('input', performSearch);
+
+    // البحث أثناء الكتابة
+    let searchTimeout;
+    searchInput.addEventListener('input', function() {
+      clearTimeout(searchTimeout);
+      searchTimeout = setTimeout(performSearch, 300);
+    });
+
+    // البحث عند النقر على زر البحث
     searchBtn.addEventListener('click', performSearch);
     
     // إغلاق نتائج البحث عند النقر خارجها
     document.addEventListener('click', (e) => {
       if (!searchInput.contains(e.target) && !searchResults.contains(e.target) && !searchBtn.contains(e.target)) {
         searchResults.style.display = 'none';
+      }
+    });
+
+    // البحث عند الضغط على Enter
+    searchInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        performSearch();
       }
     });
 
