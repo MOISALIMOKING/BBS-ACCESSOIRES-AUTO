@@ -1451,6 +1451,83 @@
       max-height: 90vh;
       overflow-y: auto;
     }
+
+    /* الأنماط الجديدة للإدارة */
+    .admin-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    
+    .edit-btn {
+      background: #28a745;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    
+    .delete-btn {
+      background: #dc3545;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    
+    .upload-options {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+    
+    .upload-option-btn {
+      flex: 1;
+      padding: 10px;
+      border: 2px solid #ddd;
+      border-radius: 5px;
+      background: white;
+      cursor: pointer;
+      text-align: center;
+    }
+    
+    .upload-option-btn.active {
+      border-color: var(--secondary-color);
+      background: var(--light-bg);
+    }
+    
+    .image-preview {
+      max-width: 100%;
+      max-height: 200px;
+      margin: 10px 0;
+      border-radius: 5px;
+      display: none;
+    }
+    
+    .file-input-container {
+      position: relative;
+      margin-bottom: 10px;
+    }
+    
+    .file-input-label {
+      display: block;
+      padding: 10px;
+      background: #f0f0f0;
+      border: 2px dashed #ddd;
+      border-radius: 5px;
+      text-align: center;
+      cursor: pointer;
+    }
+    
+    .file-input-label:hover {
+      background: #e8f4fc;
+    }
+    
+    .hidden-file-input {
+      display: none;
+    }
   </style>
 </head>
 <body>
@@ -1499,7 +1576,7 @@
       
       <!-- نموذج إضافة منتج جديد -->
       <div style="background: #f9f9f9; padding: 20px; border-radius: 10px; margin-bottom: 20px;">
-        <h3 style="color: var(--primary-color); margin-bottom: 15px;">إضافة منتج جديد</h3>
+        <h3 style="color: var(--primary-color); margin-bottom: 15px;" id="form-title">إضافة منتج جديد</h3>
         <form id="add-product-form">
           <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px;">
             <div>
@@ -1512,9 +1589,29 @@
             </div>
           </div>
           
+          <!-- خيارات رفع الصورة -->
           <div style="margin-bottom: 15px;">
-            <label style="display: block; margin-bottom: 5px; font-weight: bold;">رابط الصورة:</label>
-            <input type="url" id="new-product-image" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;" placeholder="https://example.com/image.jpg">
+            <label style="display: block; margin-bottom: 5px; font-weight: bold;">صورة المنتج:</label>
+            <div class="upload-options">
+              <button type="button" class="upload-option-btn active" id="url-option">رابط من الويب</button>
+              <button type="button" class="upload-option-btn" id="file-option">رفع من الجهاز</button>
+            </div>
+            
+            <!-- خيار رابط الويب -->
+            <div id="url-upload-section">
+              <input type="url" id="new-product-image" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;" placeholder="https://example.com/image.jpg">
+            </div>
+            
+            <!-- خيار رفع الملف -->
+            <div id="file-upload-section" style="display: none;">
+              <div class="file-input-container">
+                <label class="file-input-label" for="image-file-input">
+                  <i class="fas fa-cloud-upload-alt"></i> اختر صورة من جهازك
+                </label>
+                <input type="file" id="image-file-input" class="hidden-file-input" accept="image/*">
+              </div>
+              <img id="image-preview" class="image-preview" alt="معاينة الصورة">
+            </div>
           </div>
           
           <div style="margin-bottom: 15px;">
@@ -1532,9 +1629,17 @@
             </select>
           </div>
           
-          <button type="submit" style="background: var(--secondary-color); color: white; border: none; padding: 12px 25px; border-radius: 5px; cursor: pointer; font-weight: bold;">
-            <i class="fas fa-plus"></i> إضافة المنتج
-          </button>
+          <div style="display: flex; gap: 10px;">
+            <button type="submit" id="submit-product-btn" style="background: var(--secondary-color); color: white; border: none; padding: 12px 25px; border-radius: 5px; cursor: pointer; font-weight: bold;">
+              <i class="fas fa-plus"></i> إضافة المنتج
+            </button>
+            <button type="button" id="close-form" style="background: #6c757d; color: white; border: none; padding: 12px 25px; border-radius: 5px; cursor: pointer; font-weight: bold;">
+              إغلاق
+            </button>
+            <button type="button" id="cancel-edit" style="background: #dc3545; color: white; border: none; padding: 12px 25px; border-radius: 5px; cursor: pointer; font-weight: bold; display: none;">
+              إلغاء التعديل
+            </button>
+          </div>
         </form>
       </div>
       
@@ -1769,16 +1874,16 @@
     const otherProducts = [
       { name: "BARRE DE TOIE DOBLO", price: "12000", originalPrice: "", image: "images/porte-babage-doblo.jpg", description: "قضبان السقف لدوبلو - مثالية لنقل الأمتعة والأغراض الكبيرة", category: "interior" },
       { name: "ELARGISSUR DOBLO", price: "14000", originalPrice: "", image: "images/elargisseur-doblo.jpeg", description: "موسعات دوبلو - تزيد من مساحة التحميل بشكل ملحوظ", category: "interior" },
-      // ... أضف باقي المنتجات حسب احتياجك
     ];
 
     // نظام إدارة المنتجات
     let adminMode = false;
+    let currentEditingIndex = null;
 
-    // التحقق من كلمة المرور للمسؤول
+    // التحقق من كلمة المرور للمسؤول - تم التغيير إلى panzer123
     function checkAdminPassword() {
       const password = prompt("أدخل كلمة المرور للإدارة:");
-      if (password === "admin123") {
+      if (password === "panzer123") {
         adminMode = true;
         showNotification("تم الدخول لوضع الإدارة", "يمكنك الآن إضافة وإدارة المنتجات");
         document.getElementById('admin-modal').style.display = 'flex';
@@ -1794,9 +1899,48 @@
     // إغلاق نافذة الإدارة
     document.getElementById('close-admin').addEventListener('click', function() {
       document.getElementById('admin-modal').style.display = 'none';
+      resetForm();
     });
 
-    // تحميل قائمة المنتجات الحالية
+    // إغلاق النموذج فقط
+    document.getElementById('close-form').addEventListener('click', function() {
+      resetForm();
+    });
+
+    // إلغاء التعديل
+    document.getElementById('cancel-edit').addEventListener('click', function() {
+      resetForm();
+    });
+
+    // تبديل بين خيارات رفع الصور
+    document.getElementById('url-option').addEventListener('click', function() {
+      document.getElementById('url-option').classList.add('active');
+      document.getElementById('file-option').classList.remove('active');
+      document.getElementById('url-upload-section').style.display = 'block';
+      document.getElementById('file-upload-section').style.display = 'none';
+    });
+
+    document.getElementById('file-option').addEventListener('click', function() {
+      document.getElementById('file-option').classList.add('active');
+      document.getElementById('url-option').classList.remove('active');
+      document.getElementById('file-upload-section').style.display = 'block';
+      document.getElementById('url-upload-section').style.display = 'none';
+    });
+
+    // معاينة الصورة عند اختيار ملف
+    document.getElementById('image-file-input').addEventListener('change', function(e) {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          document.getElementById('image-preview').src = e.target.result;
+          document.getElementById('image-preview').style.display = 'block';
+        }
+        reader.readAsDataURL(file);
+      }
+    });
+
+    // تحميل قائمة المنتجات الحالية مع إضافة أزرار التعديل
     function loadProductsList() {
       const productsList = document.getElementById('products-list');
       productsList.innerHTML = '';
@@ -1807,19 +1951,58 @@
         const productDiv = document.createElement('div');
         productDiv.style.cssText = 'background: white; padding: 15px; margin-bottom: 10px; border-radius: 8px; border: 1px solid #ddd;';
         productDiv.innerHTML = `
-          <div style="display: flex; justify-content: space-between; align-items: center;">
-            <div>
-              <strong>${product.name}</strong> - ${product.price} دج
-              <br>
-              <small style="color: #666;">${product.description}</small>
+          <div>
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px;">
+              <div style="flex: 1;">
+                <strong>${product.name}</strong> - ${product.price} دج
+                <br>
+                <small style="color: #666;">${product.description}</small>
+              </div>
+              <img src="${product.image}" alt="${product.name}" style="width: 60px; height: 60px; object-fit: cover; border-radius: 5px; margin-right: 10px;">
             </div>
-            <button onclick="deleteProduct(${index})" style="background: #dc3545; color: white; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer;">
-              حذف
-            </button>
+            <div class="admin-actions">
+              <button onclick="editProduct(${index})" class="edit-btn">
+                <i class="fas fa-edit"></i> تعديل
+              </button>
+              <button onclick="deleteProduct(${index})" class="delete-btn">
+                <i class="fas fa-trash"></i> حذف
+              </button>
+            </div>
           </div>
         `;
         productsList.appendChild(productDiv);
       });
+    }
+
+    // تعديل منتج
+    function editProduct(index) {
+      const savedProducts = JSON.parse(localStorage.getItem('otherProducts')) || otherProducts;
+      const product = savedProducts[index];
+      
+      // تعبئة النموذج ببيانات المنتج
+      document.getElementById('new-product-name').value = product.name;
+      document.getElementById('new-product-price').value = product.price;
+      document.getElementById('new-product-description').value = product.description;
+      document.getElementById('new-product-category').value = product.category;
+      
+      // تحديد نوع الصورة
+      if (product.image.startsWith('data:')) {
+        // إذا كانت الصورة من قاعدة 64 (ملف محمل)
+        document.getElementById('file-option').click();
+        document.getElementById('image-preview').src = product.image;
+        document.getElementById('image-preview').style.display = 'block';
+      } else {
+        // إذا كانت الصورة من رابط
+        document.getElementById('url-option').click();
+        document.getElementById('new-product-image').value = product.image;
+      }
+      
+      currentEditingIndex = index;
+      
+      // تغيير واجهة النموذج لوضع التعديل
+      document.getElementById('form-title').textContent = 'تعديل المنتج';
+      document.getElementById('submit-product-btn').innerHTML = '<i class="fas fa-save"></i> تحديث المنتج';
+      document.getElementById('cancel-edit').style.display = 'inline-block';
     }
 
     // حذف منتج
@@ -1834,62 +2017,89 @@
       }
     }
 
-    // إضافة منتج جديد
+    // إعادة تعيين النموذج
+    function resetForm() {
+      document.getElementById('add-product-form').reset();
+      document.getElementById('image-preview').style.display = 'none';
+      document.getElementById('image-preview').src = '';
+      document.getElementById('image-file-input').value = '';
+      currentEditingIndex = null;
+      
+      // إعادة النموذج لوضع الإضافة
+      document.getElementById('form-title').textContent = 'إضافة منتج جديد';
+      document.getElementById('submit-product-btn').innerHTML = '<i class="fas fa-plus"></i> إضافة المنتج';
+      document.getElementById('cancel-edit').style.display = 'none';
+      document.getElementById('url-option').click();
+    }
+
+    // إضافة أو تحديث منتج
     document.getElementById('add-product-form').addEventListener('submit', function(e) {
       e.preventDefault();
       
       const name = document.getElementById('new-product-name').value;
       const price = document.getElementById('new-product-price').value;
-      const image = document.getElementById('new-product-image').value;
       const description = document.getElementById('new-product-description').value;
       const category = document.getElementById('new-product-category').value;
       
-      const newProduct = {
-        name: name,
-        price: price,
-        originalPrice: "",
-        image: image,
-        description: description,
-        category: category
-      };
+      let imageUrl = '';
       
+      // تحديد مصدر الصورة
+      if (document.getElementById('file-option').classList.contains('active')) {
+        const fileInput = document.getElementById('image-file-input');
+        if (fileInput.files.length > 0) {
+          const file = fileInput.files[0];
+          const reader = new FileReader();
+          reader.onload = function(e) {
+            imageUrl = e.target.result;
+            saveProduct(name, price, imageUrl, description, category);
+          }
+          reader.readAsDataURL(file);
+        } else {
+          // إذا لم يتم اختيار ملف جديد، استخدم الصورة الحالية في المعاينة
+          imageUrl = document.getElementById('image-preview').src;
+          saveProduct(name, price, imageUrl, description, category);
+        }
+      } else {
+        imageUrl = document.getElementById('new-product-image').value;
+        saveProduct(name, price, imageUrl, description, category);
+      }
+    });
+
+    function saveProduct(name, price, imageUrl, description, category) {
       const savedProducts = JSON.parse(localStorage.getItem('otherProducts')) || otherProducts;
-      savedProducts.push(newProduct);
-      localStorage.setItem('otherProducts', JSON.stringify(savedProducts));
       
+      if (currentEditingIndex !== null) {
+        // تحديث منتج موجود
+        savedProducts[currentEditingIndex] = {
+          name: name,
+          price: price,
+          originalPrice: "",
+          image: imageUrl,
+          description: description,
+          category: category
+        };
+        showNotification("تم التحديث", "تم تحديث المنتج بنجاح");
+      } else {
+        // إضافة منتج جديد
+        const newProduct = {
+          name: name,
+          price: price,
+          originalPrice: "",
+          image: imageUrl,
+          description: description,
+          category: category
+        };
+        savedProducts.push(newProduct);
+        showNotification("تمت الإضافة", "تم إضافة المنتج الجديد بنجاح");
+      }
+      
+      localStorage.setItem('otherProducts', JSON.stringify(savedProducts));
       loadProductsList();
       renderOtherProducts();
       
-      document.getElementById('add-product-form').reset();
-      
-      showNotification("تمت الإضافة", "تم إضافة المنتج الجديد بنجاح");
-    });
-
-    // تعديل دالة renderOtherProducts لاستخدام البيانات المحفوظة
-    function renderOtherProducts() {
-      const container = document.getElementById('other-products-container');
-      container.innerHTML = '';
-      
-      const productsToRender = JSON.parse(localStorage.getItem('otherProducts')) || otherProducts;
-      
-      productsToRender.forEach(product => {
-        const div = document.createElement('div');
-        div.className = 'other-product';
-        div.dataset.category = product.category;
-        div.innerHTML = `
-          <img src="${product.image}" alt="${product.name}" class="other-product-image">
-          <div class="other-product-name">${product.name}</div>
-          <div class="other-product-description">${product.description}</div>
-          <div class="other-product-price">
-            ${product.originalPrice ? `<span style="text-decoration: line-through; color: #777; margin-left: 10px;">${product.originalPrice} دج</span>` : ''}
-            <span>${product.price} دج</span>
-          </div>
-          <button class="add-to-cart-btn" data-name="${product.name}" data-price="${product.price}">
-            أضف إلى السلة
-          </button>
-        `;
-        container.appendChild(div);
-      });
+      // إعادة تعيين النموذج فقط إذا كان المستخدم يريد ذلك
+      // النافذة تبقى مفتوحة حسب طلبك
+      resetForm();
     }
 
     // باقي الدوال الأصلية
@@ -2311,6 +2521,33 @@
       });
     });
 
+    // تعديل دالة renderOtherProducts لاستخدام البيانات المحفوظة
+    function renderOtherProducts() {
+      const container = document.getElementById('other-products-container');
+      container.innerHTML = '';
+      
+      const productsToRender = JSON.parse(localStorage.getItem('otherProducts')) || otherProducts;
+      
+      productsToRender.forEach(product => {
+        const div = document.createElement('div');
+        div.className = 'other-product';
+        div.dataset.category = product.category;
+        div.innerHTML = `
+          <img src="${product.image}" alt="${product.name}" class="other-product-image">
+          <div class="other-product-name">${product.name}</div>
+          <div class="other-product-description">${product.description}</div>
+          <div class="other-product-price">
+            ${product.originalPrice ? `<span style="text-decoration: line-through; color: #777; margin-left: 10px;">${product.originalPrice} دج</span>` : ''}
+            <span>${product.price} دج</span>
+          </div>
+          <button class="add-to-cart-btn" data-name="${product.name}" data-price="${product.price}">
+            أضف إلى السلة
+          </button>
+        `;
+        container.appendChild(div);
+      });
+    }
+
     // تحديث عدد العناصر في السلة عند تحميل الصفحة
     document.addEventListener('DOMContentLoaded', () => {
       updateCartCount();
@@ -2323,5 +2560,3 @@
   </script>
 </body>
 </html>
-</html>
-
