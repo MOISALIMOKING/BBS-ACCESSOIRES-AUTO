@@ -22,30 +22,6 @@
       padding: 0;
     }
     
-    body {<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ACCESSOIRE AUTO BBS</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <style>
-    :root {
-      --primary-color: #0b2f3c;
-      --secondary-color: #55c6f0;
-      --accent-color: #af290b;
-      --text-color: #333;
-      --light-bg: #e8f4fc;
-      --dark-bg: #080808;
-      --success-color: #28a745;
-    }
-    
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-    
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background-color: var(--light-bg);
@@ -1876,8 +1852,8 @@
   </footer>
 
   <script>
-    // بيانات المنتجات الرئيسية - يمكنك تعديلها حسب احتياجك
-    const productsList = [
+    // بيانات المنتجات المميزة (fallback) - النظام الآن يجيب المنتجات من قاعدة البيانات
+    const featuredProducts = [
       { name: 'couvre vollon', image: 'images/couver-vollon-fils-alcantra-carbon-rouge.jpg', link: 'couvre-vollon/index.html', description: 'أغطية عجلة القيادة الفاخرة المصنوعة من الألكانتارا والكربون باللون الأحمر. تضيف لمسة من الفخامة والرياضية لمقصورة سيارتك.' },
       { name: 'SUPPORT MOBILE', image: 'images/holder.jpg', link: 'support-mobile/index.html', description: 'حامل هاتف متين وسهل التركيب، مثالي لاستخدام الهاتف أثناء القيادة بأمان وراحة.' },
       { name: 'LED+XENON', image: 'images/leather_steering.jpg', link: 'couvre-vollon-cuir/index.html', description: 'مصابيح LED وزينون عالية الجودة لتحسين الرؤية الليلية وإعطاء سيارتك مظهرًا عصريًا وجذابًا.' },
@@ -1897,27 +1873,21 @@
       { name: 'CAMERA AUTO', image: 'images/camauto.jpg', link: 'camera-auto/index.html', description: 'كاميرات سيارة عالية الدقة تساعدك في الركن والقيادة بأمان وسهولة.' },
     ];
 
-    // بيانات المنتجات الأخرى - يمكنك إضافة أو تعديل المنتجات هنا
-    const otherProducts = [
-      { name: "BARRE DE TOIE DOBLO", price: "12000", originalPrice: "", image: "images/porte-babage-doblo.jpg", description: "قضبان السقف لدوبلو - مثالية لنقل الأمتعة والأغراض الكبيرة", category: "interior" },
-      { name: "ELARGISSUR DOBLO", price: "14000", originalPrice: "", image: "images/elargisseur-doblo.jpeg", description: "موسعات دوبلو - تزيد من مساحة التحميل بشكل ملحوظ", category: "interior" },
-    ];
-
-    // نظام إدارة المنتجات
+    // نظام إدارة المنتجات مع قاعدة البيانات
     let adminMode = false;
-    let currentEditingIndex = null;
+    let currentEditingId = null;
 
-    // التحقق من كلمة المرور للمسؤول - تم التغيير إلى panzer123
+    // التحقق من كلمة المرور للمسؤول
     function checkAdminPassword() {
-      const password = prompt("أدخل كلمة المرور للإدارة:");
-      if (password === "panzer123") {
-        adminMode = true;
-        showNotification("تم الدخول لوضع الإدارة", "يمكنك الآن إضافة وإدارة المنتجات");
-        document.getElementById('admin-modal').style.display = 'flex';
-        loadProductsList();
-      } else {
-        alert("كلمة المرور غير صحيحة");
-      }
+        const password = prompt("أدخل كلمة المرور للإدارة:");
+        if (password === "panzer123") {
+            adminMode = true;
+            showNotification("تم الدخول لوضع الإدارة", "يمكنك الآن إضافة وإدارة المنتجات");
+            document.getElementById('admin-modal').style.display = 'flex';
+            loadProductsList();
+        } else {
+            alert("كلمة المرور غير صحيحة");
+        }
     }
 
     // فتح نافذة الإدارة
@@ -1925,231 +1895,369 @@
 
     // إغلاق نافذة الإدارة
     document.getElementById('close-admin').addEventListener('click', function() {
-      document.getElementById('admin-modal').style.display = 'none';
-      resetForm();
+        document.getElementById('admin-modal').style.display = 'none';
+        resetForm();
     });
 
-    // إغلاق النموذج فقط
-    document.getElementById('close-form').addEventListener('click', function() {
-      resetForm();
-    });
-
-    // إلغاء التعديل
-    document.getElementById('cancel-edit').addEventListener('click', function() {
-      resetForm();
-    });
-
-    // تبديل بين خيارات رفع الصور
-    document.getElementById('url-option').addEventListener('click', function() {
-      document.getElementById('url-option').classList.add('active');
-      document.getElementById('file-option').classList.remove('active');
-      document.getElementById('url-upload-section').style.display = 'block';
-      document.getElementById('file-upload-section').style.display = 'none';
-    });
-
-    document.getElementById('file-option').addEventListener('click', function() {
-      document.getElementById('file-option').classList.add('active');
-      document.getElementById('url-option').classList.remove('active');
-      document.getElementById('file-upload-section').style.display = 'block';
-      document.getElementById('url-upload-section').style.display = 'none';
-    });
-
-    // معاينة الصورة عند اختيار ملف
-    document.getElementById('image-file-input').addEventListener('change', function(e) {
-      const file = e.target.files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-          document.getElementById('image-preview').src = e.target.result;
-          document.getElementById('image-preview').style.display = 'block';
+    // دوال الاتصال بقاعدة البيانات
+    async function fetchProducts(category = '') {
+        try {
+            const url = category ? `api/products.php?category=${category}` : 'api/products.php';
+            const response = await fetch(url);
+            const result = await response.json();
+            
+            if (result.success) {
+                return result.data;
+            } else {
+                console.error('فشل في جلب المنتجات:', result.message);
+                return [];
+            }
+        } catch (error) {
+            console.error('خطأ في الاتصال:', error);
+            return [];
         }
-        reader.readAsDataURL(file);
-      }
-    });
+    }
 
-    // تحميل قائمة المنتجات الحالية مع إضافة أزرار التعديل
-    function loadProductsList() {
-      const productsList = document.getElementById('products-list');
-      productsList.innerHTML = '';
-      
-      const savedProducts = JSON.parse(localStorage.getItem('otherProducts')) || otherProducts;
-      
-      savedProducts.forEach((product, index) => {
-        const productDiv = document.createElement('div');
-        productDiv.style.cssText = 'background: white; padding: 15px; margin-bottom: 10px; border-radius: 8px; border: 1px solid #ddd;';
-        productDiv.innerHTML = `
-          <div>
-            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px;">
-              <div style="flex: 1;">
-                <strong>${product.name}</strong> - ${product.price} دج
-                <br>
-                <small style="color: #666;">${product.description}</small>
-              </div>
-              <img src="${product.image}" alt="${product.name}" style="width: 60px; height: 60px; object-fit: cover; border-radius: 5px; margin-right: 10px;">
-            </div>
-            <div class="admin-actions">
-              <button onclick="editProduct(${index})" class="edit-btn">
-                <i class="fas fa-edit"></i> تعديل
-              </button>
-              <button onclick="deleteProduct(${index})" class="delete-btn">
-                <i class="fas fa-trash"></i> حذف
-              </button>
-            </div>
-          </div>
-        `;
-        productsList.appendChild(productDiv);
-      });
+    async function addProduct(productData) {
+        try {
+            const response = await fetch('api/products.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(productData)
+            });
+            
+            const result = await response.json();
+            return result;
+        } catch (error) {
+            console.error('خطأ في إضافة المنتج:', error);
+            return { success: false, message: 'خطأ في الاتصال' };
+        }
+    }
+
+    async function updateProduct(productId, productData) {
+        try {
+            const response = await fetch('api/products.php', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ id: productId, ...productData })
+            });
+            
+            const result = await response.json();
+            return result;
+        } catch (error) {
+            console.error('خطأ في تحديث المنتج:', error);
+            return { success: false, message: 'خطأ في الاتصال' };
+        }
+    }
+
+    async function deleteProduct(productId) {
+        try {
+            const response = await fetch('api/products.php', {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ id: productId })
+            });
+            
+            const result = await response.json();
+            return result;
+        } catch (error) {
+            console.error('خطأ في حذف المنتج:', error);
+            return { success: false, message: 'خطأ في الاتصال' };
+        }
+    }
+
+    // تحميل قائمة المنتجات في لوحة الإدارة
+    async function loadProductsList() {
+        const productsList = document.getElementById('products-list');
+        productsList.innerHTML = '<div style="text-align: center; padding: 20px; color: #666;">جاري تحميل المنتجات...</div>';
+        
+        try {
+            const products = await fetchProducts();
+            productsList.innerHTML = '';
+            
+            if (products.length === 0) {
+                productsList.innerHTML = '<div style="text-align: center; padding: 20px; color: #666;">لا توجد منتجات</div>';
+                return;
+            }
+            
+            products.forEach((product) => {
+                const productDiv = document.createElement('div');
+                productDiv.style.cssText = 'background: white; padding: 15px; margin-bottom: 10px; border-radius: 8px; border: 1px solid #ddd;';
+                productDiv.innerHTML = `
+                    <div>
+                        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px;">
+                            <div style="flex: 1;">
+                                <strong>${product.name}</strong> - ${product.price} دج
+                                <br>
+                                <small style="color: #666;">${product.description}</small>
+                                <br>
+                                <small style="color: #888;">التصنيف: ${product.category}</small>
+                            </div>
+                            <img src="${product.image}" alt="${product.name}" style="width: 60px; height: 60px; object-fit: cover; border-radius: 5px; margin-right: 10px;">
+                        </div>
+                        <div class="admin-actions">
+                            <button onclick="editProduct(${product.id})" class="edit-btn">
+                                <i class="fas fa-edit"></i> تعديل
+                            </button>
+                            <button onclick="deleteProductFromServer(${product.id})" class="delete-btn">
+                                <i class="fas fa-trash"></i> حذف
+                            </button>
+                        </div>
+                    </div>
+                `;
+                productsList.appendChild(productDiv);
+            });
+        } catch (error) {
+            productsList.innerHTML = '<div style="text-align: center; padding: 20px; color: #dc3545;">خطأ في تحميل المنتجات</div>';
+        }
     }
 
     // تعديل منتج
-    function editProduct(index) {
-      const savedProducts = JSON.parse(localStorage.getItem('otherProducts')) || otherProducts;
-      const product = savedProducts[index];
-      
-      // تعبئة النموذج ببيانات المنتج
-      document.getElementById('new-product-name').value = product.name;
-      document.getElementById('new-product-price').value = product.price;
-      document.getElementById('new-product-description').value = product.description;
-      document.getElementById('new-product-category').value = product.category;
-      
-      // تحديد نوع الصورة
-      if (product.image.startsWith('data:')) {
-        // إذا كانت الصورة من قاعدة 64 (ملف محمل)
-        document.getElementById('file-option').click();
-        document.getElementById('image-preview').src = product.image;
-        document.getElementById('image-preview').style.display = 'block';
-      } else {
-        // إذا كانت الصورة من رابط
-        document.getElementById('url-option').click();
-        document.getElementById('new-product-image').value = product.image;
-      }
-      
-      currentEditingIndex = index;
-      
-      // تغيير واجهة النموذج لوضع التعديل
-      document.getElementById('form-title').textContent = 'تعديل المنتج';
-      document.getElementById('submit-product-btn').innerHTML = '<i class="fas fa-save"></i> تحديث المنتج';
-      document.getElementById('cancel-edit').style.display = 'inline-block';
+    async function editProduct(productId) {
+        try {
+            const products = await fetchProducts();
+            const product = products.find(p => p.id == productId);
+            
+            if (!product) {
+                showNotification("خطأ", "المنتج غير موجود");
+                return;
+            }
+            
+            // تعبئة النموذج ببيانات المنتج
+            document.getElementById('new-product-name').value = product.name;
+            document.getElementById('new-product-price').value = product.price;
+            document.getElementById('new-product-description').value = product.description;
+            document.getElementById('new-product-category').value = product.category;
+            
+            // تحديد نوع الصورة
+            if (product.image.startsWith('data:')) {
+                document.getElementById('file-option').click();
+                document.getElementById('image-preview').src = product.image;
+                document.getElementById('image-preview').style.display = 'block';
+            } else {
+                document.getElementById('url-option').click();
+                document.getElementById('new-product-image').value = product.image;
+            }
+            
+            currentEditingId = productId;
+            
+            // تغيير واجهة النموذج لوضع التعديل
+            document.getElementById('form-title').textContent = 'تعديل المنتج';
+            document.getElementById('submit-product-btn').innerHTML = '<i class="fas fa-save"></i> تحديث المنتج';
+            document.getElementById('cancel-edit').style.display = 'inline-block';
+        } catch (error) {
+            showNotification("خطأ", "فشل في تحميل بيانات المنتج");
+        }
     }
 
-    // حذف منتج
-    function deleteProduct(index) {
-      if (confirm('هل أنت متأكد من حذف هذا المنتج؟')) {
-        const savedProducts = JSON.parse(localStorage.getItem('otherProducts')) || otherProducts;
-        savedProducts.splice(index, 1);
-        localStorage.setItem('otherProducts', JSON.stringify(savedProducts));
-        loadProductsList();
-        renderOtherProducts();
-        showNotification("تم الحذف", "تم حذف المنتج بنجاح");
-      }
+    // حذف منتج من الخادم
+    async function deleteProductFromServer(productId) {
+        if (confirm('هل أنت متأكد من حذف هذا المنتج؟')) {
+            const result = await deleteProduct(productId);
+            
+            if (result.success) {
+                showNotification("تم الحذف", "تم حذف المنتج بنجاح");
+                await loadProductsList();
+                await renderOtherProducts();
+            } else {
+                showNotification("خطأ", result.message);
+            }
+        }
     }
 
     // إعادة تعيين النموذج
     function resetForm() {
-      document.getElementById('add-product-form').reset();
-      document.getElementById('image-preview').style.display = 'none';
-      document.getElementById('image-preview').src = '';
-      document.getElementById('image-file-input').value = '';
-      currentEditingIndex = null;
-      
-      // إعادة النموذج لوضع الإضافة
-      document.getElementById('form-title').textContent = 'إضافة منتج جديد';
-      document.getElementById('submit-product-btn').innerHTML = '<i class="fas fa-plus"></i> إضافة المنتج';
-      document.getElementById('cancel-edit').style.display = 'none';
-      document.getElementById('url-option').click();
+        document.getElementById('add-product-form').reset();
+        document.getElementById('image-preview').style.display = 'none';
+        document.getElementById('image-preview').src = '';
+        document.getElementById('image-file-input').value = '';
+        currentEditingId = null;
+        
+        document.getElementById('form-title').textContent = 'إضافة منتج جديد';
+        document.getElementById('submit-product-btn').innerHTML = '<i class="fas fa-plus"></i> إضافة المنتج';
+        document.getElementById('cancel-edit').style.display = 'none';
+        document.getElementById('url-option').click();
     }
 
-    // إضافة أو تحديث منتج
-    document.getElementById('add-product-form').addEventListener('submit', function(e) {
-      e.preventDefault();
-      
-      const name = document.getElementById('new-product-name').value;
-      const price = document.getElementById('new-product-price').value;
-      const description = document.getElementById('new-product-description').value;
-      const category = document.getElementById('new-product-category').value;
-      
-      let imageUrl = '';
-      
-      // تحديد مصدر الصورة
-      if (document.getElementById('file-option').classList.contains('active')) {
-        const fileInput = document.getElementById('image-file-input');
-        if (fileInput.files.length > 0) {
-          const file = fileInput.files[0];
-          const reader = new FileReader();
-          reader.onload = function(e) {
-            imageUrl = e.target.result;
-            saveProduct(name, price, imageUrl, description, category);
-          }
-          reader.readAsDataURL(file);
-        } else {
-          // إذا لم يتم اختيار ملف جديد، استخدم الصورة الحالية في المعاينة
-          imageUrl = document.getElementById('image-preview').src;
-          saveProduct(name, price, imageUrl, description, category);
-        }
-      } else {
-        imageUrl = document.getElementById('new-product-image').value;
-        saveProduct(name, price, imageUrl, description, category);
-      }
+    // إغلاق النموذج فقط
+    document.getElementById('close-form').addEventListener('click', function() {
+        resetForm();
     });
 
-    function saveProduct(name, price, imageUrl, description, category) {
-      const savedProducts = JSON.parse(localStorage.getItem('otherProducts')) || otherProducts;
-      
-      if (currentEditingIndex !== null) {
-        // تحديث منتج موجود
-        savedProducts[currentEditingIndex] = {
-          name: name,
-          price: price,
-          originalPrice: "",
-          image: imageUrl,
-          description: description,
-          category: category
+    // إلغاء التعديل
+    document.getElementById('cancel-edit').addEventListener('click', function() {
+        resetForm();
+    });
+
+    // تبديل بين خيارات رفع الصور
+    document.getElementById('url-option').addEventListener('click', function() {
+        document.getElementById('url-option').classList.add('active');
+        document.getElementById('file-option').classList.remove('active');
+        document.getElementById('url-upload-section').style.display = 'block';
+        document.getElementById('file-upload-section').style.display = 'none';
+    });
+
+    document.getElementById('file-option').addEventListener('click', function() {
+        document.getElementById('file-option').classList.add('active');
+        document.getElementById('url-option').classList.remove('active');
+        document.getElementById('file-upload-section').style.display = 'block';
+        document.getElementById('url-upload-section').style.display = 'none';
+    });
+
+    // معاينة الصورة عند اختيار ملف
+    document.getElementById('image-file-input').addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById('image-preview').src = e.target.result;
+                document.getElementById('image-preview').style.display = 'block';
+            }
+            reader.readAsDataURL(file);
+        }
+    });
+
+    // إضافة أو تحديث منتج
+    document.getElementById('add-product-form').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        const name = document.getElementById('new-product-name').value;
+        const price = document.getElementById('new-product-price').value;
+        const description = document.getElementById('new-product-description').value;
+        const category = document.getElementById('new-product-category').value;
+        
+        let imageUrl = '';
+        
+        // تحديد مصدر الصورة
+        if (document.getElementById('file-option').classList.contains('active')) {
+            const fileInput = document.getElementById('image-file-input');
+            if (fileInput.files.length > 0) {
+                const file = fileInput.files[0];
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    imageUrl = e.target.result;
+                    saveProductToServer(name, price, imageUrl, description, category);
+                }
+                reader.readAsDataURL(file);
+            } else {
+                imageUrl = document.getElementById('image-preview').src;
+                saveProductToServer(name, price, imageUrl, description, category);
+            }
+        } else {
+            imageUrl = document.getElementById('new-product-image').value;
+            saveProductToServer(name, price, imageUrl, description, category);
+        }
+    });
+
+    async function saveProductToServer(name, price, imageUrl, description, category) {
+        const productData = {
+            name: name,
+            price: price,
+            image: imageUrl,
+            description: description,
+            category: category
         };
-        showNotification("تم التحديث", "تم تحديث المنتج بنجاح");
-      } else {
-        // إضافة منتج جديد
-        const newProduct = {
-          name: name,
-          price: price,
-          originalPrice: "",
-          image: imageUrl,
-          description: description,
-          category: category
-        };
-        savedProducts.push(newProduct);
-        showNotification("تمت الإضافة", "تم إضافة المنتج الجديد بنجاح");
-      }
-      
-      localStorage.setItem('otherProducts', JSON.stringify(savedProducts));
-      loadProductsList();
-      renderOtherProducts();
-      
-      // إعادة تعيين النموذج فقط إذا كان المستخدم يريد ذلك
-      // النافذة تبقى مفتوحة حسب طلبك
-      resetForm();
+        
+        let result;
+        if (currentEditingId !== null) {
+            result = await updateProduct(currentEditingId, productData);
+        } else {
+            result = await addProduct(productData);
+        }
+        
+        if (result.success) {
+            showNotification("نجاح", result.message);
+            await loadProductsList();
+            await renderOtherProducts();
+            resetForm();
+        } else {
+            showNotification("خطأ", result.message);
+        }
+    }
+
+    // دالة عرض المنتجات الأخرى (محدثة)
+    async function renderOtherProducts() {
+        const container = document.getElementById('other-products-container');
+        container.innerHTML = '<div style="text-align: center; padding: 20px; color: #666;">جاري تحميل المنتجات...</div>';
+        
+        try {
+            const products = await fetchProducts();
+            
+            if (products.length === 0) {
+                container.innerHTML = '<div style="text-align: center; padding: 20px; color: #666;">لا توجد منتجات متاحة حالياً</div>';
+                return;
+            }
+            
+            container.innerHTML = '';
+            
+            products.forEach(product => {
+                const div = document.createElement('div');
+                div.className = 'other-product';
+                div.dataset.category = product.category;
+                div.innerHTML = `
+                    <img src="${product.image}" alt="${product.name}" class="other-product-image">
+                    <div class="other-product-name">${product.name}</div>
+                    <div class="other-product-description">${product.description}</div>
+                    <div class="other-product-price">
+                        ${product.originalPrice ? `<span style="text-decoration: line-through; color: #777; margin-left: 10px;">${product.originalPrice} دج</span>` : ''}
+                        <span>${product.price} دج</span>
+                    </div>
+                    <button class="add-to-cart-btn" data-name="${product.name}" data-price="${product.price}">
+                        أضف إلى السلة
+                    </button>
+                `;
+                container.appendChild(div);
+            });
+        } catch (error) {
+            container.innerHTML = '<div style="text-align: center; padding: 20px; color: #dc3545;">خطأ في تحميل المنتجات</div>';
+        }
     }
 
     // باقي الدوال الأصلية
-    function renderProducts() {
+    // الآن تجلب المنتجات من الـ API لعرضها للزبائن. لو مافي منتجات في DB يستخدم featuredProducts كـ fallback
+    async function renderProducts() {
       const container = document.getElementById('products-container');
-      container.innerHTML = '';
-      productsList.forEach(product => {
-        const div = document.createElement('div');
-        div.className = 'product-container';
-        div.innerHTML = `
-          <a href="${product.link}">
-            <div class="product">
-              <img src="${product.image}" alt="${product.name}">
-              <button class="product-info-btn" data-name="${product.name}" data-image="${product.image}" data-description="${product.description}">
-                <i class="fas fa-info"></i>
-              </button>
-            </div>
-            <div class="product-name">${product.name}</div>
-          </a>
-          <a href="${product.link}" class="view-products-btn">عرض المنتجات</a>
-        `;
-        container.appendChild(div);
-      });
+      container.innerHTML = '<div style="text-align: center; padding: 20px; color: #666;">جاري تحميل المنتجات...</div>';
+
+      try {
+        const products = await fetchProducts();
+        container.innerHTML = '';
+
+        // لو مافيش منتجات جوا الداتابيز نستخدم المنتجات المميزة الثابتة كـ fallback
+        const toRender = (products && products.length > 0) ? products : (featuredProducts || []);
+
+        if (toRender.length === 0) {
+          container.innerHTML = '<div style="text-align: center; padding: 20px; color: #666;">لا توجد منتجات حالياً</div>';
+          return;
+        }
+
+        toRender.forEach(product => {
+          const div = document.createElement('div');
+          div.className = 'product-container';
+          div.innerHTML = `
+            <a href="${product.link || '#'}">
+              <div class="product">
+                <img src="${product.image}" alt="${product.name}">
+                <button class="product-info-btn" data-name="${product.name}" data-image="${product.image}" data-description="${product.description}">
+                  <i class="fas fa-info"></i>
+                </button>
+              </div>
+              <div class="product-name">${product.name}</div>
+            </a>
+            <a href="${product.link || '#'}" class="view-products-btn">عرض المنتجات</a>
+          `;
+          container.appendChild(div);
+        });
+      } catch (err) {
+        console.error('خطأ في عرض المنتجات:', err);
+        container.innerHTML = '<div style="text-align: center; padding: 20px; color: #dc3545;">خطأ في تحميل المنتجات</div>';
+      }
     }
 
     // دالة لعرض وصف المنتج
@@ -2249,69 +2357,57 @@
       return text.replace(regex, '<mark style="background: yellow; color: black;">$1</mark>');
     }
 
-    function performSearch() {
-      const query = searchInput.value.trim().toLowerCase();
-      searchResults.innerHTML = '';
-      
-      if (query.length < 1) {
-        searchResults.style.display = 'none';
-        return;
-      }
-      
-      // جمع جميع المنتجات من المصادر المختلفة
-      const allProducts = [
-        ...productsList,
-        ...(JSON.parse(localStorage.getItem('otherProducts')) || otherProducts).map(p => ({
-          name: p.name,
-          image: p.image,
-          link: '#',
-          description: p.description,
-          price: p.price,
-          type: 'other'
-        }))
-      ];
-      
-      // فلترة المنتجات التي تحتوي على الكلمة في أي مكان من الاسم
-      const filteredProducts = allProducts.filter(product => 
-        product.name.toLowerCase().includes(query)
-      );
-      
-      if (filteredProducts.length > 0) {
-        searchResults.style.display = 'block';
-        filteredProducts.forEach(product => {
-          const resultItem = document.createElement('div');
-          resultItem.className = 'search-result-item';
-          resultItem.innerHTML = `
-            <div style="display: flex; align-items: center; gap: 10px; width: 100%;">
-              <img src="${product.image}" alt="${product.name}" style="width: 40px; height: 40px; object-fit: cover; border-radius: 5px;">
-              <div style="flex: 1;">
-                <div style="font-weight: bold;">${highlightText(product.name, query)}</div>
-                ${product.price ? `<div style="color: var(--accent-color); font-size: 14px;">${product.price} دج</div>` : ''}
-                <div style="font-size: 12px; color: #666; margin-top: 2px;">${product.description.substring(0, 50)}...</div>
-              </div>
-            </div>
-          `;
-          resultItem.addEventListener('click', () => {
-            if (product.link && product.link !== '#') {
-              window.location.href = product.link;
-            } else {
-              // إذا كان المنتج من قسم "منتجات أخرى"
-              showProductInfo(product.name, product.image, product.description);
-            }
+    async function performSearch() {
+        const query = searchInput.value.trim().toLowerCase();
+        searchResults.innerHTML = '';
+        
+        if (query.length < 1) {
             searchResults.style.display = 'none';
-            searchInput.value = '';
-          });
-          searchResults.appendChild(resultItem);
-        });
-      } else {
-        searchResults.style.display = 'block';
-        searchResults.innerHTML = `
-          <div class="search-result-item" style="text-align: center; color: #666;">
-            <i class="fas fa-search" style="font-size: 24px; margin-bottom: 10px; display: block;"></i>
-            لا توجد نتائج لـ "${query}"
-          </div>
-        `;
-      }
+            return;
+        }
+        
+        try {
+            const allProducts = await fetchProducts();
+            
+            const filteredProducts = allProducts.filter(product => 
+                product.name.toLowerCase().includes(query) ||
+                product.description.toLowerCase().includes(query)
+            );
+            
+            if (filteredProducts.length > 0) {
+                searchResults.style.display = 'block';
+                filteredProducts.forEach(product => {
+                    const resultItem = document.createElement('div');
+                    resultItem.className = 'search-result-item';
+                    resultItem.innerHTML = `
+                        <div style="display: flex; align-items: center; gap: 10px; width: 100%;">
+                            <img src="${product.image}" alt="${product.name}" style="width: 40px; height: 40px; object-fit: cover; border-radius: 5px;">
+                            <div style="flex: 1;">
+                                <div style="font-weight: bold;">${highlightText(product.name, query)}</div>
+                                <div style="color: var(--accent-color); font-size: 14px;">${product.price} دج</div>
+                                <div style="font-size: 12px; color: #666; margin-top: 2px;">${product.description.substring(0, 50)}...</div>
+                            </div>
+                        </div>
+                    `;
+                    resultItem.addEventListener('click', () => {
+                        showProductInfo(product.name, product.image, product.description);
+                        searchResults.style.display = 'none';
+                        searchInput.value = '';
+                    });
+                    searchResults.appendChild(resultItem);
+                });
+            } else {
+                searchResults.style.display = 'block';
+                searchResults.innerHTML = `
+                    <div class="search-result-item" style="text-align: center; color: #666;">
+                        <i class="fas fa-search" style="font-size: 24px; margin-bottom: 10px; display: block;"></i>
+                        لا توجد نتائج لـ "${query}"
+                    </div>
+                `;
+            }
+        } catch (error) {
+            console.error('خطأ في البحث:', error);
+        }
     }
 
     // البحث أثناء الكتابة
@@ -2584,59 +2680,63 @@
       updateCartCount();
     }
 
-    // فلترة المنتجات
+    // تحديث الفلاتر
     document.querySelectorAll('.filter-btn').forEach(button => {
-      button.addEventListener('click', function() {
-        const filter = this.getAttribute('data-filter');
-        
-        document.querySelectorAll('.filter-btn').forEach(btn => {
-          btn.classList.remove('active');
+        button.addEventListener('click', async function() {
+            const filter = this.getAttribute('data-filter');
+            
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            this.classList.add('active');
+            
+            await renderOtherProductsWithFilter(filter);
         });
-        this.classList.add('active');
-        
-        document.querySelectorAll('.other-product').forEach(product => {
-          if (filter === 'all' || product.dataset.category === filter) {
-            product.style.display = 'block';
-          } else {
-            product.style.display = 'none';
-          }
-        });
-      });
     });
 
-    // تعديل دالة renderOtherProducts لاستخدام البيانات المحفوظة
-    function renderOtherProducts() {
-      const container = document.getElementById('other-products-container');
-      container.innerHTML = '';
-      
-      const productsToRender = JSON.parse(localStorage.getItem('otherProducts')) || otherProducts;
-      
-      productsToRender.forEach(product => {
-        const div = document.createElement('div');
-        div.className = 'other-product';
-        div.dataset.category = product.category;
-        div.innerHTML = `
-          <img src="${product.image}" alt="${product.name}" class="other-product-image">
-          <div class="other-product-name">${product.name}</div>
-          <div class="other-product-description">${product.description}</div>
-          <div class="other-product-price">
-            ${product.originalPrice ? `<span style="text-decoration: line-through; color: #777; margin-left: 10px;">${product.originalPrice} دج</span>` : ''}
-            <span>${product.price} دج</span>
-          </div>
-          <button class="add-to-cart-btn" data-name="${product.name}" data-price="${product.price}">
-            أضف إلى السلة
-          </button>
-        `;
-        container.appendChild(div);
-      });
+    async function renderOtherProductsWithFilter(filter) {
+        const container = document.getElementById('other-products-container');
+        container.innerHTML = '<div style="text-align: center; padding: 20px; color: #666;">جاري تحميل المنتجات...</div>';
+        
+        try {
+            const products = await fetchProducts(filter === 'all' ? '' : filter);
+            
+            if (products.length === 0) {
+                container.innerHTML = '<div style="text-align: center; padding: 20px; color: #666;">لا توجد منتجات في هذا التصنيف</div>';
+                return;
+            }
+            
+            container.innerHTML = '';
+            
+            products.forEach(product => {
+                const div = document.createElement('div');
+                div.className = 'other-product';
+                div.dataset.category = product.category;
+                div.innerHTML = `
+                    <img src="${product.image}" alt="${product.name}" class="other-product-image">
+                    <div class="other-product-name">${product.name}</div>
+                    <div class="other-product-description">${product.description}</div>
+                    <div class="other-product-price">
+                        ${product.originalPrice ? `<span style="text-decoration: line-through; color: #777; margin-left: 10px;">${product.originalPrice} دج</span>` : ''}
+                        <span>${product.price} دج</span>
+                    </div>
+                    <button class="add-to-cart-btn" data-name="${product.name}" data-price="${product.price}">
+                        أضف إلى السلة
+                    </button>
+                `;
+                container.appendChild(div);
+            });
+        } catch (error) {
+            container.innerHTML = '<div style="text-align: center; padding: 20px; color: #dc3545;">خطأ في تحميل المنتجات</div>';
+        }
     }
 
-    // تحديث عدد العناصر في السلة عند تحميل الصفحة
-    document.addEventListener('DOMContentLoaded', () => {
+    // تحديث التهيئة
+    document.addEventListener('DOMContentLoaded', async () => {
       updateCartCount();
       updateSliderDots();
-      renderProducts();
-      renderOtherProducts();
+      await renderProducts();
+      await renderOtherProducts();
       
       setInterval(updateCartCount, 2000);
     });
