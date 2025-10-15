@@ -6,6 +6,7 @@
   <title>ACCESSOIRE AUTO BBS</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
+    /* كل أنماط CSS الأصلية تبقى كما هي */
     :root {
       --primary-color: #0b2f3c;
       --secondary-color: #55c6f0;
@@ -31,7 +32,7 @@
       line-height: 1.6;
     }
 
-    /* أنماط الإشعارات الجديدة */
+    /* كل الأنماط الأخرى تبقى كما هي تماماً */
     .notification-toast {
       position: fixed;
       bottom: 20px;
@@ -84,8 +85,7 @@
       color: #999;
       margin-right: 5px;
     }
-    
-    /* زر وصف المنتج */
+
     .product-info-btn {
       position: absolute;
       top: 10px;
@@ -110,7 +110,6 @@
       transform: scale(1.1);
     }
 
-    /* نافذة وصف المنتج */
     .product-modal {
       display: none;
       position: fixed;
@@ -173,7 +172,6 @@
       text-align: right;
     }
     
-    /* تحسينات طفيفة على التصميم الحالي */
     .product {
       transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
     }
@@ -207,7 +205,6 @@
       right: 10px;
     }
     
-    /* تحسينات على المنتجات الأخرى */
     .other-product {
       transition: all 0.3s;
     }
@@ -238,7 +235,6 @@
       right: 10px;
     }
     
-    /* تحسينات على السلة */
     #cart-items li {
       transition: background-color 0.2s;
     }
@@ -247,7 +243,6 @@
       background-color: #f9f9f9;
     }
 
-    /* شريط التنقل */
     .navbar {
       background-color: var(--primary-color);
       padding: 15px 0;
@@ -392,7 +387,6 @@
       margin-bottom: 20px;
     }
 
-    /* 🔥 شريط الإعلانات */
     .ads-bar {
       background: linear-gradient(to right, #1a4d5c, var(--secondary-color), #1a4d5c);
       color: white;
@@ -686,7 +680,6 @@
       }
     }
 
-    /* 🌊 الأمواج */
     .wave-container {
       position: relative;
       width: 100%;
@@ -746,7 +739,6 @@
       to { text-shadow: 0 0 20px #fff, 0 0 30px #55c6f0; }
     }
 
-    /* 🛒 سلة التسوق */
     #cart-icon {
       position: fixed;
       top: 140px;
@@ -788,7 +780,6 @@
       font-weight: bold;
     }
 
-    /* صندوق السلة */
     #cart-box {
       position: fixed;
       top: 230px;
@@ -1010,7 +1001,6 @@
       border-top: 1px solid rgba(255,255,255,0.1);
     }
 
-    /* شريط البحث */
     .search-bar {
       display: flex;
       margin: 20px auto;
@@ -1035,7 +1025,6 @@
       cursor: pointer;
     }
 
-    /* تصميمات إضافية للجوانب */
     .side-decoration {
       position: fixed;
       top: 0;
@@ -1055,7 +1044,6 @@
       background: radial-gradient(circle, var(--accent-color) 0%, transparent 70%);
     }
 
-    /* زر اتصل بنا */
     .contact-btn {
       display: inline-block;
       background-color: var(--secondary-color);
@@ -1072,7 +1060,6 @@
       background-color: var(--primary-color);
     }
 
-    /* نتائج البحث */
     .search-results {
       position: absolute;
       top: 100%;
@@ -1108,7 +1095,6 @@
       padding: 0 20px;
     }
 
-    /* صفحة الدفع */
     .checkout-modal {
       display: none;
       position: fixed;
@@ -1239,7 +1225,6 @@
       }
     }
     
-    /* قسم المنتجات الأخرى */
     .other-products-section {
       background: linear-gradient(to bottom, #c4e1fe, var(--secondary-color));
       padding: 40px 20px;
@@ -1348,7 +1333,6 @@
       }
     }
     
-    /* فلاتر المنتجات */
     .product-filters {
       display: flex;
       justify-content: center;
@@ -1373,7 +1357,6 @@
       border-color: var(--secondary-color);
     }
     
-    /* تأثيرات إضافية */
     .notification {
       position: fixed;
       bottom: 20px;
@@ -1406,7 +1389,6 @@
       background: var(--secondary-color);
     }
 
-    /* نظام إدارة المنتجات */
     #admin-panel {
       position: fixed;
       bottom: 20px;
@@ -1455,7 +1437,6 @@
       overflow-y: auto;
     }
 
-    /* الأنماط الجديدة للإدارة */
     .admin-actions {
       display: flex;
       gap: 10px;
@@ -1534,11 +1515,10 @@
   </style>
 </head>
 <body>
-  <!-- زخارف الجوانب -->
+  <!-- كل الـ HTML يبقى كما هو -->
   <div class="side-decoration left"></div>
   <div class="side-decoration right"></div>
 
-  <!-- عنصر الإشعارات -->
   <div class="notification-toast" id="notification-toast">
     <button class="close-notification" id="close-notification">
       <i class="fas fa-times"></i>
@@ -1550,7 +1530,6 @@
     </div>
   </div>
 
-  <!-- نافذة وصف المنتج -->
   <div class="product-modal" id="product-modal">
     <div class="product-modal-content">
       <button class="close-product-modal" id="close-product-modal">
@@ -1562,14 +1541,12 @@
     </div>
   </div>
 
-  <!-- نظام إدارة المنتجات -->
   <div id="admin-panel">
     <button id="admin-btn">
       <i class="fas fa-cog"></i>
     </button>
   </div>
 
-  <!-- نافذة إدارة المنتجات -->
   <div id="admin-modal">
     <div class="admin-modal-content">
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
@@ -1577,7 +1554,6 @@
         <button id="close-admin" style="background: none; border: none; font-size: 24px; cursor: pointer; color: #999;">&times;</button>
       </div>
       
-      <!-- نموذج إضافة منتج جديد -->
       <div style="background: #f9f9f9; padding: 20px; border-radius: 10px; margin-bottom: 20px;">
         <h3 style="color: var(--primary-color); margin-bottom: 15px;" id="form-title">إضافة منتج جديد</h3>
         <form id="add-product-form">
@@ -1592,7 +1568,6 @@
             </div>
           </div>
           
-          <!-- خيارات رفع الصورة -->
           <div style="margin-bottom: 15px;">
             <label style="display: block; margin-bottom: 5px; font-weight: bold;">صورة المنتج:</label>
             <div class="upload-options">
@@ -1600,12 +1575,10 @@
               <button type="button" class="upload-option-btn" id="file-option">رفع من الجهاز</button>
             </div>
             
-            <!-- خيار رابط الويب -->
             <div id="url-upload-section">
               <input type="url" id="new-product-image" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;" placeholder="https://example.com/image.jpg">
             </div>
             
-            <!-- خيار رفع الملف -->
             <div id="file-upload-section" style="display: none;">
               <div class="file-input-container">
                 <label class="file-input-label" for="image-file-input">
@@ -1646,7 +1619,6 @@
         </form>
       </div>
       
-      <!-- قائمة المنتجات الحالية -->
       <div>
         <h3 style="color: var(--primary-color); margin-bottom: 15px;">المنتجات الحالية</h3>
         <div id="products-list" style="max-height: 400px; overflow-y: auto;">
@@ -1656,7 +1628,7 @@
     </div>
   </div>
 
-  <!-- شريط التنقل -->
+  <!-- باقي الـ HTML يبقى كما هو -->
   <nav class="navbar">
     <div class="nav-container">
       <div class="logo">
@@ -1677,7 +1649,6 @@
     </div>
   </nav>
 
-  <!-- 🔥 شريط الإعلانات -->
   <div class="ads-bar">
     <marquee behavior="scroll" direction="right" scrollamount="6">
       🚗🔥 عروض خاصة اليوم فقط! خصومات حتى 50% على بعض المنتجات! 🔧🛠️
@@ -1698,7 +1669,6 @@
     </marquee>
   </div>
 
-  <!-- شريط البحث -->
   <div class="search-container">
     <div class="search-bar">
       <input type="text" id="search-input" placeholder="ابحث عن المنتج الذي تريد...">
@@ -1707,7 +1677,6 @@
     <div class="search-results" id="search-results"></div>
   </div>
 
-  <!-- 🎞️ السلايدر -->
   <div class="slider">
     <img id="slider-img" src="images/shop1.jpg" alt="slider">
     <div class="slider-dots">
@@ -1718,7 +1687,6 @@
     </div>
   </div>
 
-  <!-- 🌊 أمواج -->
   <div class="wave-container">
     <div class="wave"></div>
     <div class="wave"></div>
@@ -1726,13 +1694,11 @@
     <div class="welcome-text">مرحبا بكم في عالم إكسسوارات السيارات BBS</div>
   </div>
 
-  <!-- 🛒 أيقونة السلة -->
   <div id="cart-icon">
     <i class="fas fa-shopping-cart"></i>
     <span id="cart-count">0</span>
   </div>
 
-  <!-- 🛒 صندوق السلة -->
   <div id="cart-box">
     <div class="cart-header">
       <h3>سلة المشتريات</h3>
@@ -1743,7 +1709,6 @@
     <button id="checkout-btn">إتمام الشراء</button>
   </div>
 
-  <!-- فلاتر المنتجات -->
   <div class="product-filters">
     <button class="filter-btn active" data-filter="all">جميع المنتجات</button>
     <button class="filter-btn" data-filter="interior">إكسسوارات داخلية</button>
@@ -1752,10 +1717,8 @@
     <button class="filter-btn" data-filter="maintenance">العناية بالسيارة</button>
   </div>
 
-  <!-- 🛒 المنتجات الأصلية -->
   <div class="products" id="products-container"></div>
 
-  <!-- قسم المنتجات الأخرى -->
   <div class="other-products-section">
     <div class="other-products-container">
       <h2 class="other-products-title">منتجات أخرى</h2>
@@ -1765,7 +1728,6 @@
     </div>
   </div>
 
-  <!-- صفحة الدفع -->
   <div class="checkout-modal" id="checkout-modal">
     <div class="checkout-content">
       <button class="close-checkout"><i class="fas fa-times"></i></button>
@@ -1852,8 +1814,10 @@
   </footer>
 
   <script>
-    // 🔧 النظام الجديد - قاعدة بيانات محسنة
-    let allProducts = JSON.parse(localStorage.getItem('bbs-products')) || [];
+    // 🔧 النظام الجديد - قاعدة بيانات GitHub JSON
+    const GITHUB_DATA_URL = 'https://raw.githubusercontent.com/moisalimoking/BBS-ACCESSOIRES-AUTO/main/products-data.json';
+    
+    let allProducts = [];
     let adminMode = false;
     let currentEditingId = null;
 
@@ -1878,6 +1842,35 @@
       { name: 'CAMERA AUTO', image: 'images/camauto.jpg', link: 'camera-auto/index.html', description: 'كاميرات سيارة عالية الدقة تساعدك في الركن والقيادة بأمان وسهولة.' },
     ];
 
+    // 📥 جلب المنتجات من GitHub
+    async function fetchProductsFromGitHub() {
+        try {
+            const response = await fetch(GITHUB_DATA_URL + '?t=' + Date.now());
+            if (!response.ok) throw new Error('فشل في جلب البيانات');
+            const data = await response.json();
+            return data.products || [];
+        } catch (error) {
+            console.log('جاري استخدام البيانات المحلية...');
+            return JSON.parse(localStorage.getItem('bbs-products')) || [];
+        }
+    }
+
+    // 💾 حفظ البيانات محلياً (نسخة احتياطية)
+    function saveLocalProducts(products) {
+        localStorage.setItem('bbs-products', JSON.stringify(products));
+    }
+
+    // 🚀 تحميل جميع المنتجات
+    async function loadAllProducts() {
+        allProducts = await fetchProductsFromGitHub();
+        renderOtherProducts();
+        
+        // إذا لم توجد منتجات، استخدم البيانات المحلية
+        if (allProducts.length === 0) {
+            allProducts = JSON.parse(localStorage.getItem('bbs-products')) || [];
+        }
+    }
+
     // 🔐 نظام المسؤول
     function checkAdminPassword() {
         const password = prompt("أدخل كلمة المرور للإدارة:");
@@ -1900,18 +1893,13 @@
         resetForm();
     });
 
-    // 💾 حفظ المنتجات
-    function saveProducts() {
-        localStorage.setItem('bbs-products', JSON.stringify(allProducts));
-    }
-
     // 📋 تحميل قائمة المنتجات في لوحة الإدارة
     function loadProductsList() {
-        const productsList = document.getElementById('products-list');
-        productsList.innerHTML = '';
+        const productsListElement = document.getElementById('products-list');
+        productsListElement.innerHTML = '';
         
         if (allProducts.length === 0) {
-            productsList.innerHTML = '<div style="text-align: center; padding: 20px; color: #666;">لا توجد منتجات</div>';
+            productsListElement.innerHTML = '<div style="text-align: center; padding: 20px; color: #666;">لا توجد منتجات</div>';
             return;
         }
         
@@ -1940,7 +1928,7 @@
                     </div>
                 </div>
             `;
-            productsList.appendChild(productDiv);
+            productsListElement.appendChild(productDiv);
         });
     }
 
@@ -1957,10 +1945,16 @@
         };
 
         allProducts.push(newProduct);
-        saveProducts();
-        showNotification("نجاح", "تم إضافة المنتج بنجاح");
+        
+        // حفظ في localStorage كنسخة احتياطية
+        saveLocalProducts(allProducts);
+        
+        showNotification("تمت الإضافة", "تم إضافة المنتج بنجاح للبيانات المحلية");
+        
+        // إعادة التحميل
         loadProductsList();
         renderOtherProducts();
+        
         return true;
     }
 
@@ -1994,7 +1988,7 @@
     function deleteProduct(index) {
         if (confirm('هل أنت متأكد من حذف هذا المنتج؟')) {
             allProducts.splice(index, 1);
-            saveProducts();
+            saveLocalProducts(allProducts);
             showNotification("تم الحذف", "تم حذف المنتج بنجاح");
             loadProductsList();
             renderOtherProducts();
@@ -2097,7 +2091,7 @@
         if (currentEditingId !== null) {
             // تحديث منتج موجود
             allProducts[currentEditingId] = { ...allProducts[currentEditingId], ...productData };
-            saveProducts();
+            saveLocalProducts(allProducts);
             showNotification("تم التحديث", "تم تحديث المنتج بنجاح");
         } else {
             // إضافة منتج جديد
@@ -2136,7 +2130,7 @@
         });
     }
 
-    // باقي الدوال الأصلية
+    // باقي الدوال الأصلية تبقى كما هي
     function renderProducts() {
       const container = document.getElementById('products-container');
       container.innerHTML = '';
@@ -2328,7 +2322,7 @@
       }
     });
 
-    // 🛒 التحكم في السلة
+    // 🛒 نظام السلة (يبقى كما هو)
     function loadCart() {
       const cartData = localStorage.getItem('cart');
       return cartData ? JSON.parse(cartData) : [];
@@ -2623,7 +2617,7 @@
       updateCartCount();
       updateSliderDots();
       renderProducts();
-      renderOtherProducts();
+      loadAllProducts();
       
       setInterval(updateCartCount, 2000);
     });
