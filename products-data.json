@@ -1,0 +1,20 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "كفر مقود جلد",
+      "price": "1500",
+      "image": "images/steering-cover.jpg",
+      "description": "كفر مقود من الجلد الطبيعي",
+      "category": "داخلي"
+    },
+    {
+      "id": 2, 
+      "name": "حامل جوال",
+      "price": "800",
+      "image": "images/phone-holder.jpg",
+      "description": "حامل هاتف متين وسهل التركيب",
+      "category": "إلكترونيات"
+    }
+  ]
+}
